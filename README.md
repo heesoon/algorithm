@@ -1,1 +1,1 @@
-# javascript
+# Study of algorithms

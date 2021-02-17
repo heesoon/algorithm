@@ -1,1 +1,4 @@
-# javascript
+Study of Algorithms
+====================
+
+# 

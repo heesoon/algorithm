@@ -13,3 +13,5 @@
   * N-Queen
 * [Problem_5](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_5)
   * 미로 찾기 (maze search)
+* [Problem_6](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_6)
+  * 삼각화단 만들기 (Create a Triangle)

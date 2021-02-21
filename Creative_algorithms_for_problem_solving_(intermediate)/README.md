@@ -11,4 +11,5 @@
   * 두더지 굴 (Mole Cave) - Breath first search
 * [Problem_4](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_4)
   * N-Queen
-
+* [Problem_5](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_5)
+  * 미로 찾기 (maze search)

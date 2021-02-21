@@ -7,8 +7,8 @@
   * 약수의 합 구하기 (summing up the divisor)
 * [Problem_2](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_2)
   * 두더지 굴 (Mole Cave) - depth first search
-* [Problem_3](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_2)
+* [Problem_3](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_3)
   * 두더지 굴 (Mole Cave) - Breath first search
-* [Problem_4](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_2)
+* [Problem_4](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_4)
   * N-Queen
 

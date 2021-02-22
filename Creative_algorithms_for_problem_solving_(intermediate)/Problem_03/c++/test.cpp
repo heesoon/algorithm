@@ -1,5 +1,7 @@
 #include <iostream>
+#include <queue>
 #include <vector>
+#include <tuple>
 #include <algorithm>
 
 const int N = 7;
@@ -17,6 +19,7 @@ int map[N][N] = {
 };
 
 std::vector<int> v;
+std::queue<std::tuple<int, int>> q;
 
 bool is_in_map(int y, int x)
 {
@@ -28,50 +31,63 @@ bool is_in_map(int y, int x)
 	return false;
 }
 
-void dfs(int y, int x, int c)
+void bfs(int y, int x, int c)
 {
+	std::tuple<int, int> pos = std::make_tuple(y, x);
+	q.push(pos);
 	map[y][x] = c;
-    depth += 1;
-	
-	for(int i = 0; i < 4; i++)
-	{
-		int ny = y + dy[i];
-		int nx = x + dx[i];
 
-		if( (is_in_map(ny, nx) == true) && (map[ny][nx] == 1) )
-		{		
-			dfs(ny, nx, c);
+	while(q.empty() != true)
+	{
+		std::tuple<int, int> pos = q.front();
+		q.pop();
+
+		int y = std::get<0>(pos);
+		int x = std::get<1>(pos);
+
+		depth++;
+
+		for(int i = 0; i < 4; i++)
+		{
+			int ny = y + dy[i];
+			int nx = x + dx[i];
+
+			if( (is_in_map(ny, nx) == true) && (map[ny][nx] == 1) )
+			{
+				std::tuple<int, int> npos = std::make_tuple(ny, nx);
+				map[ny][nx] = c;
+				q.push(npos);
+			}
 		}
 	}
 }
 
 int main()
 {
-	int count = 1;
-	
+	int cnt = 1;
 	for(int y = 0; y < N; y++)
 	{
 		for(int x = 0; x < N; x++)
 		{
 			if(map[y][x] == 1)
 			{
-				count++;
+				cnt++;
 				depth = 0;
-                dfs(y, x, count);
+				bfs(y, x, cnt);
 				v.push_back(depth);
 			}
 		}
 	}
-	
-	std::cout << count -1 << std::endl;
+
+	std::cout << cnt - 1 << std::endl;
 	std::sort(v.begin(), v.end(), [](int a, int b){
 		return a > b;
 	});
-	
-	std::vector<int>::iterator itor = v.begin();
-	for(; itor != v.end(); itor++)
+
+	std::vector<int>::iterator it = v.begin();
+	for(; it != v.end(); it++)
 	{
-		std::cout << *itor << std::endl;
+		std::cout << *it << std::endl;
 	}
 
 	for(int y = 0; y < N; y++)
@@ -81,7 +97,5 @@ int main()
             std::cout << map[y][x] << " ";
 		}
         std::cout << std::endl;
-	}
- 
-    return 0;
+	}	
 }

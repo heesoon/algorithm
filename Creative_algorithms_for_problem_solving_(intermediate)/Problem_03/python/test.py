@@ -13,40 +13,47 @@ map = [
     [0, 1, 1, 1, 1, 1, 0],
     [0, 1, 1, 1, 0, 0, 0]
 ]
+queue = []
 result = []
 
 def is_in_map(y, x):
-    if (x >= 0 and x < N) and (y >= 0 and y < N) :
+    if (y >= 0 and y < N) and (x >= 0 and x < N):
         return True
     
     return False
 
-def dfs(y, x, c):
-    global depth
-    depth += 1
+def bfs(y, x, c):
+    global queue
+    queue.append((y, x))
     map[y][x] = c
 
-    for i in range(0, 4):
-        ny = y + dy[i]
-        nx = x + dx[i]
+    while len(queue) != 0:
+        t = queue[0]
+        del queue[0]
+        global depth
+        depth += 1
 
-        if (is_in_map(ny, nx) == True) and (map[ny][nx] == 1) :
-            dfs(ny, nx, c)
-        
+        for i in range(0, 4):
+            ny = t[0] + dy[i]
+            nx = t[1] + dx[i]
+
+            if (is_in_map(ny, nx) == True) and (map[ny][nx] == 1):
+                map[ny][nx] = c
+                queue.append((ny, nx))
+
 def main():
-    count = 1
-
+    cnt = 1
     for y in range(0, N):
         for x in range(0, N):
             if map[y][x] == 1:
-                count += 1
                 global depth
                 depth = 0
-                dfs(y, x, count)
+                cnt += 1
+                bfs(y, x, cnt)
                 result.append(depth)
 
     result.sort(reverse=True)
-    print(count-1)
+    print(cnt-1)
     for d in result:
         print(d, end=" ")
     print()

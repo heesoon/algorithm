@@ -39,6 +39,7 @@
     	[0, 1, 1, 1, 0, 0, 0]
 	];
 
+	let queue = [];
 	let result = [];
 
 	function is_in_map(y, x){
@@ -49,19 +50,29 @@
 		return false;
 	};
 
-	function dfs(y, x, c){
+	function bfs(y, x, c){
+		queue.push([y, x]);
 		map[y][x] = c;
-		depth++;
+		
+		console.log("1.........");
+		while(queue.length != 0){
+			let pos = queue.shift();
+			depth++;
 
-		delayedDisplayMapUI(y, x);
-		for(let i = 0; i < 4; i++){
-			let ny = dy[i] + y;
-			let nx = dx[i] + x;
+			console.log("2.........  " + queue.length);
+			delayedDisplayMapUI(pos[y], pos[x]);
 
-			if( (is_in_map(ny, nx) == true) && (map[ny][nx] == 1) ){
-				dfs(ny, nx, c);
+			for(let i = 0; i < 4; i++){
+				let ny = pos[0] + dy[i];
+				let nx = pos[1] + dx[i];
+
+				if( (is_in_map(ny, nx) == true) && (map[ny][nx] == 1) ){
+					map[ny][nx] = c;
+					queue.push([ny, nx]);
+				}
 			}
 		}
+
 	}
 
 	function main(){
@@ -71,7 +82,7 @@
 				if(map[y][x] == 1){
 					depth = 0;
 					count++;
-					dfs(y, x, count);
+					bfs(y, x, count);
 					result.push(depth);
 				}
 			}
@@ -113,7 +124,7 @@
 
 	let i = 0;
 	function delayedDisplayMapUI(y, x){
-		let timerId = setInterval(updateColorMapUI, 1000*i, y, x);
+		let timerId = setInterval(updateColorMapUI, 1*i, y, x);
 		i += 1;
 	}
 

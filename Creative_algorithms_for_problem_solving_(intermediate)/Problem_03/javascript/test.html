@@ -54,13 +54,11 @@
 		queue.push([y, x]);
 		map[y][x] = c;
 		
-		console.log("1.........");
 		while(queue.length != 0){
 			let pos = queue.shift();
 			depth++;
 
-			console.log("2.........  " + queue.length);
-			delayedDisplayMapUI(pos[y], pos[x]);
+			delayedDisplayMapUI(pos[0], pos[1]);
 
 			for(let i = 0; i < 4; i++){
 				let ny = pos[0] + dy[i];
@@ -124,7 +122,7 @@
 
 	let i = 0;
 	function delayedDisplayMapUI(y, x){
-		let timerId = setInterval(updateColorMapUI, 1*i, y, x);
+		let timerId = setInterval(updateColorMapUI, 1000*i, y, x);
 		i += 1;
 	}
 

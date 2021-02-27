@@ -1,58 +1,27 @@
-import pprint
+ans = 0
+N = 4
 
-N = 7
-depth = 0
-dx = [1, 0, -1, 0]
-dy = [0, 1, 0, -1]
-map = [
-    [0, 1, 1, 0, 1, 0, 0],
-    [0, 1, 1, 0, 1, 0, 1],
-    [1, 1, 1, 0, 1, 0, 1],
-    [0, 0, 0, 0, 1, 1, 1],
-    [0, 1, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 0, 0, 0]
-]
-result = []
+col = [0 for _ in range(0, 11)]
+inc = [0 for _ in range(0, 21)]
+dec = [0 for _ in range(0, 21)]
 
-def is_in_map(y, x):
-    if (x >= 0 and x < N) and (y >= 0 and y < N) :
-        return True
+def solve(y):
+    global ans
+
+    if y > N:
+        ans += 1
+        return
     
-    return False
+    for x in range(1, N+1):
+        if col[x] == 0 and inc[y+x] == 0 and dec[N-(y-x)+1] == 0:
+            col[x] = inc[y+x] = dec[N-(y-x)+1] = 1
+            solve(y+1)
+            col[x] = inc[y+x] = dec[N-(y-x)+1] = 0
 
-def dfs(y, x, c):
-    global depth
-    depth += 1
-    map[y][x] = c
-
-    for i in range(0, 4):
-        ny = y + dy[i]
-        nx = x + dx[i]
-
-        if (is_in_map(ny, nx) == True) and (map[ny][nx] == 1) :
-            dfs(ny, nx, c)
-        
 def main():
-    count = 1
-
-    for y in range(0, N):
-        for x in range(0, N):
-            if map[y][x] == 1:
-                count += 1
-                global depth
-                depth = 0
-                dfs(y, x, count)
-                result.append(depth)
-
-    result.sort(reverse=True)
-    print(count-1)
-    for d in result:
-        print(d, end=" ")
-    print()
-    
-    print(*map, sep='\n')
-    #pprint.pprint(map,  width=100, indent=1)
+    N = input("Enter N : ")
+    solve(1)
+    print("ans : ", ans)
 
 if __name__ == "__main__":
     main()

@@ -12,78 +12,72 @@
   			border-collapse: collapse;
 			/*
 			font-weight: "bold";
-			*/	
+			*/
 		}
-
 	</style>
 </head>
 <body>
-	<label>Start ...</label>
-	<input type="button" id="startButton" value="click" onclick=main()>
+	<label><strong> N-Queen Length : </strong></label>
+	<input type="text" id="mapLength">
+	<input type="button" id="startButton" value="click" onclick=doExecute()>
+	<br>
+	<br>
 	<table id="map"></table>
 <script>
-	let N = 7;
-	let depth = 0;
-	let count = 1;
+	let N = 0;
+	let ans = 0;
+	let map = [];
+	let col = [];
+	let inc = [];
+	let dec = [];
+	let finalDisplayPosition = [];
+	let internalDisplayPosition = [];
 
-	dx = [1, 0, -1, 0];
-	dy = [0, 1, 0, -1];
-	
-	let map = [
-    	[0, 1, 1, 0, 1, 0, 0],
-    	[0, 1, 1, 0, 1, 0, 1],
-    	[1, 1, 1, 0, 1, 0, 1],
-    	[0, 0, 0, 0, 1, 1, 1],
-    	[0, 1, 0, 0, 0, 0, 0],
-    	[0, 1, 1, 1, 1, 1, 0],
-    	[0, 1, 1, 1, 0, 0, 0]
-	];
+	function solve(y){
 
-	let result = [];
+		if(y >= N){
+			ans++;
 
-	function is_in_map(y, x){
-		if( (x >= 0 && x < N) && (y >=0 && y < N) ){
-			return true;
+			for(let i = 0; i < internalDisplayPosition.length; i++){
+				finalDisplayPosition.push(internalDisplayPosition[i]);
+			}
+
+			return;
 		}
 
-		return false;
-	};
+		for(let x = 0; x < N; x++){
+			if( (col[x] == 0) && (inc[y+x] == 0) && (dec[N+(y-x)+1] == 0) ){
+				col[x] = inc[y+x] = dec[N+(y-x)+1] = 1;
+				internalDisplayPosition.push([y, x, ans+1]);
 
-	function dfs(y, x, c){
-		map[y][x] = c;
-		depth++;
+				solve(y+1);
 
-		delayedDisplayMapUI(y, x);
-		for(let i = 0; i < 4; i++){
-			let ny = dy[i] + y;
-			let nx = dx[i] + x;
-
-			if( (is_in_map(ny, nx) == true) && (map[ny][nx] == 1) ){
-				dfs(ny, nx, c);
+				internalDisplayPosition.pop();
+				col[x] = inc[y+x] = dec[N+(y-x)+1] = 0;
 			}
 		}
 	}
 
-	function main(){
-		for(let y = 0; y < N; y++){
-			for(let x = 0; x < N; x++){
+	function doExecute(){
+		let xArr = [];
+		N = document.getElementById("mapLength").value;
 
-				if(map[y][x] == 1){
-					depth = 0;
-					count++;
-					dfs(y, x, count);
-					result.push(depth);
-				}
-			}
+		xArr = Array.from({length: N}, () => 0 );
+		map = Array.from({length: N}, () => xArr);
+		col = Array.from({length: 11}, () => 0 );
+		inc = Array.from({length: 21}, () => 0 );
+		dec = Array.from({length: 21}, () => 0 );
+
+		buildInitMapUI();
+
+		solve(0);
+
+		console.log(ans);
+		for(let i = 0; i < finalDisplayPosition.length; i++){
+			let info = finalDisplayPosition[i];
+			updateColorMapUI(info[0], info[1], info[2], "red");
 		}
 
-		console.log(count-1);
-		result.sort(function(a, b){
-			return b - a;
-		});
-		for(let i = 0; i < result.length; i++){
-			console.log(result[i]);
-		}
 	}
 
 	// for UI part
@@ -106,20 +100,22 @@
 		document.body.appendChild(table);
 	}
 
-	function updateColorMapUI(y, x){
+	function updateColorMapUI(y, x, value, color){
 		let table = document.getElementById("map");
-		table.rows[y].cells[x].style.backgroundColor = "red";
+		//table.rows[y].cells[x].style.backgroundColor = "red";
+		table.rows[y].cells[x].innerHTML = value.toString();
+		table.rows[y].cells[x].style.backgroundColor = color;
 	}
 
 	let i = 0;
-	function delayedDisplayMapUI(y, x){
-		let timerId = setInterval(updateColorMapUI, 1000*i, y, x);
+	function delayedDisplayMapUI(y, x, value, color){
+		let timerId = setInterval(updateColorMapUI, 1*i, y, x, value, color);
 		i += 1;
 	}
 
 	window.onload = function(){
 		//console.log('start onload function ... ');
-		buildInitMapUI();
+		//buildInitMapUI();
 	}
 </script>
 </body>

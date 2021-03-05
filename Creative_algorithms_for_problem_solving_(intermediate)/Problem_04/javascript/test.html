@@ -2,131 +2,21 @@
 <head>
 	<title> Mole Cave Testing </title>
 	<style>
-		table{
-			width: 50%;
-			height: 50%;
-			text-align: center;
-		}
-		table, tr, td{
-			border: 1px solid black;
-  			border-collapse: collapse;
-			/*
-			font-weight: "bold";
-			*/
-		}
 	</style>
 </head>
 <body>
-	<label><strong> N-Queen Length : </strong></label>
-	<input type="text" id="mapLength">
-	<input type="button" id="startButton" value="click" onclick=doExecute()>
-	<br>
-	<br>
-	<table id="map"></table>
+
 <script>
-	let N = 0;
-	let ans = 1;
-	let map = [];
-	let col = [];
-	let inc = [];
-	let dec = [];
-	let finalDisplayPosition = [];
-	let internalDisplayPosition = [];
+	function test(){
+		//let a = Array.from({length : 5}, () => 0);
+		let a = Array.map({length : 5}, () => 0);
 
-	function solve(y){
-
-		if(y >= N){
-
-			console.log("length : ", internalDisplayPosition.length);
-			for(let i = 0; i < internalDisplayPosition.length; i++){
-				internalDisplayPosition[i][2] = ans;
-				console.log("internal : ", internalDisplayPosition[i][0], internalDisplayPosition[i][1], internalDisplayPosition[i][2]);
-				//finalDisplayPosition.push(internalDisplayPosition[i]);
-				updateColorMapUI(internalDisplayPosition[i][0], internalDisplayPosition[i][1], internalDisplayPosition[i][2], "red");
-			}
-
-			ans++;
-			return;
-		}
-
-		for(let x = 0; x < N; x++){
-			if( (col[x] == 0) && (inc[y+x] == 0) && (dec[N+(y-x)+1] == 0) ){
-				col[x] = inc[y+x] = dec[N+(y-x)+1] = 1;
-				internalDisplayPosition.push([y, x, 0]);
-
-				solve(y+1);
-
-				internalDisplayPosition.pop();
-				col[x] = inc[y+x] = dec[N+(y-x)+1] = 0;
-			}
-		}
-	}
-
-	function doExecute(){
-		let xArr = [];
-		N = Number(document.getElementById("mapLength").value);
-
-		xArr = Array.from({length: N}, () => 0 );
-		map = Array.from({length: N}, () => xArr);
-		col = Array.from({length: 11}, () => 0 );
-		inc = Array.from({length: 21}, () => 0 );
-		dec = Array.from({length: 21}, () => 0 );
-
-		buildInitMapUI();
-
-		solve(0);
-
-		console.log(ans-1);
-		for(let i = 0; i < finalDisplayPosition.length; i++){
-			//let info = finalDisplayPosition[i];
-			//console.log(info[0], info[1], info[2]);
-			console.log(finalDisplayPosition[i][0], finalDisplayPosition[i][1], finalDisplayPosition[i][2]);
-			//updateColorMapUI(info[0], info[1], info[2], "red");
-		}
-
-	}
-
-	// for UI part
-	// build initial map table on browser display
-	function buildInitMapUI(){
-		let table = document.getElementById("map");
-
-		for(let y = 0; y < N; y++){
-			let newRow = document.createElement("tr");
-			for(let x = 0; x < N; x++){
-				let newCell = document.createElement("td");
-				let newTextNode = document.createTextNode(map[y][x]);
-				newCell.style.fontWeight = "bold";
-				newCell.appendChild(newTextNode);
-				newRow.appendChild(newCell);
-			}
-			table.appendChild(newRow);
-		}
-
-		document.body.appendChild(table);
-	}
-
-	function updateColorMapUI(y, x, value, color){
-		let table = document.getElementById("map");
-		//table.rows[y].cells[x].style.backgroundColor = "red";
-		//table.rows[y].cells[x].innerHTML = value.toString();
-		if(table.rows[y].cells[x].innerHTML == 0)
-			table.rows[y].cells[x].innerHTML = value.toString();
-		else
-			table.rows[y].cells[x].innerHTML += ", " + value.toString();
-
-		table.rows[y].cells[x].style.backgroundColor = color;
-	}
-
-	let i = 0;
-	function delayedDisplayMapUI(y, x, value, color){
-		let timerId = setInterval(updateColorMapUI, 1*i, y, x, value, color);
-		i += 1;
+		console.log(a);
 	}
 
 	window.onload = function(){
-		//console.log('start onload function ... ');
-		//buildInitMapUI();
+		console.log('start onload function ... ');
+		test();
 	}
 </script>
 </body>

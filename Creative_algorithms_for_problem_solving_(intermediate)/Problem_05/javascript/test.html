@@ -22,24 +22,22 @@
 	<input type="button" id="startButton" value="click" onclick=main()>
 	<table id="map"></table>
 <script>
-	let N = 7;
+	let N = 5;
 	let depth = 0;
-	let count = 1;
 
 	dx = [1, 0, -1, 0];
 	dy = [0, 1, 0, -1];
-	
+	g = [0, 0];
 	let map = [
-    	[0, 1, 1, 0, 1, 0, 0],
-    	[0, 1, 1, 0, 1, 0, 1],
-    	[1, 1, 1, 0, 1, 0, 1],
-    	[0, 0, 0, 0, 1, 1, 1],
-    	[0, 1, 0, 0, 0, 0, 0],
-    	[0, 1, 1, 1, 1, 1, 0],
-    	[0, 1, 1, 1, 0, 0, 0]
-	];
+		['#', 'S', '#', '#', '#'],
+		['#', '.', '.', '.', '#'],
+		['#', '.', '#', '.', '#'],
+		['#', '.', '.', '.', '.'],
+		['#', '#', '#', 'G', '#']
+	]
 
-	let result = [];
+	let visit = Array.from(Array(N), () => Array(N).fill(0));
+	let queue = [];
 
 	function is_in_map(y, x){
 		if( (x >= 0 && x < N) && (y >=0 && y < N) ){
@@ -49,17 +47,23 @@
 		return false;
 	};
 
-	function dfs(y, x, c){
-		map[y][x] = c;
-		depth++;
+	function find_short_path(y, x, d){
+		queue.push([y, x, d]);
+		visit[y][x] = d;
 
-		delayedDisplayMapUI(y, x);
-		for(let i = 0; i < 4; i++){
-			let ny = dy[i] + y;
-			let nx = dx[i] + x;
+		while(queue.length != 0){
+			let pos = queue.shift();
 
-			if( (is_in_map(ny, nx) == true) && (map[ny][nx] == 1) ){
-				dfs(ny, nx, c);
+			for(let i = 0; i < 4; i++){
+				let ny = pos[0] + dy[i];
+				let nx = pos[1] + dx[i];
+				let nd = pos[2] + 1;
+
+				if( (is_in_map(ny, nx) == true) && (map[ny][nx] == '.') && (visit[ny][nx] == 0) ){
+					visit[ny][nx] = nd;
+					queue.push([ny, nx, nd]);
+					delayedDisplayMapUI(ny, nx, nd, "yellow");
+				}
 			}
 		}
 	}
@@ -67,22 +71,26 @@
 	function main(){
 		for(let y = 0; y < N; y++){
 			for(let x = 0; x < N; x++){
-
-				if(map[y][x] == 1){
-					depth = 0;
-					count++;
-					dfs(y, x, count);
-					result.push(depth);
+				if(map[y][x] == 'G'){
+					map[y][x] = '.';
+					g = [y, x];
+				}
+			}
+		}
+		
+		for(let y = 0; y < N; y++){
+			for(let x = 0; x < N; x++){
+				if(map[y][x] == 'S'){
+					find_short_path(y, x, 0);
 				}
 			}
 		}
 
-		console.log(count-1);
-		result.sort(function(a, b){
-			return b - a;
-		});
-		for(let i = 0; i < result.length; i++){
-			console.log(result[i]);
+		if(visit[g[0]][g[1]] == 0){
+			console.log(-1);
+		}
+		else{
+			console.log(visit[g[0]][g[1]]);
 		}
 	}
 
@@ -106,14 +114,15 @@
 		document.body.appendChild(table);
 	}
 
-	function updateColorMapUI(y, x){
+	function updateColorMapUI(y, x, value, color){
 		let table = document.getElementById("map");
-		table.rows[y].cells[x].style.backgroundColor = "red";
+		table.rows[y].cells[x].innerHTML = value.toString();
+		table.rows[y].cells[x].style.backgroundColor = color;
 	}
 
 	let i = 0;
-	function delayedDisplayMapUI(y, x){
-		let timerId = setInterval(updateColorMapUI, 1000*i, y, x);
+	function delayedDisplayMapUI(y, x, value, color){
+		let timerId = setInterval(updateColorMapUI, 1*i, y, x, value, color);
 		i += 1;
 	}
 

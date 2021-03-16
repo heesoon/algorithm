@@ -5,11 +5,22 @@
 <body>
 
 </body>
-	<canvas id="myCanvas" width="1200" height="1200"></canvas>
+	<canvas id="myCanvas" width="1200" height="1200"></canvas>	
 <script>
 	let N = 20;
 	let distance = 30;
-	function drawLine(ox, oy, nx, ny){
+	let offset = 100;
+
+	let data = [
+		[3, 2, 1], [3, 3, 2], [3, 6, 2], [3, 7, 2], [3, 8, 2], [3, 9, 1],
+		[4, 3, 1], [4, 4, 2], [4, 9, 1],
+		[5, 4, 1], [5, 5, 2],
+		[6, 5, 1], [6, 6, 2], [6, 7, 2],
+		[7, 3, 1], [7, 4, 1], [7, 6, 1],
+		[8, 7, 2], [8, 8, 1],
+	]
+	//function drawLine(ox, oy, nx, ny){
+	function drawHorizontalLine(y){
 		let canvas = document.getElementById("myCanvas");
 		let ctx = canvas.getContext("2d");
 		
@@ -18,16 +29,99 @@
 		ctx.lineWidth = 1;
 
 		ctx.beginPath();
-		ctx.moveTo(ox, oy);
-		ctx.lineTo(nx, ny);
+		//ctx.moveTo(ox, oy);
+		//ctx.lineTo(nx, ny);
+		//ctx.moveTo(distance + offset, y*distance + offset);
+		//ctx.lineTo(distance + offset + distance*N , y*distance + offset);
+		ctx.moveTo(offset, y*distance + offset);
+		ctx.lineTo(offset + distance*N , y*distance + offset);	
 		ctx.stroke();
 	}
-	
-	for(let i = 0; i < N; i++){
-		// horizantal line
-		drawLine(distance, distance*i + distance, distance*N, i*distance + distance);
-		// vertical line
-		drawLine(distance*i + distance, distance, i*distance + distance, distance*N);		
+
+	//function drawHorizontalText(str, x, y){
+	function drawHorizontalText(str, i){
+		let canvas = document.getElementById("myCanvas");
+		let ctx = canvas.getContext("2d");
+		
+		ctx.font = "10px malgun gothic";
+		ctx.fillStyle = "rgba(0, 0, 0, 1)";
+		//ctx.fillText(str, x, y);
+		ctx.fillText(str, distance*i + offset, offset);
 	}
+
+	function drawVerticalText(str, i){
+		let canvas = document.getElementById("myCanvas");
+		let ctx = canvas.getContext("2d");
+		
+		ctx.font = "10px malgun gothic";
+		ctx.fillStyle = "rgba(0, 0, 0, 1)";
+		//ctx.fillText(str, x, y);
+		ctx.fillText(str, offset,distance*i + offset);
+	}
+
+	function drawVerticalLine(x){
+		let canvas = document.getElementById("myCanvas");
+		let ctx = canvas.getContext("2d");
+		
+		ctx.strokeStyle="black";
+		ctx.fillStyle = "rgb(222, 221, 219)";
+		ctx.lineWidth = 1;
+
+		ctx.beginPath();
+		//ctx.moveTo(ox, oy);
+		//ctx.lineTo(nx, ny);
+		//ctx.moveTo(distance + offset, y*distance + offset);
+		//ctx.lineTo(distance + offset + distance*N , y*distance + offset);
+		ctx.moveTo(x*distance + offset, offset);
+		ctx.lineTo(x*distance + offset, offset + distance*N );	
+		ctx.stroke();
+	}
+
+	function drawOmok(y, x, d){
+		let canvas = document.getElementById("myCanvas");
+		let ctx = canvas.getContext("2d");
+
+		ctx.beginPath();
+		ctx.arc(x*distance + offset, y*distance + offset, 5, 0, 2*Math.PI);
+		if(d == 1){
+			// black omok stone
+			ctx.fillStyle = "black";
+			ctx.fill();
+		}
+		else{
+			// white omok stone
+			ctx.fillStyle = "white";
+			ctx.fill();
+		}
+		ctx.stroke();
+	}
+
+	// draw line number
+	for(let i = 0; i < N; i++){
+		if(i != 0)
+		{
+			drawHorizontalText(i.toString(), i);
+			drawVerticalText(i.toString(), i);
+		}
+	}
+
+	// draw borad line
+	for(let i = 0; i < N; i++){
+		if(i != 0)
+		{
+			drawHorizontalLine(i);
+			drawVerticalLine(i);
+		}
+	}
+
+	// draw Omak button
+	for(let i = 0; i < data.length; i++){
+		let y = data[i][0];
+		let x = data[i][1];
+		let d = data[i][2];
+
+		drawOmok(y, x, d);
+	}
+
 </script>	
 </html>

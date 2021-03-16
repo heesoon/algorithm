@@ -71,6 +71,32 @@ bool check_down_right(int y, int x)
 	return false;
 }
 
+bool check_up_right(int y, int x)
+{
+	int cnt = 0;
+	int i = 0;
+	if( (is_in_net(y+1, x-1) == true) && (net[y][x] == net[y+1][x-1]) )
+	{
+		return false;
+	}
+
+	while( ((x+i) < 20) && ((y-i) >= 0) )
+	{
+		if(net[y][x] == net[y-i][x+i])
+		{
+			cnt++;
+		}
+		i++;
+	}
+
+	if(cnt == 5)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 bool check_down(int y, int x)
 {
 	int cnt = 0;
@@ -103,6 +129,9 @@ bool solve(int y, int x)
 		return true;
 
 	if(check_down_right(y, x) == true)
+		return true;
+
+	if(check_up_right(y, x) == true)
 		return true;
 
 	if(check_down(y, x) == true)

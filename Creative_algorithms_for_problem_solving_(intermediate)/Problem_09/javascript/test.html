@@ -5,11 +5,18 @@
 <body>
 
 </body>
-	<canvas id="myCanvas" width="1200" height="1200"></canvas>	
+	<label><strong>시작: </strong></label>
+	<input type="button" value="click" onclick="main()"><br>
+	<label><strong>결과: </strong></label>
+	<input type="text" id="result">
+	<br>
+	<br>
+	<canvas id="myCanvas" width="800" height="800"></canvas>	
 <script>
 	let N = 20;
 	let distance = 30;
 	let offset = 100;
+	let net = Array(N).fill(null).map(() => Array(N).fill(0));
 
 	let data = [
 		[3, 2, 1], [3, 3, 2], [3, 6, 2], [3, 7, 2], [3, 8, 2], [3, 9, 1],
@@ -82,7 +89,7 @@
 		let ctx = canvas.getContext("2d");
 
 		ctx.beginPath();
-		ctx.arc(x*distance + offset, y*distance + offset, 5, 0, 2*Math.PI);
+		ctx.arc(x*distance + offset, y*distance + offset, 8, 0, 2*Math.PI);
 		if(d == 1){
 			// black omok stone
 			ctx.fillStyle = "black";
@@ -114,14 +121,127 @@
 		}
 	}
 
-	// draw Omak button
-	for(let i = 0; i < data.length; i++){
-		let y = data[i][0];
-		let x = data[i][1];
-		let d = data[i][2];
-
-		drawOmok(y, x, d);
+	function is_in_net(y, x){
+		if( (x >= 0 && x < N) && (y >= 0 && y < N) )
+			return true;
+		
+		return false;
+	}
+	
+	function check_right(y, x){
+		let cnt = 0;
+		let i = 0;
+		
+		if( (is_in_net(y, x-1) == true) && (net[y][x] == net[y][x-1]) )
+			return false;
+		
+		while( (x+i) < N ){
+			if(net[y][x] == net[y][x+i])
+				cnt++;
+			i++;
+		}
+		
+		if(cnt == 5)
+			return true;
+		
+		return false;
+	}
+	
+	function check_right_up(y, x)
+	{
+		let cnt = 0;
+		let i = 0;
+		
+		if( (is_in_net(y, x-1) == true) && (net[y][x] == net[y+1][x-1]) )
+			return false;
+			
+		while( (x+i) < N && (y-i) >= 0 ){
+			if(net[y][x] == net[y-i][x+i])
+				cnt++;
+			i++;
+		}
+		
+		if(cnt == 5)
+			return true;
+		
+		return false;
+	}
+    
+	function check_down(y, x)
+	{
+		let cnt = 0;
+		let i = 0;
+		
+		if( (is_in_net(y-1, x) == true) && (net[y][x] == net[y-1][x]) )
+			return false;
+			
+		while( (y+i) < N ){
+			if(net[y][x] == net[y+i][x])
+				cnt++;
+			i++;
+		}
+		
+		if(cnt == 5)
+			return true;
+		
+		return false;
 	}
 
+	function check_down_right(y, x)
+	{
+		let cnt = 0;
+		let i = 0;
+		
+		if( (is_in_net(y-1, x-1) == true) && (net[y][x] == net[y-1][x-1]) )
+			return false;
+			
+		while( (x+i) < N && (y+i) < N ){
+			if(net[y][x] == net[y+i][x+i])
+				cnt++;
+			i++;
+		}
+		
+		if(cnt == 5)
+			return true;
+		
+		return false;
+	}
+
+	function solve(y, x){
+		if(check_right(y, x) == true)
+			return true;
+		if(check_right_up(y, x) == true)
+			return true;
+		if(check_down(y, x) == true)
+			return true;
+		if(check_down_right(y, x) == true)
+			return true;
+
+		return false;
+	}
+	
+	function main(){
+		// draw Omak button
+		for(let i = 0; i < data.length; i++){
+			let y = data[i][0];
+			let x = data[i][1];
+			let d = data[i][2];
+
+			drawOmok(y, x, d);
+			net[y][x] = d;
+		}
+		
+		for(let y = 0; y < N; y++){
+			for(let x = 0; x < N; x++){
+				if(net[y][x] != 0){
+					if(solve(y, x) == true){
+						//document.getElementById("result").innerHTML = String(y, x);
+						document.getElementById("result").value = y + ", " + x;
+					}
+				}
+			}
+		}
+	}
+	
 </script>	
 </html>

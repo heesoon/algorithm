@@ -40,8 +40,8 @@
 		//ctx.lineTo(nx, ny);
 		//ctx.moveTo(distance + offset, y*distance + offset);
 		//ctx.lineTo(distance + offset + distance*N , y*distance + offset);
-		ctx.moveTo(offset, y*distance + offset);
-		ctx.lineTo(offset + distance*N , y*distance + offset);	
+		ctx.moveTo(offset + distance, y*distance + offset);
+		ctx.lineTo(offset + distance*(N-1) , y*distance + offset);	
 		ctx.stroke();
 	}
 
@@ -79,8 +79,8 @@
 		//ctx.lineTo(nx, ny);
 		//ctx.moveTo(distance + offset, y*distance + offset);
 		//ctx.lineTo(distance + offset + distance*N , y*distance + offset);
-		ctx.moveTo(x*distance + offset, offset);
-		ctx.lineTo(x*distance + offset, offset + distance*N );	
+		ctx.moveTo(x*distance + offset, offset + distance);
+		ctx.lineTo(x*distance + offset, offset + distance*(N-1));	
 		ctx.stroke();
 	}
 

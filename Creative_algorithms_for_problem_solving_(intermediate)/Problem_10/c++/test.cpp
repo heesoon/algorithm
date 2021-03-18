@@ -3,6 +3,10 @@
 #include <tuple>
 
 const int N = 11;
+int value[N][N];
+int bVisited[N][N];
+int result = 0x9fffffff;
+
 std::vector<std::tuple<int, int, int>> data ={
 	{1, 2, 47},
 	{1, 3, 69},
@@ -17,8 +21,7 @@ std::vector<std::tuple<int, int, int>> data ={
 	{6, 7, 40},
 };
 
-int map[N][N];
-int bVisited[N][N];
+std::vector<int> map[N];
 
 void debug()
 {
@@ -28,10 +31,46 @@ void debug()
 		{
 			std::cout.width(4);
 			//std::cout.fill('*');
+			std::cout << value[a][b];
+		}
+		std::cout << std::endl;
+	}
+	
+    std::cout << std::endl;
+	for(int a = 0; a < N; a++)
+	{
+        std::cout << a << " :";
+		for(int b = 0; b < map[a].size(); b++)
+		{
+			std::cout.width(2);
+			//std::cout.fill('*');
 			std::cout << map[a][b];
 		}
 		std::cout << std::endl;
-	}	
+	}
+}
+
+void solve(int a, int d, int n)
+{
+	if(a == n)
+	{
+		if(result > d)
+		{
+			result = d;
+		}
+		
+		return;
+	}
+
+	for(int i = 0; i < map[a].size(); i++)
+	{
+		if(bVisited[a][i] == 0)
+		{
+			bVisited[a][i] = 1;
+			solve(i, d + value[a][i], n);
+			bVisited[a][i] = 0;
+		}
+	}
 }
 
 int main()
@@ -57,10 +96,15 @@ int main()
 		auto& t = data[i];
 		std::tie(a, b, d) = t;
 
-		map[a][b] = d;
+		value[a][b] = d;
+		map[a].push_back(b);
 	}
 	
 	//debug();
+	
+	solve(1, 0, n);
+	
+	std::cout << result << std::endl;
 	
     return 0;
 }

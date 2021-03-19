@@ -1,58 +1,59 @@
-import pprint
+N = 11
+ans = 0x7fffffff
 
-N = 7
-depth = 0
-dx = [1, 0, -1, 0]
-dy = [0, 1, 0, -1]
-map = [
-    [0, 1, 1, 0, 1, 0, 0],
-    [0, 1, 1, 0, 1, 0, 1],
-    [1, 1, 1, 0, 1, 0, 1],
-    [0, 0, 0, 0, 1, 1, 1],
-    [0, 1, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 0, 0, 0]
+Paths = [
+    [1, 2, 47],
+    [1, 3, 69],
+    [2, 4, 57],
+    [2, 5, 124],
+    [3, 4, 37],
+    [3, 5, 59],
+    [3, 6, 86],
+    [4, 6, 27],
+    [4, 7, 94],
+    [5, 7, 21],
+    [6, 7, 40]
 ]
-result = []
 
-def is_in_map(y, x):
-    if (x >= 0 and x < N) and (y >= 0 and y < N) :
-        return True
+V = [0 for i in range(N)]
+G = [[0 for i in range(N)] for j in range(N)]
+
+def debug():
+    for a in range(N):
+        for b in range(N):
+            print(G[a][b], end=" ")
+        print()
+
+def initialize():
+    for data in Paths:
+        (a, b, d) = data
+        G[a][b] = d
+        G[b][a] = d
+
+def solve(a, d, n):
+    global ans
+    if a == n:
+        if ans > d:
+            ans = d
+        return
     
-    return False
+    for b in range(1, n+1):
+        if V[b] == 0 and G[a][b] != 0:
+            V[b] = 1
+            solve(b, d+G[a][b], n)
+            V[b] = 0
 
-def dfs(y, x, c):
-    global depth
-    depth += 1
-    map[y][x] = c
-
-    for i in range(0, 4):
-        ny = y + dy[i]
-        nx = x + dx[i]
-
-        if (is_in_map(ny, nx) == True) and (map[ny][nx] == 1) :
-            dfs(ny, nx, c)
-        
 def main():
-    count = 1
+    n = 8
+    # n = input("input n : ")
+    m = 11
+    # m = input("input m : ")
 
-    for y in range(0, N):
-        for x in range(0, N):
-            if map[y][x] == 1:
-                count += 1
-                global depth
-                depth = 0
-                dfs(y, x, count)
-                result.append(depth)
+    initialize()
 
-    result.sort(reverse=True)
-    print(count-1)
-    for d in result:
-        print(d, end=" ")
-    print()
-    
-    print(*map, sep='\n')
-    #pprint.pprint(map,  width=100, indent=1)
+    solve(1, 0, n-1)
+
+    print(ans)
 
 if __name__ == "__main__":
     main()

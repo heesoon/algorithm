@@ -5,7 +5,7 @@
 const int N = 11;
 int value[N][N];
 int bVisited[N][N];
-int result = 0x9fffffff;
+int result = 0x7fffffff;
 
 std::vector<std::tuple<int, int, int>> data ={
 	{1, 2, 47},
@@ -64,11 +64,15 @@ void solve(int a, int d, int n)
 
 	for(int i = 0; i < map[a].size(); i++)
 	{
-		if(bVisited[a][i] == 0)
+		int ni = map[a][i];
+
+		if(bVisited[a][ni] == 0 && bVisited[ni][a] == 0)
 		{
-			bVisited[a][i] = 1;
-			solve(i, d + value[a][i], n);
-			bVisited[a][i] = 0;
+			bVisited[a][ni] = 1;
+            bVisited[ni][a] = 1;
+			solve(map[a][i], d + value[a][ni], n);
+			bVisited[a][ni] = 0;
+            bVisited[ni][a] = 0;
 		}
 	}
 }
@@ -98,11 +102,13 @@ int main()
 
 		value[a][b] = d;
 		map[a].push_back(b);
+		value[b][a] = d;
+		map[b].push_back(a);		
 	}
 	
 	//debug();
 	
-	solve(1, 0, n);
+	solve(1, 0, n-1);
 	
 	std::cout << result << std::endl;
 	

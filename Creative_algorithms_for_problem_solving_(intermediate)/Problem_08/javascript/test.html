@@ -1,125 +1,53 @@
 <html>
 <head>
-	<title> Mole Cave Testing </title>
-	<style>
-		table{
-			width: 50%;
-			height: 50%;
-			text-align: center;
-		}
-		table, tr, td{
-			border: 1px solid black;
-  			border-collapse: collapse;
-			/*
-			font-weight: "bold";
-			*/	
-		}
-
-	</style>
+	<title> Fishing Test </title>
 </head>
 <body>
-	<label>Start ...</label>
-	<input type="button" id="startButton" value="click" onclick=main()>
-	<table id="map"></table>
+	<label><strong>Start :</strong></label>
+	<input type="button" id="execute" value="click" onclick=main()>
+	<br>
+	<label><strong>Result :</strong></label>
+	<span id="result"></span>
 <script>
-	let N = 7;
-	let depth = 0;
-	let count = 1;
-
-	dx = [1, 0, -1, 0];
-	dy = [0, 1, 0, -1];
+	let N = 1, M = 6;
+	let W = 1, H = 3;
 	
-	let map = [
-    	[0, 1, 1, 0, 1, 0, 0],
-    	[0, 1, 1, 0, 1, 0, 1],
-    	[1, 1, 1, 0, 1, 0, 1],
-    	[0, 0, 0, 0, 1, 1, 1],
-    	[0, 1, 0, 0, 0, 0, 0],
-    	[0, 1, 1, 1, 1, 1, 0],
-    	[0, 1, 1, 1, 0, 0, 0]
+	let net = [
+		[1, 0, 2, 0, 4, 3],
+		[3, 4, 0, 2, 0, 1]
 	];
 
-	let result = [];
+	function solve(){
+		ans = 0;
 
-	function is_in_map(y, x){
-		if( (x >= 0 && x < N) && (y >=0 && y < N) ){
-			return true;
-		}
+		for(let y = 0; y < N-W+1; y++){
+			for(let x = 0; x < M-H+1; x++){
+				let r = 0;
 
-		return false;
-	};
+				for(let yy = y; yy < y+W; yy++){
+					for(let xx = x; xx < x+H; xx++){
+						r += net[yy][xx];
+					}
+				}
 
-	function dfs(y, x, c){
-		map[y][x] = c;
-		depth++;
-
-		delayedDisplayMapUI(y, x);
-		for(let i = 0; i < 4; i++){
-			let ny = dy[i] + y;
-			let nx = dx[i] + x;
-
-			if( (is_in_map(ny, nx) == true) && (map[ny][nx] == 1) ){
-				dfs(ny, nx, c);
-			}
-		}
-	}
-
-	function main(){
-		for(let y = 0; y < N; y++){
-			for(let x = 0; x < N; x++){
-
-				if(map[y][x] == 1){
-					depth = 0;
-					count++;
-					dfs(y, x, count);
-					result.push(depth);
+				if(r > ans){
+					ans = r;
 				}
 			}
 		}
 
-		console.log(count-1);
-		result.sort(function(a, b){
-			return b - a;
-		});
-		for(let i = 0; i < result.length; i++){
-			console.log(result[i]);
-		}
+		return ans;
 	}
 
-	// for UI part
-	// build initial map table on browser display
-	function buildInitMapUI(){
-		let table = document.getElementById("map");
+	function main(){
+		let r = solve();
 
-		for(let y = 0; y < N; y++){
-			let newRow = document.createElement("tr");
-			for(let x = 0; x < N; x++){
-				let newCell = document.createElement("td");
-				let newTextNode = document.createTextNode(map[y][x]);
-				newCell.style.fontWeight = "bold";
-				newCell.appendChild(newTextNode);
-				newRow.appendChild(newCell);
-			}
-			table.appendChild(newRow);
-		}
-
-		document.body.appendChild(table);
-	}
-
-	function updateColorMapUI(y, x){
-		let table = document.getElementById("map");
-		table.rows[y].cells[x].style.backgroundColor = "red";
-	}
-
-	let i = 0;
-	function delayedDisplayMapUI(y, x){
-		let timerId = setInterval(updateColorMapUI, 1000*i, y, x);
-		i += 1;
+		console.log(r);
+		document.getElementById("result").innerHTML = r;
 	}
 
 	window.onload = function(){
-		//console.log('start onload function ... ');
-		buildInitMapUI();
+		console.log('start onload function ... ');
 	}
 </script>
 </body>

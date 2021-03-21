@@ -43,3 +43,11 @@
   * 거스름 돈(changes) - [문제 16]
 * [Problem_20](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_20)
   * 예산 관리 (Budget Management) - [문제 17]
+* [Problem_21](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_21)
+  * 0/1 배낭 문제(S) - [문제 18]
+* [Problem_22](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_22)
+  * 저울 추(S) - [문제 19]
+* [Problem_23](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_23)
+  * 격자길(S) - [문제 20]
+* [Problem_24](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_24)
+  * 선물(S) - [문제 21]

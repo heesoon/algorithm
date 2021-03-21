@@ -23,3 +23,23 @@
   * 오목 (Omok)
 * [Problem_10](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_10)
   * 연구활동 가는길 - On the way to research activities (S)
+* [Problem_11](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_11)
+  * 리모컨 - Remocon
+* [Problem_12](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_12)
+  * 오른편 절단 가능 소수
+* [Problem_13](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_13)
+  * minimum sum(S)
+* [Problem_14](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_14)
+  * 앱(S)
+* [Problem_15](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_15)
+  * 치즈
+* [Problem_16](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_16)
+  * 두 색 칠하기(bicoloring)
+* [Problem_17](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_17)
+  * maximum sum(S)
+* [Problem_18](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_18)
+  * 계단 오르기(Climbing Stair)
+* [Problem_19](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_19)
+  * 거스름 돈(changes) - [문제 16]
+* [Problem_20](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_20)
+  * 예산 관리 (Budget Management) - [문제 17]

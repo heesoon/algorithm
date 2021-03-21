@@ -1,0 +1,43 @@
+<html>
+<head>
+	<title> Trangle Test </title>
+</head>
+<body>
+	<label for="length"><strong>Number</strong> (between 1 and 100) : </label>
+	<input type="number" id="length" name="length" value="9" min="1" max="100">
+	<input type="button" id="execute" value="submit" onclick=main()>
+	<div id="result"></div>
+<script>
+	let N = 0;
+	let cnt = 0;
+	let chk = Array(100).fill(null).map(() => Array(100).fill(null).map(() => Array(100).fill(0)));
+
+	function solve(a, b, c){
+		if( (a + b + c) == N ){
+			if( (a <= b) && (b <= c) && (a + b > c) && (chk[a][b][c] == 0) ){
+				chk[a][b][c] = 1;
+				cnt++;
+			}
+
+			return;
+		}
+
+		solve(a+1, b, c);
+		solve(a, b+1, c);
+		solve(a, b, c+1);
+	}
+
+	function main(){
+		N = document.getElementById("length").value;
+		
+		solve(1, 1, 1);
+
+		document.getElementById("result").innerHTML = cnt;
+	}
+
+	window.onload = function(){
+		console.log('start onload function ... ');
+	}
+</script>
+</body>
+</html>

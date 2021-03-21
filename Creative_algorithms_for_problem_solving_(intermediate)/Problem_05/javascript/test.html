@@ -1,0 +1,135 @@
+<html>
+<head>
+	<title> Mole Cave Testing </title>
+	<style>
+		table{
+			width: 50%;
+			height: 50%;
+			text-align: center;
+		}
+		table, tr, td{
+			border: 1px solid black;
+  			border-collapse: collapse;
+			/*
+			font-weight: "bold";
+			*/	
+		}
+
+	</style>
+</head>
+<body>
+	<label>Start ...</label>
+	<input type="button" id="startButton" value="click" onclick=main()>
+	<table id="map"></table>
+<script>
+	let N = 5;
+	let depth = 0;
+
+	dx = [1, 0, -1, 0];
+	dy = [0, 1, 0, -1];
+	g = [0, 0];
+	let map = [
+		['#', 'S', '#', '#', '#'],
+		['#', '.', '.', '.', '#'],
+		['#', '.', '#', '.', '#'],
+		['#', '.', '.', '.', '.'],
+		['#', '#', '#', 'G', '#']
+	]
+
+	let visit = Array.from(Array(N), () => Array(N).fill(0));
+	let queue = [];
+
+	function is_in_map(y, x){
+		if( (x >= 0 && x < N) && (y >=0 && y < N) ){
+			return true;
+		}
+
+		return false;
+	};
+
+	function find_short_path(y, x, d){
+		queue.push([y, x, d]);
+		visit[y][x] = d;
+
+		while(queue.length != 0){
+			let pos = queue.shift();
+
+			for(let i = 0; i < 4; i++){
+				let ny = pos[0] + dy[i];
+				let nx = pos[1] + dx[i];
+				let nd = pos[2] + 1;
+
+				if( (is_in_map(ny, nx) == true) && (map[ny][nx] == '.') && (visit[ny][nx] == 0) ){
+					visit[ny][nx] = nd;
+					queue.push([ny, nx, nd]);
+					delayedDisplayMapUI(ny, nx, nd, "yellow");
+				}
+			}
+		}
+	}
+
+	function main(){
+		for(let y = 0; y < N; y++){
+			for(let x = 0; x < N; x++){
+				if(map[y][x] == 'G'){
+					map[y][x] = '.';
+					g = [y, x];
+				}
+			}
+		}
+		
+		for(let y = 0; y < N; y++){
+			for(let x = 0; x < N; x++){
+				if(map[y][x] == 'S'){
+					find_short_path(y, x, 0);
+				}
+			}
+		}
+
+		if(visit[g[0]][g[1]] == 0){
+			console.log(-1);
+		}
+		else{
+			console.log(visit[g[0]][g[1]]);
+		}
+	}
+
+	// for UI part
+	// build initial map table on browser display
+	function buildInitMapUI(){
+		let table = document.getElementById("map");
+
+		for(let y = 0; y < N; y++){
+			let newRow = document.createElement("tr");
+			for(let x = 0; x < N; x++){
+				let newCell = document.createElement("td");
+				let newTextNode = document.createTextNode(map[y][x]);
+				newCell.style.fontWeight = "bold";
+				newCell.appendChild(newTextNode);
+				newRow.appendChild(newCell);
+			}
+			table.appendChild(newRow);
+		}
+
+		document.body.appendChild(table);
+	}
+
+	function updateColorMapUI(y, x, value, color){
+		let table = document.getElementById("map");
+		table.rows[y].cells[x].innerHTML = value.toString();
+		table.rows[y].cells[x].style.backgroundColor = color;
+	}
+
+	let i = 0;
+	function delayedDisplayMapUI(y, x, value, color){
+		let timerId = setInterval(updateColorMapUI, 1*i, y, x, value, color);
+		i += 1;
+	}
+
+	window.onload = function(){
+		//console.log('start onload function ... ');
+		buildInitMapUI();
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+<head>
+	<title> Fishing Test </title>
+</head>
+<body>
+	<label><strong>Start :</strong></label>
+	<input type="button" id="execute" value="click" onclick=main()>
+	<br>
+	<label><strong>Result :</strong></label>
+	<span id="result"></span>
+<script>
+	let N = 1, M = 6;
+	let W = 1, H = 3;
+	
+	let net = [
+		[1, 0, 2, 0, 4, 3],
+		[3, 4, 0, 2, 0, 1]
+	];
+
+	function solve(){
+		ans = 0;
+
+		for(let y = 0; y < N-W+1; y++){
+			for(let x = 0; x < M-H+1; x++){
+				let r = 0;
+
+				for(let yy = y; yy < y+W; yy++){
+					for(let xx = x; xx < x+H; xx++){
+						r += net[yy][xx];
+					}
+				}
+
+				if(r > ans){
+					ans = r;
+				}
+			}
+		}
+
+		return ans;
+	}
+
+	function main(){
+		let r = solve();
+
+		console.log(r);
+		document.getElementById("result").innerHTML = r;
+	}
+
+	window.onload = function(){
+		console.log('start onload function ... ');
+	}
+</script>
+</body>
+</html>

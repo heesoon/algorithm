@@ -1,0 +1,23 @@
+<html>
+<head>
+	<title> Mole Cave Testing </title>
+	<style>
+	</style>
+</head>
+<body>
+
+<script>
+	function test(){
+		//let a = Array.from({length : 5}, () => 0);
+		let a = Array.map({length : 5}, () => 0);
+
+		console.log(a);
+	}
+
+	window.onload = function(){
+		console.log('start onload function ... ');
+		test();
+	}
+</script>
+</body>
+</html>

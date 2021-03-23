@@ -1,59 +1,32 @@
-N = 11
-ans = 0x7fffffff
+# refer to https://wikidocs.net/14
 
-Paths = [
-    [1, 2, 47],
-    [1, 3, 69],
-    [2, 4, 57],
-    [2, 5, 124],
-    [3, 4, 37],
-    [3, 5, 59],
-    [3, 6, 86],
-    [4, 6, 27],
-    [4, 7, 94],
-    [5, 7, 21],
-    [6, 7, 40]
-]
+a = 7
+b = 34
+q = []
 
-V = [0 for i in range(N)]
-G = [[0 for i in range(N)] for j in range(N)]
+def solve(a):
+    global q
+    global b
 
-def debug():
-    for a in range(N):
-        for b in range(N):
-            print(G[a][b], end=" ")
-        print()
+    q.append([a, 0])
 
-def initialize():
-    for data in Paths:
-        (a, b, d) = data
-        G[a][b] = d
-        G[b][a] = d
+    while(len(q) != 0):
+        (v, c) = q.pop(0)
 
-def solve(a, d, n):
-    global ans
-    if a == n:
-        if ans > d:
-            ans = d
-        return
-    
-    for b in range(1, n+1):
-        if V[b] == 0 and G[a][b] != 0:
-            V[b] = 1
-            solve(b, d+G[a][b], n)
-            V[b] = 0
+        if v == b:
+            return c
+        elif v < b:
+            q.append([v+10, c+1])
+            q.append([v+5, c+1])
+            q.append([v+1, c+1])
+        else:
+            q.append([v-10, c+1])
+            q.append([v-5, c+1])
+            q.append([v-1, c+1])
 
 def main():
-    n = 8
-    # n = input("input n : ")
-    m = 11
-    # m = input("input m : ")
-
-    initialize()
-
-    solve(1, 0, n-1)
-
-    print(ans)
+    r = solve(a)
+    print(r)
 
 if __name__ == "__main__":
     main()

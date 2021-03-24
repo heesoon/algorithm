@@ -1,59 +1,51 @@
-N = 11
-ans = 0x7fffffff
+import math
 
-Paths = [
-    [1, 2, 47],
-    [1, 3, 69],
-    [2, 4, 57],
-    [2, 5, 124],
-    [3, 4, 37],
-    [3, 5, 59],
-    [3, 6, 86],
-    [4, 6, 27],
-    [4, 7, 94],
-    [5, 7, 21],
-    [6, 7, 40]
-]
+v = []
 
-V = [0 for i in range(N)]
-G = [[0 for i in range(N)] for j in range(N)]
-
-def debug():
-    for a in range(N):
-        for b in range(N):
-            print(G[a][b], end=" ")
-        print()
-
-def initialize():
-    for data in Paths:
-        (a, b, d) = data
-        G[a][b] = d
-        G[b][a] = d
-
-def solve(a, d, n):
-    global ans
-    if a == n:
-        if ans > d:
-            ans = d
-        return
+def is_prime(n):
+    if n < 2:
+        return False
     
-    for b in range(1, n+1):
-        if V[b] == 0 and G[a][b] != 0:
-            V[b] = 1
-            solve(b, d+G[a][b], n)
-            V[b] = 0
+    for x in [i for i in range(2, n+1) if i*i < n]:
+    #for x in range(2, n):
+        #print(type(n%x))
+        if n%x == 0:
+            return False
+    
+    return True
+
+def is_right_slice_prime(n):
+    while True:
+        r = is_prime(n)
+        if r == False:
+            return False
+        print(n)        
+        n = n // 10
+        if n <= 0:
+            break
+
+def solve(n):
+    global v
+    
+    #vs = math.pow(10, n-1)
+    #ve = math.pow(10, n)
+    vs = 10 ** (n-1)
+    ve = 10 ** n
+    
+    #print(type(ve))
+    for i in range(vs, vs+1):
+        if is_right_slice_prime(i) == True:
+            v.append(i)
 
 def main():
-    n = 8
-    # n = input("input n : ")
-    m = 11
-    # m = input("input m : ")
-
-    initialize()
-
-    solve(1, 0, n-1)
-
-    print(ans)
+    n = 2
+    
+    solve(n)
+    
+    for x in v:
+        print(x)
+    
+    print(len(v))
 
 if __name__ == "__main__":
     main()

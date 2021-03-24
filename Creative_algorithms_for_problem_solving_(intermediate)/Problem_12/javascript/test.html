@@ -20,7 +20,7 @@
 		}
 		
 		for(let i = 2; i*i <= n; i++){
-			if(n%i == 0){
+			if(parseInt(n%i) == 0){
 				return false;
 			}
 		}
@@ -35,7 +35,7 @@
 				return false;
 			}
 			
-			n /= 10;
+			n = parseInt(n / 10);
 		}while(n > 0);
 		
 		return true;

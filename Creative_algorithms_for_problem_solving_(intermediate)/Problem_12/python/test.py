@@ -6,9 +6,7 @@ def is_prime(n):
     if n < 2:
         return False
     
-    for x in [i for i in range(2, n+1) if i*i < n]:
-    #for x in range(2, n):
-        #print(type(n%x))
+    for x in [i for i in range(2, n+1) if i*i <= n]:
         if n%x == 0:
             return False
     
@@ -19,10 +17,11 @@ def is_right_slice_prime(n):
         r = is_prime(n)
         if r == False:
             return False
-        print(n)        
+      
         n = n // 10
         if n <= 0:
             break
+    return True
 
 def solve(n):
     global v
@@ -33,7 +32,7 @@ def solve(n):
     ve = 10 ** n
     
     #print(type(ve))
-    for i in range(vs, vs+1):
+    for i in range(vs, ve):
         if is_right_slice_prime(i) == True:
             v.append(i)
 

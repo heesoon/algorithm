@@ -1,116 +1,115 @@
 #include <iostream>
 #include <vector>
-#include <tuple>
+#include <algorithm>
+#include <iterator>
 
-const int N = 11;
-int value[N][N];
-int bVisited[N][N];
-int result = 0x7fffffff;
+const int n = 8;
+const int m = 9;
 
-std::vector<std::tuple<int, int, int>> data ={
-	{1, 2, 47},
-	{1, 3, 69},
-	{2, 4, 57},
-	{2, 5, 124},
-	{3, 4, 37},
-	{3, 5, 59},
-	{3, 6, 86},
-	{4, 6, 27},
-	{4, 7, 94},
-	{5, 7, 21},
-	{6, 7, 40},
+std::vector<std::vector<int>> a2(102, std::vector<int>(102, 0));
+std::vector<std::vector<int>> a1(102, std::vector<int>(102, 0));
+
+std::vector<std::vector<int>> data = {
+	{0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 1, 1, 0, 0, 0, 0},
+	{0, 0, 0, 1, 1, 0, 1, 1, 0},
+	{0, 0, 1, 1, 1, 1, 1, 1, 0},
+	{0, 0, 1, 1, 1, 1, 1, 0, 0},
+	{0, 0, 1, 1, 0, 1, 1, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0}
 };
 
-std::vector<int> map[N];
-
-void debug()
+void initialize()
 {
-	for(int a = 0; a < N; a++)
+	for(int y = 0; y < n; y++)
 	{
-		for(int b = 0; b < N; b++)
+		for(int x = 0; x < m; x++)
 		{
-			std::cout.width(4);
-			//std::cout.fill('*');
-			std::cout << value[a][b];
+			a1[y+1][x+1] = data[y][x];
 		}
-		std::cout << std::endl;
-	}
-	
-    std::cout << std::endl;
-	for(int a = 0; a < N; a++)
-	{
-        std::cout << a << " :";
-		for(int b = 0; b < map[a].size(); b++)
-		{
-			std::cout.width(2);
-			//std::cout.fill('*');
-			std::cout << map[a][b];
-		}
-		std::cout << std::endl;
 	}
 }
 
-void solve(int a, int d, int n)
+void copy()
 {
-	if(a == n)
+	std::copy(a2.begin(), a2.end(), a1.begin());
+	//std::copy(a2.begin(), a2.end(), std::back_inserter(a1));
+}
+
+void fill1(int y, int x)
+{
+	if( y < 1 || y > n || x < 1 || x > m ) return;
+	if(a1[y][x] == 0)
 	{
-		if(result > d)
-		{
-			result = d;
-		}
-		
-		return;
+		a1[y][x] = 2;
+		fill1(y+1, x);
+		fill1(y-1, x);
+		fill1(y, x+1);
+		fill1(y, x-1);
 	}
+}
 
-	for(int i = 0; i < map[a].size(); i++)
+int check(int y, int x)
+{
+	int t = 0;
+	if(a1[y+1][x] == 2) t++;
+	if(a1[y-1][x] == 2) t++;
+	if(a1[y][x+1] == 2) t++;
+	if(a1[y][x-1] == 2) t++;
+
+	return t;
+}
+
+void debug(const std::vector<std::vector<int>>& a)
+{
+	std::vector<std::vector<int>>::const_iterator it;
+	for(it = a.begin(); it != a.end(); it++)
 	{
-		int ni = map[a][i];
-
-		if(bVisited[a][ni] == 0 && bVisited[ni][a] == 0)
+		std::vector<int>::const_iterator jt;
+		for(jt = (*it).begin(); jt != (*it).end(); jt++)
 		{
-			bVisited[a][ni] = 1;
-            bVisited[ni][a] = 1;
-			solve(map[a][i], d + value[a][ni], n);
-			bVisited[a][ni] = 0;
-            bVisited[ni][a] = 0;
+			std::cout << *jt << " ";
 		}
+		std::cout << std::endl;
 	}
 }
 
 int main()
 {
-	int n = 8;
-/*	
-	std::cout << "Enter n : ";
-	std::cin >> n;
-	std::cout << std::endl;
-*/	
-	int m = 11;
-/*
-	std::cout << "Enter m : ";
-	std::cin >> m;
-	std::cout << std::endl;	
-*/
+	int cnt = 0;
+	int hour = 0;
+	initialize();
+	std::copy(a1.begin(), a1.end(), a2.begin());
+	//debug(a2);
 
-	// update map by data
-	//for(std::vector<std::tuple<int, int, int> >::size_type i = 0; i < data.size(); i++)
-	for(int i = 0; i < m; i++)
+	while(1)
 	{
-		int a, b, d;
-		auto& t = data[i];
-		std::tie(a, b, d) = t;
+		fill1(1, 1);
+		cnt = 0;
 
-		value[a][b] = d;
-		map[a].push_back(b);
-		value[b][a] = d;
-		map[b].push_back(a);		
+		for(int y = 1; y <= n; y++)
+		{
+			for(int x = 1; x <= n; x++)
+			{
+				if(a1[y][x] == 1 && check(y, x) >= 2)
+				{
+					a2[y][x] = 0;
+					cnt++;
+				}
+			}
+		}
+
+		if(cnt == 0)
+		{
+			std::cout << hour << std::endl;
+			break;
+		}
+
+		hour++;
+		copy();
+
 	}
-	
-	//debug();
-	
-	solve(1, 0, n-1);
-	
-	std::cout << result << std::endl;
-	
+
     return 0;
 }

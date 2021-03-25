@@ -1,59 +1,23 @@
-N = 11
-ans = 0x7fffffff
+n = 5
+m = 60
+a = [30, 10, 20, 35, 40]
+c = [3, 0, 3, 5, 4]
 
-Paths = [
-    [1, 2, 47],
-    [1, 3, 69],
-    [2, 4, 57],
-    [2, 5, 124],
-    [3, 4, 37],
-    [3, 5, 59],
-    [3, 6, 86],
-    [4, 6, 27],
-    [4, 7, 94],
-    [5, 7, 21],
-    [6, 7, 40]
-]
+def self_define_min(a, b):
+    #[ true value ] if [condition] else [false value]
+    return a if a < b else b
 
-V = [0 for i in range(N)]
-G = [[0 for i in range(N)] for j in range(N)]
-
-def debug():
-    for a in range(N):
-        for b in range(N):
-            print(G[a][b], end=" ")
-        print()
-
-def initialize():
-    for data in Paths:
-        (a, b, d) = data
-        G[a][b] = d
-        G[b][a] = d
-
-def solve(a, d, n):
-    global ans
-    if a == n:
-        if ans > d:
-            ans = d
-        return
+def solve(idx, ms):
+    if idx == n:
+        if ms >= m:
+            return 0
+        else:
+            return n*100
     
-    for b in range(1, n+1):
-        if V[b] == 0 and G[a][b] != 0:
-            V[b] = 1
-            solve(b, d+G[a][b], n)
-            V[b] = 0
+    return self_define_min(solve(idx+1, ms), solve(idx+1, ms+a[idx]) + c[idx])
 
 def main():
-    n = 8
-    # n = input("input n : ")
-    m = 11
-    # m = input("input m : ")
-
-    initialize()
-
-    solve(1, 0, n-1)
-
-    print(ans)
+    print(solve(0, 0))
 
 if __name__ == "__main__":
     main()

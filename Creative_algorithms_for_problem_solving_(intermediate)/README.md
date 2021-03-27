@@ -51,3 +51,17 @@
   * 격자길(S) - [문제 20]
 * [Problem_24](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_24)
   * 선물(S) - [문제 21]
+* [Problem_25](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_25)
+  * 전기줄(S) - [문제 22]
+* [Problem_26](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_26)
+  * 경찰차(S) - [문제 23]
+* [Problem_27](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_27)
+  * 좋은 수열 - [문제 24]
+* [Problem_28](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_28)
+  * 경비행기(S) - [문제 25]
+* [Problem_29](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_29)
+  * 돌다리 건너기(S) - [문제 26]
+* [Problem_30](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_30)
+  * 공주 구하기(S) - [문제 27]
+* [Problem_31](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms_for_problem_solving_(intermediate)/Problem_31)
+  * 소방차 - [문제 28]

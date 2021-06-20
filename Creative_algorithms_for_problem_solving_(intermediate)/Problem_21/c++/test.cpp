@@ -1,35 +1,26 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
-int ans = 0;
+unsigned int ans = 0;
+unsigned int N = 4;
+unsigned int r = 5;
 
-void solve(std::vector<int>::size_type idx, int sum, int target, const std::vector<int>& ar)
+std::vector<unsigned int> w{2, 1, 3, 2};
+std::vector<unsigned int> v{3, 2, 3, 2};
+
+unsigned int solve(int idx, int r)
 {
-	if(idx == ar.size())
-	{
-		if( sum <= target && sum > ans)
-		{
-			ans = sum;
-		}
-
-		return;
-	}
-
-	solve(idx+1, sum+ar[idx], target, ar);
-	solve(idx+1, sum, target, ar);
-}
-
-void testCase1()
-{
-	std::vector<int> budgets = {7, 13, 17, 19, 29, 31};
-	solve(0, 0, 40, budgets);
-
-	std::cout << ans << std::endl;
-	ans = 0;
+	if(idx == N)
+		return 0;
+	else if(w[idx] > r)
+		return solve(idx+1, r);
+	else
+		return std::max(solve(idx+1, r), solve(idx+1, r-w[idx])+v[idx]);
 }
 
 int main()
 {
-	testCase1();
+	std::cout << solve(0, r) << std::endl;
     return 0;
 }

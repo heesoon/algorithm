@@ -1,59 +1,21 @@
-N = 11
-ans = 0x7fffffff
+N = 4
+maxWeight = 5
 
-Paths = [
-    [1, 2, 47],
-    [1, 3, 69],
-    [2, 4, 57],
-    [2, 5, 124],
-    [3, 4, 37],
-    [3, 5, 59],
-    [3, 6, 86],
-    [4, 6, 27],
-    [4, 7, 94],
-    [5, 7, 21],
-    [6, 7, 40]
-]
+W = [2, 1, 3, 2]
+V = [3, 2, 3, 2]
 
-V = [0 for i in range(N)]
-G = [[0 for i in range(N)] for j in range(N)]
-
-def debug():
-    for a in range(N):
-        for b in range(N):
-            print(G[a][b], end=" ")
-        print()
-
-def initialize():
-    for data in Paths:
-        (a, b, d) = data
-        G[a][b] = d
-        G[b][a] = d
-
-def solve(a, d, n):
-    global ans
-    if a == n:
-        if ans > d:
-            ans = d
-        return
+def solve(idx, rw):
+    global N, W, V
+    if idx == N:
+        return 0
     
-    for b in range(1, n+1):
-        if V[b] == 0 and G[a][b] != 0:
-            V[b] = 1
-            solve(b, d+G[a][b], n)
-            V[b] = 0
+    if W[idx] > rw :
+        return solve(idx+1, rw)
+    else:
+        return max(solve(idx+1, rw), solve(idx+1, rw - W[idx]) + V[idx])
 
 def main():
-    n = 8
-    # n = input("input n : ")
-    m = 11
-    # m = input("input m : ")
-
-    initialize()
-
-    solve(1, 0, n-1)
-
-    print(ans)
+    print(solve(0, maxWeight))
 
 if __name__ == "__main__":
     main()

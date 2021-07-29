@@ -1,116 +1,43 @@
 #include <iostream>
 #include <vector>
-#include <tuple>
 
-const int N = 11;
-int value[N][N];
-int bVisited[N][N];
-int result = 0x7fffffff;
+int N = 7;
+int target[2] = {25, 40};
+int weights[7] = {1, 3, 9, 27, 81, 243, 729};
+std::vector<int> left;
+std::vector<int> right;
 
-std::vector<std::tuple<int, int, int>> data ={
-	{1, 2, 47},
-	{1, 3, 69},
-	{2, 4, 57},
-	{2, 5, 124},
-	{3, 4, 37},
-	{3, 5, 59},
-	{3, 6, 86},
-	{4, 6, 27},
-	{4, 7, 94},
-	{5, 7, 21},
-	{6, 7, 40},
-};
-
-std::vector<int> map[N];
-
-void debug()
-{
-	for(int a = 0; a < N; a++)
-	{
-		for(int b = 0; b < N; b++)
-		{
-			std::cout.width(4);
-			//std::cout.fill('*');
-			std::cout << value[a][b];
-		}
-		std::cout << std::endl;
-	}
-	
-    std::cout << std::endl;
-	for(int a = 0; a < N; a++)
-	{
-        std::cout << a << " :";
-		for(int b = 0; b < map[a].size(); b++)
-		{
-			std::cout.width(2);
-			//std::cout.fill('*');
-			std::cout << map[a][b];
-		}
-		std::cout << std::endl;
-	}
-}
-
-void solve(int a, int d, int n)
-{
-	if(a == n)
-	{
-		if(result > d)
-		{
-			result = d;
-		}
-		
+void solve(int idx, int a, int b, int t) {
+	if(idx == N) {
 		return;
 	}
 
-	for(int i = 0; i < map[a].size(); i++)
-	{
-		int ni = map[a][i];
+	if(a == b) {
+		std::cout << t << " ";
+		
+		for(auto l : left) {
+			std::cout << l << " ";
+		}
 
-		if(bVisited[a][ni] == 0 && bVisited[ni][a] == 0)
-		{
-			bVisited[a][ni] = 1;
-            bVisited[ni][a] = 1;
-			solve(map[a][i], d + value[a][ni], n);
-			bVisited[a][ni] = 0;
-            bVisited[ni][a] = 0;
+		std::cout << 0 << " ";
+
+		for(auto r : right) {
+			std::cout << r << " ";
 		}
 	}
+
+	right.emplace_back(weights[idx]);
+	sove(idx+1, a, b+weights[idx], t);
+	right.pop_back();
+	left.emplace_back(weights[idx]);
+	solve(idx+1, a+weights[idx], b, t);
+	left.pop_back();
 }
 
-int main()
-{
-	int n = 8;
-/*	
-	std::cout << "Enter n : ";
-	std::cin >> n;
-	std::cout << std::endl;
-*/	
-	int m = 11;
-/*
-	std::cout << "Enter m : ";
-	std::cin >> m;
-	std::cout << std::endl;	
-*/
-
-	// update map by data
-	//for(std::vector<std::tuple<int, int, int> >::size_type i = 0; i < data.size(); i++)
-	for(int i = 0; i < m; i++)
-	{
-		int a, b, d;
-		auto& t = data[i];
-		std::tie(a, b, d) = t;
-
-		value[a][b] = d;
-		map[a].push_back(b);
-		value[b][a] = d;
-		map[b].push_back(a);		
+int main(){
+	for(aut tc : target) {
+		solve(0, tc, 0);
 	}
-	
-	//debug();
-	
-	solve(1, 0, n-1);
-	
-	std::cout << result << std::endl;
-	
-    return 0;
+
+	return 0;
 }

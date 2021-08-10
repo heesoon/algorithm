@@ -1,43 +1,45 @@
 #include <iostream>
-#include <vector>
 
-int N = 7;
+const int N = 7;
 int target[2] = {25, 40};
-int weights[7] = {1, 3, 9, 27, 81, 243, 729};
-std::vector<int> left;
-std::vector<int> right;
+int weights[N] = {1, 3, 9, 27, 81, 243, 729};
+int chk[N];
 
-void solve(int idx, int a, int b, int t) {
-	if(idx == N) {
+void solve(int idx, int l, int r, int t) {
+	if(idx == N){
+		if(l == r){
+			std::cout << t << " ";
+			for(int i = 0; i < N; i++){
+				if(chk[i] == 1){
+					std::cout << weights[i] << " ";
+				}
+			}
+
+			std::cout << "0" << " ";
+			for(int i = 0; i < N; i++){
+				if(chk[i] == 2){
+					std::cout << weights[i] << " ";
+				}
+			}
+			std::cout << std::endl;		
+		}
 		return;
 	}
 
-	if(a == b) {
-		std::cout << t << " ";
-		
-		for(auto l : left) {
-			std::cout << l << " ";
-		}
+	chk[idx] = 1;
+	solve(idx+1, l+weights[idx], r, t);
 
-		std::cout << 0 << " ";
+	chk[idx] = 2;
+	solve(idx+1, l, r+weights[idx], t);
 
-		for(auto r : right) {
-			std::cout << r << " ";
-		}
-	}
-
-	right.emplace_back(weights[idx]);
-	sove(idx+1, a, b+weights[idx], t);
-	right.pop_back();
-	left.emplace_back(weights[idx]);
-	solve(idx+1, a+weights[idx], b, t);
-	left.pop_back();
+	chk[idx] = 0;
+	solve(idx+1, l, r, t);
 }
 
 int main(){
-	for(aut tc : target) {
-		solve(0, tc, 0);
-	}
 
+	for(auto t : target){
+		solve(0, t, 0, t);
+	}
 	return 0;
 }

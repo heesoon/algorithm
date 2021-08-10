@@ -1,59 +1,40 @@
-N = 11
-ans = 0x7fffffff
+N = 7
+W = [1, 3, 9, 27, 81, 243, 729]
+T = [25, 40]
+chk = []
 
-Paths = [
-    [1, 2, 47],
-    [1, 3, 69],
-    [2, 4, 57],
-    [2, 5, 124],
-    [3, 4, 37],
-    [3, 5, 59],
-    [3, 6, 86],
-    [4, 6, 27],
-    [4, 7, 94],
-    [5, 7, 21],
-    [6, 7, 40]
-]
+def solve(idx, l, r, t):
+    global N, W, chk
+    if idx == N:
+        if l == r:
+            print(t, end=' ')
+            for i in range(N):
+                if chk[i] == 1:
+                    print(W[i], end=' ')
 
-V = [0 for i in range(N)]
-G = [[0 for i in range(N)] for j in range(N)]
+            print(0, end=' ')
+            for i in range(N):
+                if chk[i] == 2:
+                    print(W[i], end=' ')       
 
-def debug():
-    for a in range(N):
-        for b in range(N):
-            print(G[a][b], end=" ")
-        print()
-
-def initialize():
-    for data in Paths:
-        (a, b, d) = data
-        G[a][b] = d
-        G[b][a] = d
-
-def solve(a, d, n):
-    global ans
-    if a == n:
-        if ans > d:
-            ans = d
+            print('\n')
         return
     
-    for b in range(1, n+1):
-        if V[b] == 0 and G[a][b] != 0:
-            V[b] = 1
-            solve(b, d+G[a][b], n)
-            V[b] = 0
+    chk[idx] = 1
+    solve(idx+1, l+W[idx], r, t)
 
+    chk[idx] = 2
+    solve(idx+1, l, r+W[idx], t)
+
+    chk[idx] = 0
+    solve(idx+1, l, r, t)
+        
 def main():
-    n = 8
-    # n = input("input n : ")
-    m = 11
-    # m = input("input m : ")
-
-    initialize()
-
-    solve(1, 0, n-1)
-
-    print(ans)
+    global chk, T
+    chk.clear()
+    chk = [0 for i in range(N)]
+    for x in T:
+        solve(0, x, 0, x)
 
 if __name__ == "__main__":
     main()

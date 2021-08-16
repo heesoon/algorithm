@@ -1,116 +1,33 @@
 #include <iostream>
-#include <vector>
-#include <tuple>
 
-const int N = 11;
-int value[N][N];
-int bVisited[N][N];
-int result = 0x7fffffff;
+const int H = 3;
+const int W = 4;
+int cnt = 0;
 
-std::vector<std::tuple<int, int, int>> data ={
-	{1, 2, 47},
-	{1, 3, 69},
-	{2, 4, 57},
-	{2, 5, 124},
-	{3, 4, 37},
-	{3, 5, 59},
-	{3, 6, 86},
-	{4, 6, 27},
-	{4, 7, 94},
-	{5, 7, 21},
-	{6, 7, 40},
-};
-
-std::vector<int> map[N];
-
-void debug()
+void solve(int h, int w)
 {
-	for(int a = 0; a < N; a++)
-	{
-		for(int b = 0; b < N; b++)
-		{
-			std::cout.width(4);
-			//std::cout.fill('*');
-			std::cout << value[a][b];
-		}
-		std::cout << std::endl;
-	}
-	
-    std::cout << std::endl;
-	for(int a = 0; a < N; a++)
-	{
-        std::cout << a << " :";
-		for(int b = 0; b < map[a].size(); b++)
-		{
-			std::cout.width(2);
-			//std::cout.fill('*');
-			std::cout << map[a][b];
-		}
-		std::cout << std::endl;
-	}
-}
-
-void solve(int a, int d, int n)
-{
-	if(a == n)
-	{
-		if(result > d)
-		{
-			result = d;
-		}
-		
+	if(h > H || w > W+1){
 		return;
 	}
 
-	for(int i = 0; i < map[a].size(); i++)
-	{
-		int ni = map[a][i];
+	if(h == H && w == W+1){
+		cnt++;
+		return;
+	}
+	
+	solve(h+1, w);
 
-		if(bVisited[a][ni] == 0 && bVisited[ni][a] == 0)
-		{
-			bVisited[a][ni] = 1;
-            bVisited[ni][a] = 1;
-			solve(map[a][i], d + value[a][ni], n);
-			bVisited[a][ni] = 0;
-            bVisited[ni][a] = 0;
-		}
+	// y = (H/W)(x - 1) : x의 '0'도 넣어어서 계산하기 위해서 그래프를 x축으로 1 만큼 평행이동
+	// 여기에 (w - 1) => (w+1 - 1) => w, 다음 w+1로 이동 가능여부 우선 check해야 하니까
+	//if((double)H/W <= (double)h/(w-1)){
+	if((double)H/W <= (double)h/(w)){
+		solve(h, w+1);
 	}
 }
 
 int main()
 {
-	int n = 8;
-/*	
-	std::cout << "Enter n : ";
-	std::cin >> n;
-	std::cout << std::endl;
-*/	
-	int m = 11;
-/*
-	std::cout << "Enter m : ";
-	std::cin >> m;
-	std::cout << std::endl;	
-*/
-
-	// update map by data
-	//for(std::vector<std::tuple<int, int, int> >::size_type i = 0; i < data.size(); i++)
-	for(int i = 0; i < m; i++)
-	{
-		int a, b, d;
-		auto& t = data[i];
-		std::tie(a, b, d) = t;
-
-		value[a][b] = d;
-		map[a].push_back(b);
-		value[b][a] = d;
-		map[b].push_back(a);		
-	}
-	
-	//debug();
-	
-	solve(1, 0, n-1);
-	
-	std::cout << result << std::endl;
-	
+	solve(0, 1);
+	std::cout << cnt << std::endl;
     return 0;
 }

@@ -1,116 +1,53 @@
 #include <iostream>
 #include <vector>
-#include <tuple>
 
-const int N = 11;
-int value[N][N];
-int bVisited[N][N];
-int result = 0x7fffffff;
+int ga, gb, gc;
 
-std::vector<std::tuple<int, int, int>> data ={
-	{1, 2, 47},
-	{1, 3, 69},
-	{2, 4, 57},
-	{2, 5, 124},
-	{3, 4, 37},
-	{3, 5, 59},
-	{3, 6, 86},
-	{4, 6, 27},
-	{4, 7, 94},
-	{5, 7, 21},
-	{6, 7, 40},
+std::vector<int> tc[3] = {
+	{6, 4 ,4, 4, 6, 9},
+	{2, 10, 1},
+	{1, 1, 1, 4, 6, 1, 1, 1, 1}
 };
 
-std::vector<int> map[N];
-
-void debug()
-{
-	for(int a = 0; a < N; a++)
-	{
-		for(int b = 0; b < N; b++)
-		{
-			std::cout.width(4);
-			//std::cout.fill('*');
-			std::cout << value[a][b];
-		}
-		std::cout << std::endl;
-	}
-	
-    std::cout << std::endl;
-	for(int a = 0; a < N; a++)
-	{
-        std::cout << a << " :";
-		for(int b = 0; b < map[a].size(); b++)
-		{
-			std::cout.width(2);
-			//std::cout.fill('*');
-			std::cout << map[a][b];
+void debug(){
+	for(int i = 0; i < 3; i++){
+		for(auto x : tc[i]){
+			std::cout << x << " ";
 		}
 		std::cout << std::endl;
 	}
 }
 
-void solve(int a, int d, int n)
-{
-	if(a == n)
-	{
-		if(result > d)
-		{
-			result = d;
+void solve(int idx, int a, int b, int c, const std::vector<int> &v){
+	if(idx == v.size()){
+		if(ga == 0 && gb == 0 && gc == 0){
+			ga = a;
+			gb = b;
+			gc = c;
+            
+            return;
 		}
 		
+		if( ((ga - gc) > (a - c)) && (ga > a) ){
+			ga = a;
+			gb = b;
+			gc = c;			
+		}
+
 		return;
 	}
 
-	for(int i = 0; i < map[a].size(); i++)
-	{
-		int ni = map[a][i];
+	solve(idx+1, a+v[idx], b, c, v);
 
-		if(bVisited[a][ni] == 0 && bVisited[ni][a] == 0)
-		{
-			bVisited[a][ni] = 1;
-            bVisited[ni][a] = 1;
-			solve(map[a][i], d + value[a][ni], n);
-			bVisited[a][ni] = 0;
-            bVisited[ni][a] = 0;
-		}
-	}
+	solve(idx+1, a, b+v[idx], c, v);
+	solve(idx+1, a, b, c+v[idx], v);
 }
 
-int main()
-{
-	int n = 8;
-/*	
-	std::cout << "Enter n : ";
-	std::cin >> n;
-	std::cout << std::endl;
-*/	
-	int m = 11;
-/*
-	std::cout << "Enter m : ";
-	std::cin >> m;
-	std::cout << std::endl;	
-*/
-
-	// update map by data
-	//for(std::vector<std::tuple<int, int, int> >::size_type i = 0; i < data.size(); i++)
-	for(int i = 0; i < m; i++)
-	{
-		int a, b, d;
-		auto& t = data[i];
-		std::tie(a, b, d) = t;
-
-		value[a][b] = d;
-		map[a].push_back(b);
-		value[b][a] = d;
-		map[b].push_back(a);		
+int main(){
+	for(int i = 0; i < 3; i++){
+		ga = 0, gb = 0, gc = 0;
+		solve(0, 0, 0, 0, tc[i]);
+		std::cout << ga << " " << gb << " " << gc << std::endl;
 	}
-	
-	//debug();
-	
-	solve(1, 0, n-1);
-	
-	std::cout << result << std::endl;
-	
-    return 0;
+	return 0;
 }

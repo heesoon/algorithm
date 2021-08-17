@@ -24,21 +24,20 @@ void solve(int idx, int a, int b, int c, const std::vector<int> &v){
 			ga = a;
 			gb = b;
 			gc = c;
-            
-            return;
-		}
-		
-		if( ((ga - gc) > (a - c)) && (ga > a) ){
-			ga = a;
-			gb = b;
-			gc = c;			
+			return;
 		}
 
+		if(a >= b && b >= c){
+			if( ((ga - gc) >= (a - c)) && (ga >= a)){
+				ga = a;
+				gb = b;
+				gc = c;
+			}
+		}
 		return;
 	}
 
 	solve(idx+1, a+v[idx], b, c, v);
-
 	solve(idx+1, a, b+v[idx], c, v);
 	solve(idx+1, a, b, c+v[idx], v);
 }

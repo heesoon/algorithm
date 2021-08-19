@@ -1,116 +1,60 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include <algorithm>
 
-const int N = 11;
-int value[N][N];
-int bVisited[N][N];
-int result = 0x7fffffff;
-
-std::vector<std::tuple<int, int, int>> data ={
-	{1, 2, 47},
-	{1, 3, 69},
-	{2, 4, 57},
-	{2, 5, 124},
-	{3, 4, 37},
-	{3, 5, 59},
-	{3, 6, 86},
-	{4, 6, 27},
-	{4, 7, 94},
-	{5, 7, 21},
-	{6, 7, 40},
+std::vector<std::pair<int, int>> inputData = {
+	{1, 8},
+	{3, 9},
+	{2, 2},
+	{4, 1},
+	{6, 4},
+	{10, 10},
+	{9, 7},
+	{7, 6}
 };
 
-std::vector<int> map[N];
+std::vector<int> newData;
 
-void debug()
-{
-	for(int a = 0; a < N; a++)
-	{
-		for(int b = 0; b < N; b++)
-		{
-			std::cout.width(4);
-			//std::cout.fill('*');
-			std::cout << value[a][b];
-		}
-		std::cout << std::endl;
-	}
-	
-    std::cout << std::endl;
-	for(int a = 0; a < N; a++)
-	{
-        std::cout << a << " :";
-		for(int b = 0; b < map[a].size(); b++)
-		{
-			std::cout.width(2);
-			//std::cout.fill('*');
-			std::cout << map[a][b];
-		}
-		std::cout << std::endl;
-	}
-}
+int main(){
+	std::sort(inputData.begin(), inputData.end(), [](auto &&a, auto &&b){
+		return std::get<0>(a) <= std::get<0>(b);
+	});
 
-void solve(int a, int d, int n)
-{
-	if(a == n)
-	{
-		if(result > d)
-		{
-			result = d;
-		}
-		
-		return;
+	/*
+	for(auto &&v : inputData){
+		std::cout << "{ " << std::get<0>(v) << ", " << std::get<1>(v) << " }" << std::endl;
+	}
+	*/
+
+	for(auto &&v : inputData){
+		newData.emplace_back(std::get<1>(v));
 	}
 
-	for(int i = 0; i < map[a].size(); i++)
-	{
-		int ni = map[a][i];
+	/*
+	for(auto &&v : newData){
+		std::cout << v << std::endl;
+	}
+	*/
 
-		if(bVisited[a][ni] == 0 && bVisited[ni][a] == 0)
-		{
-			bVisited[a][ni] = 1;
-            bVisited[ni][a] = 1;
-			solve(map[a][i], d + value[a][ni], n);
-			bVisited[a][ni] = 0;
-            bVisited[ni][a] = 0;
+	// get longest ordered array
+	int longestCnt = 0;
+	for(int i = 0; i < newData.size(); i++){
+		int s = newData[i];
+		int cnt = 0;
+		for(int j = i; j < newData.size(); j++){
+			if(s <= newData[j]){
+				s = newData[j];
+				cnt++;
+			}
+		}
+
+		if(longest < cnt){
+			longest = cnt;
 		}
 	}
-}
 
-int main()
-{
-	int n = 8;
-/*	
-	std::cout << "Enter n : ";
-	std::cin >> n;
-	std::cout << std::endl;
-*/	
-	int m = 11;
-/*
-	std::cout << "Enter m : ";
-	std::cin >> m;
-	std::cout << std::endl;	
-*/
+	std::cout << inputData.size() - cnt << std::endl;
 
-	// update map by data
-	//for(std::vector<std::tuple<int, int, int> >::size_type i = 0; i < data.size(); i++)
-	for(int i = 0; i < m; i++)
-	{
-		int a, b, d;
-		auto& t = data[i];
-		std::tie(a, b, d) = t;
-
-		value[a][b] = d;
-		map[a].push_back(b);
-		value[b][a] = d;
-		map[b].push_back(a);		
-	}
-	
-	//debug();
-	
-	solve(1, 0, n-1);
-	
-	std::cout << result << std::endl;
-	
-    return 0;
+	return 0;
 }

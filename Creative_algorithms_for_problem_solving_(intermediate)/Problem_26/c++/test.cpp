@@ -1,116 +1,38 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include <stdlib.h>
 
-const int N = 11;
-int value[N][N];
-int bVisited[N][N];
-int result = 0x7fffffff;
+int prevAIndex, prevBIndex;
+int maxDist = 98765431;
 
-std::vector<std::tuple<int, int, int>> data ={
-	{1, 2, 47},
-	{1, 3, 69},
-	{2, 4, 57},
-	{2, 5, 124},
-	{3, 4, 37},
-	{3, 5, 59},
-	{3, 6, 86},
-	{4, 6, 27},
-	{4, 7, 94},
-	{5, 7, 21},
-	{6, 7, 40},
+std::vector<std::pair<int, int>> tc = {
+	{1, 1},
+	{3, 5},
+	{5, 5},
+	{2, 3},
+	{6, 6}
 };
 
-std::vector<int> map[N];
+int distance(int a, int b){
+	int xd = abs(std::get<0>(tc[a]) -std::get<0>(tc[b]));
+	int yd = abs(std::get<1>(tc[a]) -std::get<1>(tc[b]));
 
-void debug()
-{
-	for(int a = 0; a < N; a++)
-	{
-		for(int b = 0; b < N; b++)
-		{
-			std::cout.width(4);
-			//std::cout.fill('*');
-			std::cout << value[a][b];
-		}
-		std::cout << std::endl;
-	}
-	
-    std::cout << std::endl;
-	for(int a = 0; a < N; a++)
-	{
-        std::cout << a << " :";
-		for(int b = 0; b < map[a].size(); b++)
-		{
-			std::cout.width(2);
-			//std::cout.fill('*');
-			std::cout << map[a][b];
-		}
-		std::cout << std::endl;
-	}
+	return xd + yd;
 }
 
-void solve(int a, int d, int n)
-{
-	if(a == n)
-	{
-		if(result > d)
-		{
-			result = d;
-		}
+void solve(int idx, int a, int b){
+	if(idx < tc.size()){
+		prevAIndex = a;
+		prevBIndex = b;
+		solve(idx+1, idx+1, b);
+		solve(idx+1, a, idx+1);
+	}
+	else{
 		
-		return;
-	}
-
-	for(int i = 0; i < map[a].size(); i++)
-	{
-		int ni = map[a][i];
-
-		if(bVisited[a][ni] == 0 && bVisited[ni][a] == 0)
-		{
-			bVisited[a][ni] = 1;
-            bVisited[ni][a] = 1;
-			solve(map[a][i], d + value[a][ni], n);
-			bVisited[a][ni] = 0;
-            bVisited[ni][a] = 0;
-		}
 	}
 }
 
-int main()
-{
-	int n = 8;
-/*	
-	std::cout << "Enter n : ";
-	std::cin >> n;
-	std::cout << std::endl;
-*/	
-	int m = 11;
-/*
-	std::cout << "Enter m : ";
-	std::cin >> m;
-	std::cout << std::endl;	
-*/
-
-	// update map by data
-	//for(std::vector<std::tuple<int, int, int> >::size_type i = 0; i < data.size(); i++)
-	for(int i = 0; i < m; i++)
-	{
-		int a, b, d;
-		auto& t = data[i];
-		std::tie(a, b, d) = t;
-
-		value[a][b] = d;
-		map[a].push_back(b);
-		value[b][a] = d;
-		map[b].push_back(a);		
-	}
-	
-	//debug();
-	
-	solve(1, 0, n-1);
-	
-	std::cout << result << std::endl;
-	
-    return 0;
+int main(){
+	return 0;
 }

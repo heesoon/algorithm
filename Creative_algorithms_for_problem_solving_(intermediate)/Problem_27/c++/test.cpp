@@ -1,20 +1,61 @@
 #include <iostream>
+#include <string>
 
 const int N = 8;
 int seq[80];
+int result = 987654321;
+
+bool isSame(int a, int b){
+    int i;
+    for( i = a; i < b; i++){
+        if(seq[i] != seq[b + i - a]){
+            break;
+        }
+    }
+
+    return (a == b) ? false : i == b;
+}
+
+bool isVaildSeq(int n){
+    int i, j;
+    for(i = n - 1, j = n; i > 0; i -= 2, j--){
+        if(isSame(i, j) == true){
+            return false;
+        }
+    }
+
+    return true;
+}
 
 void solve(int n){
 	if(n == N){
-		dd
+        int value = 0;
+		std::string str;
+        for(int i = 0; i < N; i++){
+            str.push_back(seq[i] + '0');
+        }
+
+        value = std::stol(str);
+
+        if(result > value){
+            result = value;
+        }
 		return;
 	}
 
 	for(int i = 1; i <= 3; i++){
-		solve(n+1);
+        seq[n] = i;
+        if(isVaildSeq(n) == true){
+            solve(n+1);
+        }
+        seq[n] = 0;
 	}
 }
 
 int main(){
+
+    solve(1);
+    std::cout << result << std::endl;
 	return 0;
 }
 

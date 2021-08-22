@@ -1,116 +1,93 @@
 #include <iostream>
-#include <vector>
-#include <tuple>
+#include <cmath>
 
-const int N = 11;
-int value[N][N];
-int bVisited[N][N];
-int result = 0x7fffffff;
+typedef struct
+{
+	int x;
+	int y;
+} xy_t;
 
-std::vector<std::tuple<int, int, int>> data ={
-	{1, 2, 47},
-	{1, 3, 69},
-	{2, 4, 57},
-	{2, 5, 124},
-	{3, 4, 37},
-	{3, 5, 59},
-	{3, 6, 86},
-	{4, 6, 27},
-	{4, 7, 94},
-	{5, 7, 21},
-	{6, 7, 40},
+xy_t xy[10] = {
+	{10, 1000},
+	{20, 1000},
+	{30, 1000},
+	{40, 1000},
+	{5000, 5000},
+	{1000, 60},
+	{1000, 70},
+	{1000, 80},
+	{1000, 90},
+	{7000, 7000}
 };
 
-std::vector<int> map[N];
+int path[10];
+const int cnt = 1;
+long gdistance = 987654321;
 
-void debug()
-{
-	for(int a = 0; a < N; a++)
-	{
-		for(int b = 0; b < N; b++)
-		{
-			std::cout.width(4);
-			//std::cout.fill('*');
-			std::cout << value[a][b];
-		}
-		std::cout << std::endl;
-	}
-	
-    std::cout << std::endl;
-	for(int a = 0; a < N; a++)
-	{
-        std::cout << a << " :";
-		for(int b = 0; b < map[a].size(); b++)
-		{
-			std::cout.width(2);
-			//std::cout.fill('*');
-			std::cout << map[a][b];
-		}
-		std::cout << std::endl;
-	}
+double distance(xy_t a, xy_t b){
+	//return std::ceil(std::sqrt(std::pow(a.x - b.x, 2) + std::pow(a.y - b.y, 2)));
+	return std::ceil(std::sqrt(std::pow(a.x - b.x, 2) + std::pow(a.y - b.y, 2)));
 }
 
-void solve(int a, int d, int n)
-{
-	if(a == n)
-	{
-		if(result > d)
-		{
-			result = d;
-		}
-		
+void solve(int idx, int c){
+	if(c > cnt){
 		return;
 	}
 
-	for(int i = 0; i < map[a].size(); i++)
-	{
-		int ni = map[a][i];
+	if(idx == 10){
 
-		if(bVisited[a][ni] == 0 && bVisited[ni][a] == 0)
-		{
-			bVisited[a][ni] = 1;
-            bVisited[ni][a] = 1;
-			solve(map[a][i], d + value[a][ni], n);
-			bVisited[a][ni] = 0;
-            bVisited[ni][a] = 0;
+		int prev = -1;
+		int i = 0;
+		double dist = 0;
+		for(i = 0; i < 10; i++){
+			double internalDist = 0;
+			if(path[i] == 1){
+				if(prev == -1){
+					internalDist = distance({0, 0}, xy[i]);
+					prev = i;
+				}
+				else{
+					internalDist = distance(xy[prev], xy[i]);
+					prev = i;
+				}
+			}
+
+			if(internalDist > dist){
+				dist = internalDist;
+			}
 		}
+
+		double dist2 = 0;
+		if(prev == -1){
+			dist2 = distance({0, 0}, {10000, 10000});
+		}
+		else{
+			dist2 = distance(xy[prev], {10000, 10000});
+		}
+		//std::cout << "dist2 : " << dist2 << std::endl;
+		if(dist2 > dist){
+			dist = dist2;
+		}
+
+		if(gdistance > dist){
+			gdistance = dist;
+		}
+
+		return;
 	}
+
+	path[idx] = 1;
+	solve(idx+1, c+1);
+	path[idx] = 0;
+	solve(idx+1, c);
 }
 
-int main()
-{
-	int n = 8;
-/*	
-	std::cout << "Enter n : ";
-	std::cin >> n;
-	std::cout << std::endl;
-*/	
-	int m = 11;
-/*
-	std::cout << "Enter m : ";
-	std::cin >> m;
-	std::cout << std::endl;	
-*/
+int main(){
+	solve(0, 0);
+    if((int)(gdistance/10) < (double)gdistance/10){
+        gdistance = (int)(gdistance/10) + 1;
+    }
+	std::cout << gdistance << std::endl;
 
-	// update map by data
-	//for(std::vector<std::tuple<int, int, int> >::size_type i = 0; i < data.size(); i++)
-	for(int i = 0; i < m; i++)
-	{
-		int a, b, d;
-		auto& t = data[i];
-		std::tie(a, b, d) = t;
-
-		value[a][b] = d;
-		map[a].push_back(b);
-		value[b][a] = d;
-		map[b].push_back(a);		
-	}
-	
-	//debug();
-	
-	solve(1, 0, n-1);
-	
-	std::cout << result << std::endl;
-	
-    return 0;
+	return 0;
 }

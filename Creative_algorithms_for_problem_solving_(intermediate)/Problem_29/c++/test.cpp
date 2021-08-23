@@ -11,25 +11,35 @@ char map[2][6] = {
 	{'G', 'R', 'G', 'G', 'N', 'S'}
 };
 
-void solve(int c, int col, std::string str){
-	if(col == N){
-		if(ans == str){
-			cnt++;
-		}
+void solve(int x, int y, int d, std::string str){
+    //std::cout << x << ", " << y << ", " << str << std::endl;
+    
+	if(x == N){
+        std::cout << x << ", " << y << ", " << str << std::endl;
+       	if(ans == str){
+        	cnt++;
+			std::cout << x << ", " << y << ", " << "cnt : " << cnt << std::endl;
+        }
+		//std::cout <<" -------> " << x << ", " << y << ", " << str << std::endl;
 		return;
 	}
 
-	std::cout << "c : " << c << ", " << "col : " << col << ", " << str << std::endl;
-
-	for(int idx = col+1; idx < N; idx++){
-		solve(c+1, idx, str+map[c%2][col]);
-		solve(c+1, idx, str+map[(c+1)%2][col]);
+	for(int idx = x+1; idx < N+1; idx++){
+		solve(idx, (d+1)%2, d+1, str+map[y][x]);
 	}
 }
 
 int main(){
-	std::string str;
-	solve(0, 0, str);
+    std::string str;
+	for(int y = 0; y < 2; y++){
+		for(int x = 0; x < N; x++){
+            str.clear();
+			if(map[y][x] == 'R'){
+				std::cout << " start ======== " << std::endl;
+				solve(x, y, y, str);
+			}
+		}
+	}
 	std::cout << cnt << std::endl;
 	return 0;
 }

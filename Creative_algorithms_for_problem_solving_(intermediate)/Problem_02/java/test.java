@@ -1,5 +1,5 @@
 // refer : https://www.delftstack.com/ko/howto/java/how-to-add-new-elements-to-an-array-in-java/
-
+// refer : https://djkeh.github.io/articles/Why-should-final-member-variables-be-conventionally-static-in-Java-kor/
 import java.util.ArrayList;
 import java.util.Collections;
 

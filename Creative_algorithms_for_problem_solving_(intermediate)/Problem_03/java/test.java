@@ -72,7 +72,7 @@ public class Main{
 			}
 		}
 
-		Collections.sort(result);
+		Collections.sort(result, Collections.reverseOrder());
 
 		System.out.println(roof - 1);
 		for(int d : result){

@@ -22,9 +22,8 @@ std::vector<std::string> tc = {
 
 int dy[8] = {0, 1, 1, 1, 0, -1, -1, -1};
 int dx[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
-int v[N][N];
 
-bool in_map(int y, int x){
+bool is_in_range(int y, int x){
     if((y >= 0 && y < N) && (x >= 0 && x < N)){
         return true;
     }
@@ -32,44 +31,53 @@ bool in_map(int y, int x){
     return false;
 }
 
-int solve(int idx, int y, int x, const std::string &str){
-    int r = 0;
-    if(idx == str.size()){
-        r = 1;
+bool solve(int y, int x, const std::string &str){
+    bool ret = false;
+
+    if(is_in_range(y, x) == false){
+        return false;
+    }
+
+    if(map[y][x] != str[0]){
+        return false;
+    }
+
+    if(str.size() == 1){
+        return true;
     }
 
     for(int i = 0; i < 8; i++){
         int ny = y + dy[i];
         int nx = x + dx[i];
 
-        if(in_map(ny, nx) == true && v[ny][nx] == 0){
-            if(str[idx] == map[ny][nx]){
-                v[ny][nx] = 1;
-                r += solve(idx+1, ny, nx, str);
-                v[ny][nx] = 0;
-            }
+        if(solve(ny, nx, str.substr(1)) == true){
+            return true;
         }
     }
 
-    return r;
+    return ret;
 }
 
 int main(){
-    for(auto &str : tc){
-        int result = 0;
+
+    for(int i = 0; i < tc.size(); i++){
+        bool hasword = false;
         for(int y = 0; y < N; y++){
             for(int x = 0; x < N; x++){
-                if(str[0] == map[y][x]){
-                    v[y][x] = 1;
-                    result += solve(1, y, x, str);
-                    v[y][x] = 0;
+                hasword = solve(y, x, tc[i]);
+                if(hasword == true){
+                    break;
                 }
             }
+            if(hasword == true){
+                break;
+            }
         }
-        std::cout << str << " ";
-        if(result > 0) std::cout << "YES";
+
+        std::cout << tc[i] << " ";
+        if(hasword == true) std::cout << "YES";
         else std::cout << "NO";
-        std::cout << "\n";
+        std::cout << std::endl;
     }
 
     return 0;

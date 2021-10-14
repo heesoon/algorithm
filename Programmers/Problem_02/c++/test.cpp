@@ -1,26 +1,21 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 bool solution(vector<string> phone_book) {
     bool answer = true;
-    std::sort(phone_book.begin(), phone_book.end(), [](std::string a, std::string b){
-        return a.size() < b.size();
-    });
-
-    for(std::vector<std::string>::size_type i = 0; i < phone_book.size() - 1; i++){
-        for(std::vector<std::string>::size_type j = i+1; j < phone_book.size(); j++){
-            //if(phone_book[i].size() > phone_book[j].size()){
-            //    continue;
-            //}
-
-            if(phone_book[i] == phone_book[j].substr(0, phone_book[i].size())){
-                //std::cout << phone_book[i] << ", " << phone_book[j].substr(0, phone_book[i].size()) << std::endl;
+    std::unordered_map<std::string, int> map;
+    for(auto book : phone_book){
+        for(std::string::size_type i = 1; i <= book.size(); i++){
+            std::string idxString = book.substr(0, i);
+            if(map.find(idxString) != map.end()){
                 return false;
             }
         }
+        map[book] = 1;
     }
 
     return answer;

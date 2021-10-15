@@ -8,14 +8,18 @@ using namespace std;
 bool solution(vector<string> phone_book) {
     bool answer = true;
     std::unordered_map<std::string, int> map;
+
+    for(const auto& book : phone_book){
+        map[book] = 1;
+    }
+
     for(auto book : phone_book){
-        for(std::string::size_type i = 1; i <= book.size(); i++){
+        for(std::string::size_type i = 1; i < book.size(); i++){
             std::string idxString = book.substr(0, i);
             if(map.find(idxString) != map.end()){
                 return false;
             }
         }
-        map[book] = 1;
     }
 
     return answer;

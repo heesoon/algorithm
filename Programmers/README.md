@@ -80,3 +80,30 @@ Programmers (https://programmers.co.kr/)
 
 * [Problem_27] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_27)
   * 도둑질 (동적계획법)
+
+* [Problem_28] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_28)
+  * 타켓 넘버 (깊이/너비 우선 탐색(DFS/BFS))
+
+* [Problem_29] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_29)
+  * 네트워크 (깊이/너비 우선 탐색(DFS/BFS))
+
+* [Problem_30] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_30)
+  * 단어 변환 (깊이/너비 우선 탐색(DFS/BFS))
+
+* [Problem_31] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_31)
+  * 여행경로 (깊이/너비 우선 탐색(DFS/BFS))
+
+* [Problem_32] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_32)
+  * 입국심사 (이분탐색)
+
+* [Problem_33] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_33)
+  * 징검다리 (이분탐색)
+
+* [Problem_34] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_34)
+  * 가장 먼 노드 (그래프)
+
+* [Problem_35] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_35)
+  * 순위 (그래프)
+
+* [Problem_36] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_36)
+  * 방의 개수 (그래프)

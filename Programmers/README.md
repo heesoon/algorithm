@@ -41,3 +41,30 @@ Programmers (https://programmers.co.kr/)
 
 * [Problem_14] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_14)
   * H-Index (정렬)
+  
+* [Problem_15] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_15)
+  * 모의고사 (완전탐색)
+
+* [Problem_16] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_16)
+  * 소수 찾기 (완전탐색)
+  
+* [Problem_17] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_17)
+  * 카펫 (완전탐색)
+
+* [Problem_18] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_18)
+  * 체육복 (탐욕법)
+
+* [Problem_19] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_19)
+  * 조이스틱 (탐욕법)
+
+* [Problem_20] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_20)
+  * 큰 수 만들기 (탐욕법)
+
+* [Problem_21] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_21)
+  * 구명보트 (탐욕법)
+
+* [Problem_22] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_22)
+  * 섬 연결하기 (탐욕법)
+
+* [Problem_23] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_23)
+  * 단속카메라 (탐욕법)

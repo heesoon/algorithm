@@ -68,3 +68,15 @@ Programmers (https://programmers.co.kr/)
 
 * [Problem_23] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_23)
   * 단속카메라 (탐욕법)
+
+* [Problem_24] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_24)
+  * N으로 표현 (동적계획법)
+
+* [Problem_25] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_25)
+  * 정수 삼각형 (동적계획법)
+
+* [Problem_26] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_26)
+  * 등굣길 (동적계획법)
+
+* [Problem_27] (https://github.com/heesoon/algorithm/tree/develop/Programmers/Problem_27)
+  * 도둑질 (동적계획법)

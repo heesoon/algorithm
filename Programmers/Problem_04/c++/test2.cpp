@@ -8,6 +8,12 @@
 
 using namespace std;
 
+struct cmp{
+    bool operator()(const std::pair<int, int> &a, const std::pair<int, int> &b){
+        return a.second < b.second; 
+    }
+};
+
 vector<int> solution(vector<string> genres, vector<int> plays) {
     vector<int> answer;
 
@@ -20,7 +26,7 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
     std::unordered_map<std::string, std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, decltype(cmp)>> best_genres_play(cmp);
 #else
 
-    std::unordered_map<std::string, std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, decltype(cmp)>> best_genres_play(cmp);
+    std::unordered_map<std::string, std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, cmp>> best_genres_play;
 #endif
 
 
@@ -37,9 +43,10 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
     for(const auto& v : ordered_best_genres){
         int cnt = 0;
         while(best_genres_play[v.first].empty() == false){
-            answer.push_back(best_genres_play[v.first].top());
+            //std::cout << cnt << ", " << v.first << ", " << best_genres_play[v.first].top().first << std::endl;
+            answer.push_back(best_genres_play[v.first].top().first);
             best_genres_play[v.first].pop();
-            if(cnt++ > 1){
+            if(cnt++ >= 1){
                 break;
             }
         } 

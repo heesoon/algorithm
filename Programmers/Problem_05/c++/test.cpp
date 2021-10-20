@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -5,6 +6,29 @@ using namespace std;
 
 vector<int> solution(vector<int> progresses, vector<int> speeds) {
     vector<int> answer;
+
+    while(progresses.size() > 0){
+        //std::cout << progresses.size() << std::endl;
+        for(std::vector<int>::size_type i = 0; i < progresses.size(); i++){
+            progresses[i] = progresses[i] + speeds[i];
+        }
+
+        int cnt = 0;
+        while(progresses.front() >= 100 && progresses.empty() == false){
+            //std::cout << progresses.front() << std::endl;
+            progresses.erase(progresses.begin());
+            speeds.erase(speeds.begin());
+            cnt++;
+        }
+        
+        //std::cout << cnt << std::endl;
+
+        if(cnt > 0 ){
+            //std::cout << cnt << std::endl;
+            answer.push_back(cnt);
+         }
+    }
+
     return answer;
 }
 

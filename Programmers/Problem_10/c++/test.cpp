@@ -2,50 +2,52 @@
 #include <string>
 #include <vector>
 #include <queue>
-#include <tuple>
+#include <algorithm>
 
 using namespace std;
 
 int solution(vector<vector<int>> jobs) {
     int answer = 0;
-    bool bstart = true;
-    int first_start_time = 0;
-    int prev_end_time = 0;
-    int total = 0;
+    int time = 0;
 
-    auto cmp = [](const std::tuple<int,int> &a, const std::tuple<int,int> &b){
-        if(std::get<0>(b) + std::get<1>(b) - std::get<0>(a) < std::get<0>(a) + std::get<1>(a) - std::get<0>(b)){
-            return true;
-        }
-        return false;
+    std::sort(jobs.begin(), jobs.end(), [](const std::vector<int> &a, const std::vector<int> &b){
+        return a[0] < b[0];
+    });
+
+    auto cmp = [](const std::vector<int> &a, const std::vector<int> &b){
+        return a[1] > b[1];
     };
-    std::priority_queue<std::tuple<int,int>, std::vector<std::tuple<int,int>>, decltype(cmp)> pq(cmp);
+    std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, decltype(cmp)> pq(cmp);
 
-    for(const auto& v : jobs){
-        pq.push({v[0], v[1]});
-    }
-
-    while(!pq.empty()){
-        auto top = pq.top();
-        //std::cout << std::get<0>(top) << ", " << std::get<1>(top) << std::endl;
-        pq.pop();
-        if(bstart == true){
-            first_start_time = std::get<0>(top);
-            prev_end_time = first_start_time + std::get<1>(top);
-            bstart = false;
-            total = std::get<1>(top);
-            continue;
+    int i = 0;
+    time = jobs[0][0];
+    while(!pq.empty() || i < jobs.size()){
+        if(i < jobs.size()){
+            if(time >= jobs[i][0]){
+                pq.push({jobs[i][0], jobs[i][1]});
+                i++;
+            }
+            else{
+                if(!pq.empty()){
+                    auto top = pq.top();
+                    pq.pop();
+                    answer += (time - top[0] + top[1]); 
+                    time += top[1];
+                }
+            }
         }
-
-        int start_time = std::get<0>(top);
-        int end_time = prev_end_time + std::get<1>(top);
-        total += std::get<1>(top) + (prev_end_time - start_time);
-        prev_end_time = end_time;
+        else{
+            if(!pq.empty()){
+                auto top = pq.top();
+                pq.pop();
+                answer += (time - top[0] + top[1]); 
+                time += top[1];
+            }
+        }
     }
 
-    answer = total/jobs.size();
-    //std::cout << answer << std::endl;
-    return answer;
+    //std::cout << answer/jobs.size() << std::endl;
+    return answer/jobs.size();
 }
 
 void tc1(){

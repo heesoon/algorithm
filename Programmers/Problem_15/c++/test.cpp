@@ -13,11 +13,22 @@ vector<int> solution(vector<int> answers) {
     std::vector<int> b{2, 1, 2, 3, 2, 4, 2, 5};
     std::vector<int> c{3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
     std::vector<std::vector<int>> answer_sheets;
-    int repeat = (answers.size() > c.size() ? static_cast<int>(log2(static_cast<double>((answers.size() + 1)/c.size()))) : 0);
+    //int repeat = (answers.size() > c.size() ? static_cast<int>(log2(static_cast<double>((answers.size() + 1)/c.size()))) : 0);
 
-    for(int i = 0; i < repeat; i++){
+    //std::cout << answers.size() << ", " << static_cast<int>(log2(static_cast<double>(40/10))) <<std::endl;
+    //for(int i = 0; i < repeat; i++){
+    //    a.insert(a.end(), a.begin(), a.end());
+    //    b.insert(b.end(), b.begin(), b.end());
+    //    c.insert(c.end(), c.begin(), c.end());
+    //}
+
+    while(a.size() < answers.size()){
         a.insert(a.end(), a.begin(), a.end());
+    }
+    while(b.size() < answers.size()){
         b.insert(b.end(), b.begin(), b.end());
+    }
+    while(c.size() < answers.size()){
         c.insert(c.end(), c.begin(), c.end());
     }
 
@@ -43,6 +54,7 @@ vector<int> solution(vector<int> answers) {
             answer.push_back(counter[i][0]);
         }
     }
+
     return answer;
 }
 
@@ -70,8 +82,50 @@ void tc2(){
     }
 }
 
+void tc3(){
+    std::vector<int> answers = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+
+    std::vector<int> answer = solution(answers);
+    if(answer == std::vector<int>({1})){
+        std::cout << "Success" << std::endl;
+    }
+    else{
+        std::cout << "Fail" << std::endl;
+    }
+}
+
 int main(){
     tc1();
 	tc2();
+    tc3();
     return 0;
 }
+
+/*
+<<< good code >>>
+
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+vector<int> one = {1,2,3,4,5};
+vector<int> two = {2,1,2,3,2,4,2,5};
+vector<int> thr = {3,3,1,1,2,2,4,4,5,5};
+
+vector<int> solution(vector<int> answers) {
+    vector<int> answer;
+    vector<int> they(3);
+    for(int i=0; i<answers.size(); i++) {
+        if(answers[i] == one[i%one.size()]) they[0]++;
+        if(answers[i] == two[i%two.size()]) they[1]++;
+        if(answers[i] == thr[i%thr.size()]) they[2]++;
+    }
+    int they_max = *max_element(they.begin(),they.end());
+    for(int i = 0; i< 3; i++) {
+        if(they[i] == they_max) answer.push_back(i+1);
+    }
+    return answer;
+}
+*/

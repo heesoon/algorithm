@@ -1,40 +1,64 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int solution(string name) {
     int answer = 0;
-    int cnt_left = 0;
-    int cnt_right = 0;
-    std::string init(name.size(), 'A');
-    std::string str_left(name.size(), 'A');
-    std::string str_right(name.size(), 'A');
+    int cIdx = 0;
+    int lIdx = 0, lCnt = 0;
+    int rIdx = 0, rCnt = 0;
+    std::string str(name.size(), 'A');
 
-    for(int i = 0; i < name.size(); i++){
-        // go right
-        cnt_right += (name[i] - 'A' > 'Z' - name[i] + 1 ? 'Z' - name[i] + 1 : name[i] - 'A');
-        //std::cout << "in : " << name[i] << ", " << name[i] - 'A' << ", " << 'Z' - name[i] + 1 << std::endl;
-        std::cout << "in : " << name[i] << ", " << int(name[i]) << " : " << name[i] - 'A' << ", " << 'Z' - name[i] + 1 << std::endl;
-        str_right[i] = name[i];
+    //for(int cIdx = 0; cIdx < name.size(); cIdx++){
+    while(1){
 
-        // go left
-        cnt_left += (name[name.size() - 1 - i] - 'A' > 'Z' - name[name.size() - 1 - i] + 1 ? 'Z' - name[name.size() - 1 - i] + 1 : name[name.size() - 1 - i] - 'A');
-        str_left[name.size() - 1 - i] = name[name.size() - 1 - i];
+        if(str == name){
+            break;
+        }
+
+        //answer += std::min(name[cIdx] - 'A', 'Z' - name[cIdx] + 1);
+        str[cIdx] = name[cIdx];
+    
+        // count of going right
+        rCnt = 0;
+        std::cout << "-------------" << std::endl;
+        while(str[rIdx] == name[rIdx]){
+            rCnt++;
+             std::cout << "rIdx : " << rIdx <<", " << "rCnt : " << rCnt << " => " <<   (rIdx + rCnt) % name.size() << std::endl;
+            rIdx = (rIdx + rCnt) % name.size();
+            if(rCnt == name.size() - 1){
+                break;
+            }
+        }
+
+        // count of going left
+        lCnt = 0;
+        std::cout << "-------------" << std::endl;
+        while(str[lIdx] == name[lIdx]){
+            lCnt++;
+            std::cout << "lIdx : " << lIdx <<", " << "lCnt : " << lCnt << " => " <<  name.size() - (lIdx + lCnt) % name.size() << std::endl;
+            lIdx = name.size() - 1 - (lIdx + lCnt) % name.size();
+            if(lCnt == name.size() - 1){
+                break;
+            }
+        }
+
+        if(rCnt > lCnt){
+            answer += lCnt;
+            cIdx = lIdx;
+        }
+        else{
+            answer += rCnt;
+            cIdx = rIdx;
+        }
+
+        lIdx = rIdx = cIdx;
     }
 
-    cnt_right += (name.size() - 1);
-    cnt_left += (name.size());
-    std::cout << cnt_left << ", " << cnt_right << std::endl;
-    if(init == str_left){
-        answer = 0;
-    }
-    else{
-        answer = cnt_right >= cnt_left ? cnt_left : cnt_right;
-    }
-
-    std::cout << "answer : " << answer << std::endl;
+    std::cout << answer << std::endl;
     return answer;
 }
 
@@ -63,7 +87,7 @@ void tc2(){
 }
 
 int main(){
-    tc1();
+    //tc1();
 	tc2();
     return 0;
 }

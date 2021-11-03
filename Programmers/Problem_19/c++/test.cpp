@@ -18,31 +18,23 @@ int solution(string name) {
         if(str == name){
             break;
         }
-
-        //answer += std::min(name[cIdx] - 'A', 'Z' - name[cIdx] + 1);
-        str[cIdx] = name[cIdx];
     
         // count of going right
         rCnt = 0;
-        std::cout << "-------------" << std::endl;
         while(str[rIdx] == name[rIdx]){
             rCnt++;
-             std::cout << "rIdx : " << rIdx <<", " << "rCnt : " << rCnt << " => " <<   (rIdx + rCnt) % name.size() << std::endl;
-            rIdx = (rIdx + rCnt) % name.size();
-            if(rCnt == name.size() - 1){
-                break;
-            }
+            rIdx++;
+            rIdx = rIdx % name.size();
         }
 
         // count of going left
         lCnt = 0;
-        std::cout << "-------------" << std::endl;
         while(str[lIdx] == name[lIdx]){
             lCnt++;
-            std::cout << "lIdx : " << lIdx <<", " << "lCnt : " << lCnt << " => " <<  name.size() - (lIdx + lCnt) % name.size() << std::endl;
-            lIdx = name.size() - 1 - (lIdx + lCnt) % name.size();
-            if(lCnt == name.size() - 1){
-                break;
+            lIdx--;
+            //lIdx = name.size() + (lIdx % name.size()) - 1;
+            if(lIdx < 0){
+                lIdx = name.size() - 1;
             }
         }
 
@@ -56,9 +48,10 @@ int solution(string name) {
         }
 
         lIdx = rIdx = cIdx;
+        answer += std::min(name[cIdx] - 'A', 'Z' - name[cIdx] + 1);
+        str[cIdx] = name[cIdx];        
     }
 
-    std::cout << answer << std::endl;
     return answer;
 }
 
@@ -86,8 +79,21 @@ void tc2(){
     }
 }
 
+void tc3(){
+	std::string name = "AAABB";
+
+    int answer = solution(name);
+    if(answer == 4){
+        std::cout << "Success" << std::endl;
+    }
+    else{
+        std::cout << "Fail" << std::endl;
+    }
+}
+
 int main(){
-    //tc1();
+    tc1();
 	tc2();
+    tc3();
     return 0;
 }

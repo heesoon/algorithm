@@ -1,3 +1,4 @@
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -5,6 +6,27 @@ using namespace std;
 
 string solution(string number, int k) {
     string answer = "";
+    int cnt = 0;
+
+    int idx = 0, sIdx = 0, eIdx = k + cnt;
+    int vMax = 0, iMax = 0;
+    while(cnt < number.size() - k){
+        vMax = 0;
+        for(idx = sIdx; idx <= eIdx; idx++){
+            if(vMax < number[idx]){
+                vMax = number[idx];
+                iMax = idx;
+            }
+        }
+        
+        //std::cout << "sIdx : " << sIdx << ", " << "eIdx : " << eIdx << ", " << "iMax : " << iMax << std::endl;
+        cnt++;
+        sIdx = iMax + 1;
+        eIdx =  k + cnt;
+        answer += vMax;
+    }
+
+    //std::cout << answer << std::endl;
     return answer;
 }
 
@@ -53,3 +75,32 @@ int main(){
 	tc3();
     return 0;
 }
+
+/*
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+string solution(string number, int k) {
+    string answer = "";
+    answer = number.substr(k); 
+    for(int i = k-1;i >=0;i--){
+        int j = 0;
+        do{
+            if(number[i] >= answer[j]){
+                char temp = answer[j];
+                answer[j] = number[i];
+                number[i] = temp;
+                j++;
+            }else{
+                break;
+            }
+        }while(1);
+    }
+
+
+
+    return answer;
+}
+*/

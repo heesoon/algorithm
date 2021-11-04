@@ -1,10 +1,27 @@
+#include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int solution(vector<int> people, int limit) {
     int answer = 0;
+    int lIdx = 0, rIdx = people.size() - 1;
+    std::sort(people.begin(), people.end(), std::less<int>());
+    
+    while(lIdx <= rIdx){
+        if(people[rIdx] + people[lIdx] <= limit){
+            rIdx--;
+            lIdx++;
+            answer++;
+        }
+        else{
+            rIdx--;
+            answer++;
+        }
+    }
+
     return answer;
 }
 

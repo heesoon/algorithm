@@ -5,15 +5,19 @@
 
 using namespace std;
 
-int getParents(const std::vector<int> &db, int node){
-    return db[node];
+int getParents(std::vector<int> &db, int node){
+    if(node == db[node]){
+        return node;
+    }
+
+    return db[node] = getParents(db, db[node]);
 }
 
 int solution(int n, vector<vector<int>> costs) {
     int answer = 0;
 
     std::vector<int> parentDB;
-    for(size_t i = 0; i < costs.size(); i++){
+    for(size_t i = 0; i < n; i++){
         parentDB.emplace_back(i);
     }
 
@@ -22,19 +26,12 @@ int solution(int n, vector<vector<int>> costs) {
     });
 
     for(const auto &v : costs){
-        int a = std::min(v[0], v[1]);
-        int b = std::max(v[0], v[1]);
-        int c = v[2];
+        int a = getParents(parentDB, v[0]);
+        int b = getParents(parentDB, v[1]);
 
-        int pa = getParents(parentDB, a);
-        int pb = getParents(parentDB, b);
-
-        if(pa == pb){
-            continue;
-        }
-        else{
+        if(a != b){
             parentDB[b] = a;
-            answer += c;
+            answer += v[2];
         }
     }
 

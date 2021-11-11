@@ -7,16 +7,27 @@ using namespace std;
 
 int solution(vector<int> money) {
     int answer = 0;
-    std::vector<int> dp(money.size(), 0);
+    std::vector<int> dpA(money.size(), 0);
+    std::vector<int> dpB(money.size(), 0);
 
-    dp[0] = money[0];
-    dp[1] = std::max(money[0], money[1]);
+    dpA[0] = money[0];
+    dpA[1] = std::max(money[0], money[1]);
 
-    for(int i = 2; i < money.size(); i++){
-        dp[i] = std::max(d[i-1], dp[i-2] + money[i]);
+    for(int i = 2; i < money.size() - 1; i++){
+        dpA[i] = std::max(dpA[i-1], dpA[i-2] + money[i]);
     }
 
-    return answer;
+    dpB[0] = 0;
+    dpB[1] = money[1];
+
+    for(int i = 2; i < money.size(); i++){
+        dpB[i] = std::max(dpB[i-1], dpB[i-2] + money[i]);
+    }
+
+    //answer = std::max(dpA[money.size() - 2], dpB[money.size() - 1]);
+
+    //std::cout << answer << std::endl;
+    return std::max(dpA[money.size() - 2], dpB[money.size() - 1]);
 }
 
 void tc1(){

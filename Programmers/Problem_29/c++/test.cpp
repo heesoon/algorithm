@@ -4,25 +4,23 @@
 
 using namespace std;
 
-bool dfs(int idx, vector<vector<int>> computers){
-    if(computers[idx][idx] == 0) return false;
-
-    computers[idx][idx] = 0;
-
-    for(int i = 0; i < computers.size(); i++){
-        if(computers[idx][i] == 1){
-            dfs(i, computers);
-        } 
+std::vector<int> visited;
+void dfs(int idx, vector<vector<int>> computers){
+    for(int next = 0; next < computers.size(); next++){
+        if(computers[idx][next] == 1 && visited[next] == 0){
+            visited[next] = 1;
+            dfs(next, computers);
+        }
     }
-
-    return true;
 }
 
 int solution(int n, vector<vector<int>> computers) {
     int answer = 0;
 
+    visited.assign(n, 0);
     for(int i = 0; i < n; i++){
-        if(computers[i][i] && dfs(i, computers)){
+        if(visited[i] == 0){
+            dfs(i, computers);
             answer++;
         }
     }

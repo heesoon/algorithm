@@ -5,26 +5,20 @@
 
 using namespace std;
 
-int nextValue(int N, int i){
-    int retval = 0;
-
-    if(i == 0){
-        retval = N - 1;    
-    }
-    else if(i == 1){
-        retval = N + 1;
-    }
-    else{
-        retval = N*2;
+bool valid(int n, const std::vector<bool> &visited){
+    if(n < 0 || n > 100'000 || visited[n]){
+        return false;
     }
 
-    return retval;
+    return true;
 }
 
-int solution(int N, int K) {
-    int answer = 0;
+std::vector<int> solution(int N, int K) {
+    int next = 0;
+    int minCost = 0;
+    int minPathCnt = 0;
     std::queue<std::vector<int>> Q;
-    std::vector<bool> visited(K+1, false);
+    std::vector<bool> visited(100'001, false);
     Q.push({N, 0});
     visited[N] = true;
 
@@ -34,29 +28,45 @@ int solution(int N, int K) {
         int depth = front[1];
         Q.pop();
 
-        if(curr == K){
-            answer = depth;
-            break;
+        visited[K] = false;
+
+        if(minCost == depth && curr == K){
+            minPathCnt++;
         }
 
-        for(int i = 0; i < 3; i++){
-            int next = nextValue(curr, i);
-            if(visited[next] == false){
-                visited[next] = true;
-                Q.push({next, depth+1});
-            }
+        if(!minCost && curr == K){
+            minCost = depth;
+            minPathCnt++;
         }
+
+        next = curr - 1;
+        if(valid(next, visited)){
+            visited[next] = true;
+            Q.push({next, depth + 1});
+        }
+
+        next = curr + 1;
+        if(valid(next, visited)){
+            visited[next] = true;
+            Q.push({next, depth + 1});
+        }
+
+        next = curr*2;
+        if(valid(next, visited)){
+            visited[next] = true;
+            Q.push({next, depth + 1});
+        }     
     }
 
-    return answer;
+    std::cout << minCost << " , " << minPathCnt << std::endl;
+    return {minCost, minPathCnt};
 }
 
 void tc1(){
     int N = 5;
     int K = 17;
-    int answer = 4;
 
-    if(answer == solution(N, K)){
+    if(std::vector<int>{4, 2} == solution(N, K)){
         std::cout << "success" << std::endl;
     }
     else{

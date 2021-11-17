@@ -15,6 +15,7 @@ bool valid(int n, const std::vector<bool> &visited){
 
 int solution(int N, int K) {
     int answer = 0;
+    int next = 0;
     std::queue<std::vector<int>> Q;
     std::vector<bool> visited(100'001, false);
     Q.push({N, 0});
@@ -31,20 +32,23 @@ int solution(int N, int K) {
             break;
         }
 
-        if(valid(curr - 1, visited)){
-            visited[curr - 1] = true;
-            Q.push({curr - 1, depth + 1});
+        next = curr - 1;
+        if(valid(next, visited)){
+            visited[next] = true;
+            Q.push({next, depth + 1});
         }
 
-        if(valid(curr + 1, visited)){
-            visited[curr + 1] = true;
-            Q.push({curr + 1, depth + 1});
+        next = curr + 1;
+        if(valid(next, visited)){
+            visited[next] = true;
+            Q.push({next, depth + 1});
         }
 
-        if(valid(curr * 2, visited)){
-            visited[curr * 2] = true;
-            Q.push({curr * 2, depth + 1});
-        }        
+        next = curr*2;
+        if(valid(next, visited)){
+            visited[next] = true;
+            Q.push({next, depth + 1});
+        }     
     }
 
     return answer;

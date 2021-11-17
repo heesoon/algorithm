@@ -5,13 +5,7 @@
 
 using namespace std;
 
-bool valid(int n, int K, const std::vector<bool> &visited){
-    if(n < 0 || n > 100'000 || visited[n] || n > K + 1){
-        return false;
-    }
-
-    return true;
-}
+#define LIMIT 100'000
 
 void solution(int N, int K) {
     int next = 0;
@@ -40,22 +34,22 @@ void solution(int N, int K) {
         }
 
         next = curr - 1;
-        if(valid(next, K, visited)){
+        if(next >= 0 && visited[next] == false){
             visited[next] = true;
             Q.push({next, depth + 1});
         }
 
         next = curr + 1;
-        if(valid(next, K, visited)){
+        if(next <= LIMIT && visited[next] == false){
             visited[next] = true;
             Q.push({next, depth + 1});
         }
 
         next = curr*2;
-        if(valid(next, K, visited)){
+        if(next <= LIMIT && visited[next] == false){
             visited[next] = true;
             Q.push({next, depth + 1});
-        }     
+        }
     }
 
     std::cout << minCost << std::endl;

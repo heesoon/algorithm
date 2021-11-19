@@ -3,58 +3,57 @@
 #include <queue>
 
 using namespace std;
-
-bool valid(int n, const std::vector<bool> &visited){
-    if(n < 0 || n > 100'000 || visited[n]){
-        return false;
-    }
-
-    return true;
-}
+const int MAX = 100'000 + 1;
+bool visited[MAX];
+int parents[MAX];
+std::vector<int> shortPath;
 
 int solution(int N, int K) {
     int answer = 0;
-    int next = 0;
-
-    std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, std::greater<std::vector<int>>> Q;
-    //std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
-    std::vector<bool> visited(100'001, false);
-    //Q.push(make_pair(0, N));
-    Q.push({0, N});
+    int nextNode = 0;
+    std::queue<std::vector<int>> Q;
+    Q.push({N, 0});
     visited[N] = true;
+    //parents[N] = N;
 
     while(!Q.empty()){
-        auto front = Q.top();
-        int depth = front[0];
-        int curr = front[1];
-        //int depth = Q.top().first;
-        //int curr = Q.top().second;        
+        int curNode = Q.front()[0];
+        int elapseTime = Q.front()[1];
         Q.pop();
 
-        if(curr == K){
-            answer = depth;
+        if(curNode == K){
+            answer = elapseTime;
+            int node = curNode;
+            while(node != N){
+                auto it = shortPath.begin();
+                shortPath.insert(it, node);
+                node = parents[node];
+            }
+
+            auto it = shortPath.begin();
+            shortPath.insert(it, N);
             break;
         }
 
-        next = curr*2;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth, next});
-            //Q.push(make_pair(depth, next));
+        nextNode = curNode*2;
+        if(nextNode < MAX && !visited[nextNode]){
+            visited[nextNode] = true;
+            parents[nextNode] = curNode;
+            Q.push({nextNode, elapseTime+1});
         }
 
-        next = curr - 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
+        nextNode = curNode - 1;
+        if(nextNode >= 0 && !visited[nextNode]){
+            visited[nextNode] = true;
+            parents[nextNode] = curNode;
+            Q.push({nextNode, elapseTime+1});
         }
 
-        next = curr + 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
+        nextNode = curNode + 1;
+        if(nextNode < MAX && !visited[nextNode]){
+            visited[nextNode] = true;
+            parents[nextNode] = curNode;
+            Q.push({nextNode, elapseTime+1});
         }
     }
 
@@ -64,7 +63,12 @@ int solution(int N, int K) {
 int main(){   
     int N, K;
     std::cin >> N >> K;
+    std::cout << solution(N, K) << std::endl;
 
-    std::cout << solution(N, K);
+    for(const auto &v : shortPath){
+        std::cout << v << " ";
+    }
+    std::cout << "\n";
+
     return 0;
 }

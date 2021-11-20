@@ -5,6 +5,11 @@ nCk는 n개 중에서 k개를 고르는 방법의 수이다.
 
 nCk를 구하는 일반식은 다음과 같다.
 
+<br>
+<div align="center">
+<img src="./img/combination.png" align="center">
+</div>
+<br>
 
 $$\begin{pmatrix}n\\k\\ \end{pmatrix} = \frac{n(n-1)\dots(n-k+1)}{k(k-1)\dots1} = \frac{n!}{k!(n-k)!}$$
 

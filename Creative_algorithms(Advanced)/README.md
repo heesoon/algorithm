@@ -6,4 +6,4 @@ https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=codingbuskin
 
 * [Problem_01](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_01)
   * combination (S)    
-    * Related Problem : BeakJoon 1010
+    * Related Problem : BeakJoon 1010 (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/1010)

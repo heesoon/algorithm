@@ -5,7 +5,9 @@ nCk는 n개 중에서 k개를 고르는 방법의 수이다.
 
 nCk를 구하는 일반식은 다음과 같다.
 
-$\begin{pmatrix}n\\k\\ \end{pmatrix} = \frac{n(n-1)\dots(n-k+1)}{k(k-1)\dots1} = \frac{n!}{k!(n-k)!}$
+
+$$\begin{pmatrix}n\\k\\ \end{pmatrix} = \frac{n(n-1)\dots(n-k+1)}{k(k-1)\dots1} = \frac{n!}{k!(n-k)!}$$
+
 
 위 식은 n!을 이용하기 때문에 n이 커지면 overflow가 발생하여 정확한 값을 구할 수 없다.
 물론 위 방법 이외에도 다양한 점화식으로도 구할 수 있다.

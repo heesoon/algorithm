@@ -2,6 +2,8 @@
 ==========================================================================================
 
 인터넷에 배포되어 있는 문제집을 개인적인 공부 목적으로 정리하였음.
+https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=codingbusking&logNo=221461160450
 
 * [Problem_01](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_01)
-  * combination (S)
+  * combination (S)    
+    * Related Problem : BeakJoon 1010

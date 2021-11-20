@@ -62,8 +62,22 @@ void tc2(){
     }
 }
 
+void tc3(){
+    int n = 29;
+    int k = 13;
+
+    long long answer = solution(n, k);
+    if(answer == 67863915){
+        std::cout << "Success" << std::endl;
+    }
+    else{
+        std::cout << "Fail" << std::endl;
+    }
+}
+
 int main(){
     tc1();
     tc2();
+    tc3();
     return 0;
 }

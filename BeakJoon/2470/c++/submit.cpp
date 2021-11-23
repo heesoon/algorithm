@@ -4,29 +4,9 @@
 
 using namespace std;
 
-int INF = 2'000'000'000;
+int MIN = 2'000'000'000;
 std::vector<int> v;
 std::vector<int> answer(2, 0);
-
-#if 0
-void solution(int n) {
-    for(int i = 0; i < n-1; i++){
-        for(int j = i+1; j < n; j++){
-            if(INF > abs(v[i] + v[j])){
-                INF = v[i] + v[j];
-                if(v[i] > v[j]){
-                    answer[0] = v[j];
-                    answer[1] = v[i];
-                }
-                else{
-                    answer[0] = v[i];
-                    answer[1] = v[j];
-                }
-            }
-        }
-    }
-}
-#endif
 
 void solution(int n) {
     int start = 0;
@@ -34,33 +14,20 @@ void solution(int n) {
 
     std::sort(v.begin(), v.end(), std::less<int>());
     
-    for(const auto x : v)
-    {
-        std::cout << x << " ";
-    }
-    std::cout << std::endl;
-    
-    INF = abs(v[start] + v[end]);
     while(start < end){
-
-        std::cout << start << " , " << end << " , " << INF << std::endl;
-        while(start < end && INF > abs(v[start] + v[end])){
-            start++;
+        if(MIN > abs(v[start] + v[end])){
+            MIN = abs(v[start] + v[end]);
+            answer[0] = v[start];
+            answer[1] = v[end];
         }
 
-        std::cout << "start : " << start << std::endl;
-        while(start < end && INF > abs(v[start] + v[end])){
+        if(v[start] + v[end] > 0){
             end--;
         }
-
-        std::cout << "end : " << end << std::endl;
-        if(INF > abs(v[start] + v[end])){
-            INF = abs(v[start] + v[end]);
+        else if(v[start] + v[end] < 0){
             start++;
         }
         else{
-            answer[0] = v[start];
-            answer[1] = v[end];
             break;
         }
     }

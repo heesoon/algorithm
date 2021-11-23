@@ -1,70 +1,87 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <algorithm>
 
 using namespace std;
 
-bool valid(int n, const std::vector<bool> &visited){
-    if(n < 0 || n > 100'000 || visited[n]){
-        return false;
+int INF = 2'000'000'000;
+std::vector<int> v;
+std::vector<int> answer(2, 0);
+
+#if 0
+void solution(int n) {
+    for(int i = 0; i < n-1; i++){
+        for(int j = i+1; j < n; j++){
+            if(INF > abs(v[i] + v[j])){
+                INF = v[i] + v[j];
+                if(v[i] > v[j]){
+                    answer[0] = v[j];
+                    answer[1] = v[i];
+                }
+                else{
+                    answer[0] = v[i];
+                    answer[1] = v[j];
+                }
+            }
+        }
     }
-
-    return true;
 }
+#endif
 
-int solution(int N, int K) {
-    int answer = 0;
-    int next = 0;
+void solution(int n) {
+    int start = 0;
+    int end = n-1;
 
-    std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, std::greater<std::vector<int>>> Q;
-    //std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
-    std::vector<bool> visited(100'001, false);
-    //Q.push(make_pair(0, N));
-    Q.push({0, N});
-    visited[N] = true;
+    std::sort(v.begin(), v.end(), std::less<int>());
+    
+    for(const auto x : v)
+    {
+        std::cout << x << " ";
+    }
+    std::cout << std::endl;
+    
+    INF = abs(v[start] + v[end]);
+    while(start < end){
 
-    while(!Q.empty()){
-        auto front = Q.top();
-        int depth = front[0];
-        int curr = front[1];
-        //int depth = Q.top().first;
-        //int curr = Q.top().second;        
-        Q.pop();
+        std::cout << start << " , " << end << " , " << INF << std::endl;
+        while(start < end && INF > abs(v[start] + v[end])){
+            start++;
+        }
 
-        if(curr == K){
-            answer = depth;
+        std::cout << "start : " << start << std::endl;
+        while(start < end && INF > abs(v[start] + v[end])){
+            end--;
+        }
+
+        std::cout << "end : " << end << std::endl;
+        if(INF > abs(v[start] + v[end])){
+            INF = abs(v[start] + v[end]);
+            start++;
+        }
+        else{
+            answer[0] = v[start];
+            answer[1] = v[end];
             break;
         }
-
-        next = curr*2;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth, next});
-            //Q.push(make_pair(depth, next));
-        }
-
-        next = curr - 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
-
-        next = curr + 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
     }
-
-    return answer;
 }
 
 int main(){   
-    int N, K;
-    std::cin >> N >> K;
+    int n;
+    
+    std::cin >> n;
+    v.assign(n, 0);
 
-    std::cout << solution(N, K);
+    for(int i = 0; i < n; i++){
+        std::cin >> v[i];
+    }
+
+    solution(n);
+
+    for(const int x : answer){
+        std::cout << x << " ";
+    }
+    std::cout << std::endl;
+
     return 0;
 }

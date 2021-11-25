@@ -1,48 +1,45 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
-using namespace std;
-
-bool isSame(int y, int x, int l, int v, const std::vector<std::vector<int>> &map){
-    bool bSame = true;
-
-    for(int i = y; i < y+l; i++){
-        for(int j = x; j < x+l; j++){
-            if(v != map[i][j]){
-                return false;
-            }
+bool isSame(int a, int l, const std::string &str){
+    for(int i = a; i < a+l; i++){
+        if(str[a] != str[i]){
+            return false;
         }
     }
 
-    return bSame;
+    return true;
 }
 
-int solution(int y, int x, int l, int v, const std::vector<std::vector<int>> &map) {
-    if(l == 1){
-        return map[y][x] == v;
-    }
+std::string solution(int a, int l, const std::string &str) {
+    std::string out = "";
 
-    if(isSame(y, x, l, v, map)){
-        return 1;
+    if(l == 1 || isSame(a, l, str)){
+        out += str[a];
+        return out;
     }
-
-    return solution(y, x, l/2, v, map) + solution(y, x+l/2, l/2, v, map) + solution(y+l/2, x, l/2, v, map) + solution(y+l/2, x+l/2, l/2, v, map);  
+    
+    return '-' + solution(a, l/2, str) + solution(a+l/2, l/2, str);
 }
 
 void tc1(){
-    int l = 8;
-    std::vector<std::vector<int>> map{
-        {1, 1, 0, 0, 0, 0, 1, 1},
-        {1, 1, 0, 0, 0, 0, 1, 1},
-        {0, 0, 0, 0, 1, 1, 0, 0},
-        {0, 0, 0, 0, 1, 1, 0, 0},
-        {1, 0, 0, 0, 1, 1, 1, 1},
-        {0, 1, 0, 0, 1, 1, 1, 1},
-        {0, 0, 1, 1, 1, 1, 1, 1},
-        {0, 0, 1, 1, 1, 1, 1, 1}
-    };
+    int l = 4;
+    std::string str = "0000";
 
-    if(solution(0, 0, l, 0, map) == 9 && solution(0, 0, l, 1, map) == 7){
+    if("0" == solution(0, l, str)){
+        std::cout << "Success" << std::endl;
+    }
+    else{
+        std::cout << "Fail" << std::endl;
+    }
+}
+
+void tc2(){
+    int l = 4;
+    std::string str = "1101";
+
+    if("-1-01" == solution(0, l, str)){
         std::cout << "Success" << std::endl;
     }
     else{
@@ -52,5 +49,6 @@ void tc1(){
 
 int main(){
     tc1();
+    tc2();
     return 0;
 }

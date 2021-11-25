@@ -3,33 +3,26 @@
 
 using namespace std;
 
-const int MAX = 100'000 + 1;
-
-long long solution(int n, int m) {
-    long long answer = 0;
+std::vector<int> solution(int l, const std::vector<std::vector<int>> &map) {
+    std::vector<int> answer;
 
     return answer;
 }
 
 void tc1(){
-    int a = 5;
-    int b = 3;
+    int l = 8;
+    std::vector<std::vector<int>> map{
+        {1, 1, 0, 0, 0, 0, 1, 1},
+        {1, 1, 0, 0, 0, 0, 1, 1},
+        {0, 0, 0, 0, 1, 1, 0, 0},
+        {0, 0, 0, 0, 1, 1, 0, 0},
+        {1, 0, 0, 0, 1, 1, 1, 1},
+        {0, 1, 0, 0, 1, 1, 1, 1},
+        {0, 0, 1, 1, 1, 1, 1, 1},
+        {0, 0, 1, 1, 1, 1, 1, 1}
+    };
 
-    long long answer = solution(a, b);
-    if(answer == 3){
-        std::cout << "Success" << std::endl;
-    }
-    else{
-        std::cout << "Fail" << std::endl;
-    }
-}
-
-void tc2(){
-    int a = 3;
-    int b = 4;
-
-    long long answer = solution(a, b);
-    if(answer == 3){
+    if(std::vector<int>{9, 7} == solution(l, map)){
         std::cout << "Success" << std::endl;
     }
     else{
@@ -39,6 +32,5 @@ void tc2(){
 
 int main(){
     tc1();
-    tc2();
     return 0;
 }

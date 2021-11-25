@@ -3,10 +3,30 @@
 
 using namespace std;
 
-std::vector<int> solution(int l, const std::vector<std::vector<int>> &map) {
-    std::vector<int> answer;
+bool isSame(int y, int x, int l, int v, const std::vector<std::vector<int>> &map){
+    bool bSame = true;
 
-    return answer;
+    for(int i = y; i < y+l; i++){
+        for(int j = x; j < x+l; j++){
+            if(v != map[i][j]){
+                return false;
+            }
+        }
+    }
+
+    return bSame;
+}
+
+int solution(int y, int x, int l, int v, const std::vector<std::vector<int>> &map) {
+    if(l == 1){
+        return map[y][x] == v;
+    }
+
+    if(isSame(y, x, l, v, map)){
+        return 1;
+    }
+
+    return solution(y, x, l/2, v, map) + solution(y, x+l/2, l/2, v, map) + solution(y+l/2, x, l/2, v, map) + solution(y+l/2, x+l/2, l/2, v, map);  
 }
 
 void tc1(){
@@ -22,7 +42,7 @@ void tc1(){
         {0, 0, 1, 1, 1, 1, 1, 1}
     };
 
-    if(std::vector<int>{9, 7} == solution(l, map)){
+    if(solution(0, 0, l, 0, map) == 9 && solution(0, 0, l, 1, map) == 7){
         std::cout << "Success" << std::endl;
     }
     else{

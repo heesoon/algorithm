@@ -2,32 +2,25 @@
 #include <vector>
 #include <string>
 
-bool isSame(int a, int l, const std::string &str){
-    for(int i = a; i < a+l; i++){
-        if(str[a] != str[i]){
-            return false;
-        }
-    }
-
-    return true;
-}
-
-std::string solution(int a, int l, const std::string &str) {
+std::string solution(int idx, int a, int l, const std::string &str) {
     std::string out = "";
 
-    if(l == 1 || isSame(a, l, str)){
-        out += str[a];
+    if(str[idx] == '0' || str[idx] == '1'){
+        for(int i = 0; i < l; i++){
+            out += str[idx];
+        }
+
         return out;
     }
-    
-    return '-' + solution(a, l/2, str) + solution(a+l/2, l/2, str);
+
+    return out += solution(idx+1, a, l/2, str) + solution(idx+2, a+l/2, l/2, str);
 }
 
 void tc1(){
     int l = 4;
-    std::string str = "0000";
+    std::string str = "-1-01";
 
-    if("0" == solution(0, l, str)){
+    if("1101" == solution(0, 0, l, str)){
         std::cout << "Success" << std::endl;
     }
     else{
@@ -36,10 +29,10 @@ void tc1(){
 }
 
 void tc2(){
-    int l = 4;
-    std::string str = "1101";
+    int l = 8;
+    std::string str = "1";
 
-    if("-1-01" == solution(0, l, str)){
+    if("11111111" == solution(0, 0, l, str)){
         std::cout << "Success" << std::endl;
     }
     else{

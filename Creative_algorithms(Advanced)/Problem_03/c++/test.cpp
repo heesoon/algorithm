@@ -3,8 +3,17 @@
 
 using namespace std;
 
-int solution(int n, int m) {
+int solution(int a, int b){
     int answer = 0;
+    if(a > b){
+        answer = solution(a/2, b) + 1;
+    }
+    else if(a < b){
+        answer = solution(a, b/2) + 1;
+    }
+    else{
+        answer = 0;
+    }
 
     return answer;
 }

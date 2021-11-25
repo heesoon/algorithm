@@ -17,3 +17,5 @@ https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=codingbuskin
     * 연관 문제 : 영역 구하기 : https://github.com/heesoon/algorithm/tree/develop/BeakJoon/2583
 * [Problem_05](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_05)
   * 이진 암호화
+* [Problem_06](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_06)
+  * 이진 복호화

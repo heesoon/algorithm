@@ -1,5 +1,7 @@
 BEAKJOON (https://www.acmicpc.net)
 ==========================================================================================
+* [2583] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/2583)
+  * 영역 구하기
 * [2740] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/2740)
   * 행렬 곱셈 (Basic)
 * [1697] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/1697)

@@ -1,70 +1,29 @@
 #include <iostream>
 #include <vector>
-#include <queue>
 
 using namespace std;
 
-bool valid(int n, const std::vector<bool> &visited){
-    if(n < 0 || n > 100'000 || visited[n]){
-        return false;
+const int MAX = 1000 + 1;
+
+int solution(int n) {
+    std::vector<int> dp(MAX, 0);
+
+    // 왜 dp[0] = 1로 넣어줘야지만 홀짝으로 분리시 정상값을 얻어옮은 생각 필요
+    dp[0] = 1;
+    dp[1] = 1;
+    dp[2] = 3;
+
+    for(int i = 3; i <= n; i++){
+        dp[i] = (dp[i-1] + 2*dp[i-2]) % 10'007;
     }
 
-    return true;
+    return dp[n];
 }
 
-int solution(int N, int K) {
-    int answer = 0;
-    int next = 0;
+int main(){
+    int n;
+    std::cin >> n;
 
-    std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, std::greater<std::vector<int>>> Q;
-    //std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
-    std::vector<bool> visited(100'001, false);
-    //Q.push(make_pair(0, N));
-    Q.push({0, N});
-    visited[N] = true;
-
-    while(!Q.empty()){
-        auto front = Q.top();
-        int depth = front[0];
-        int curr = front[1];
-        //int depth = Q.top().first;
-        //int curr = Q.top().second;        
-        Q.pop();
-
-        if(curr == K){
-            answer = depth;
-            break;
-        }
-
-        next = curr*2;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth, next});
-            //Q.push(make_pair(depth, next));
-        }
-
-        next = curr - 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
-
-        next = curr + 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
-    }
-
-    return answer;
-}
-
-int main(){   
-    int N, K;
-    std::cin >> N >> K;
-
-    std::cout << solution(N, K);
+    std::cout << solution(n) << std::endl;
     return 0;
 }

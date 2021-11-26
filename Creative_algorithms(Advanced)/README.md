@@ -19,3 +19,5 @@ https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=codingbuskin
   * 이진 암호화
 * [Problem_06](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_06)
   * 이진 복호화
+* [Problem_07](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_07)
+  * Partitioned

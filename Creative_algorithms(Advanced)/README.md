@@ -21,3 +21,5 @@ https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=codingbuskin
   * 이진 복호화
 * [Problem_07](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_07)
   * Partitioned
+* [Problem_08](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_08)
+  * 숙직 선생님 (the night duty teacher)

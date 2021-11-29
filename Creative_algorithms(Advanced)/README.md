@@ -25,3 +25,4 @@ https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=codingbuskin
   * 숙직 선생님 (the night duty teacher)
 * [Problem_09](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_09)
   * 광석 수집 (Collecting ore)
+  * Check more about computation complex : Q(nm)

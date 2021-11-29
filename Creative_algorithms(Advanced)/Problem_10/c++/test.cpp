@@ -1,34 +1,47 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
-void solution(int cnt, int start, int end, const std::vector<int> &abilities) {
-    if(start == end){
-        if(minCnt == -1){
-            minCnt = cnt;
-        }
-        else{
-            if(minCnt > cnt){
-                minCnt = cnt;
-            }
-        }
+int N = 4;
+int W[101] = {2, 1, 3, 2, };
+int V[101] = {3, 2, 3, 2, };
+std::vector<std::vector<int>> DT(101, std::vector<int>(1001, -1));
 
-        return;
+int f(int idx, int r){
+#if 0    
+    if(idx == N){
+        return 0;
     }
-    else if(start < end){
-        for(const auto &a : abilities){
-            solution(cnt+1, start + a, end, abilities);
-        }
+    else if(W[idx] <= r){
+        return std::max(f(idx+1, r), f(idx+1, r-W[idx]) + V[idx]);
     }
+    else{
+        return f(idx+1, r);
+    }
+#else
+    if(DT[idx][r] != -1){
+        return DT[idx][r];
+    }
+    if(idx == N){
+        return DT[idx][r] = 0;
+    }
+    else if(W[idx] <= r){
+        return DT[idx][r] = std::max(f(idx+1, r), f(idx+1, r-W[idx]) + V[idx]);
+    }
+    else{
+        return DT[idx][r] = f(idx+1, r);
+    }
+#endif
 }
 
 void tc1(){
-    int start = 1;
-    int end = 15;
-    std::vector<int> abilities{2, 5, 7};
-
-    solution(0, start, end, abilities);
-
-    std::cout << minCnt << std::endl;
+    int target = 5;
+    if(7 == f(0, target)){
+        std::cout << "Success" << std::endl;
+    }
+    else{
+        std::cout << "Fail" << std::endl;
+    }
 }
 
 int main(){

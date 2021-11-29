@@ -26,3 +26,5 @@ https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=codingbuskin
 * [Problem_09](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_09)
   * 광석 수집 (Collecting ore)
   * Check more about computation complex : Q(nm)
+* [Problem_10](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_10)
+  * 0/1 배낭 문제 (L)

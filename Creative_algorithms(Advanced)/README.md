@@ -23,3 +23,5 @@ https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=codingbuskin
   * Partitioned
 * [Problem_08](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_08)
   * 숙직 선생님 (the night duty teacher)
+* [Problem_09](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_09)
+  * 광석 수집 (Collecting ore)

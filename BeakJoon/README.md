@@ -30,3 +30,7 @@ BEAKJOON (https://www.acmicpc.net)
   * 두 용액 (combination)
 * [13239] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/13239)
   * Combinations
+* [12865] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/12865)
+  * 평범한 배낭
+* [12920] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/12920)
+  * 평범한 배낭2

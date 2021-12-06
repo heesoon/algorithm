@@ -2,43 +2,38 @@
 #include <vector>
 #include <algorithm>
 
-const int N = 100 + 1;
-const int C = 100 + 1;
-std::vector<int> usedMem;
-std::vector<int> cost;
-std::vector<std::vector<int>> DT(N, std::vector<int>(N*C, 0));
+const int MAX = 1'000'000'000;
+int DT[501][101];
 
-int solution(int n, int m){
+int solution(int n, int m, int a, int b, const vector<int> &row){
     int answer = 0;
-    for(int i = 1; i < n; i++){
-        for(int j = 0; j <= N*C; j++){
-            if(j < cost[i]){
-                DT[i][j] = DT[i-1][j];
-            }
-            else{
-                DT[i][j] = std::max(DT[i-1][j], DT[i-1][j - cost[i]] + usedMem[i]);
-            }
+
+    for(int i = 0; i <= m; i++){
+        for(int j = 0; j <= n; j++){
+            DT[i][j] = MAX;
         }
     }
 
-    for(int i = 0; i <= N*C; i++){
-        if(DT[n-1][i] >= m){
-            break;
-        }
-
-        answer = i;
+    for(int i = 0; i <= n; i++){
+        DT[0]][i] = std::abs(j-a)*y;
     }
+
+    for(int i = 1; i <= m; i++){
+        for(int j = 1; j <= n; j++){
+            for(int k = 1; k <= n; k++){
+                
+            }
+        }
+    }    
 
     return answer;
 }
 
 void tc1(){
-    int n = 5;
-    int m = 60;
-    usedMem.assign({30, 10, 20, 35, 40});
-    cost.assign({3, 0, 3, 5, 4});
+    int n = 4, m = 3, a = 2, b = 2, x = 1, y = 5;
+    std::vector<int> row{1, 3, 2};
 
-    if(6 == solution(n, m)){
+    if(2 == solution(n, m, a, b, row)){
         std::cout << "Success" << std::endl;
     }
     else{

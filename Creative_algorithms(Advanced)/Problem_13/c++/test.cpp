@@ -1,39 +1,37 @@
 #include <iostream>
 #include <vector>
+#include <map>
 #include <algorithm>
 
-const int MAX = 1'000'000'000;
-int DT[501][101];
+std::string solution(int k, const std::vector<std::string> &code, const std::vector<std::string> &character, const std::string &encodeString){
+    std::map<std::string, std::string> map;
+    std::string answer;
+    std::string tstring;
 
-int solution(int n, int m, int a, int b, const vector<int> &row){
-    int answer = 0;
-
-    for(int i = 0; i <= m; i++){
-        for(int j = 0; j <= n; j++){
-            DT[i][j] = MAX;
-        }
+    for(int i = 0; i < k; i++){
+        map[code[i]] = character[i];
     }
 
-    for(int i = 0; i <= n; i++){
-        DT[0]][i] = std::abs(j-a)*y;
-    }
+    for(const auto &c : encodeString){
+        tstring += c;
 
-    for(int i = 1; i <= m; i++){
-        for(int j = 1; j <= n; j++){
-            for(int k = 1; k <= n; k++){
-                
-            }
+        auto search = map.find(tstring);
+        if(search != map.end()){
+            answer += search->second;
+            tstring.clear();
         }
-    }    
+    }
 
     return answer;
 }
 
 void tc1(){
-    int n = 4, m = 3, a = 2, b = 2, x = 1, y = 5;
-    std::vector<int> row{1, 3, 2};
+    int k = 5;
+    std::vector<std::string> code{"00", "01", "10", "110", "111"};
+    std::vector<std::string> character{"A", "B", "C", "D", "E"};
+    std::string encodeString = "00000101111";
 
-    if(2 == solution(n, m, a, b, row)){
+    if("AABBE" == solution(k, code, character, encodeString)){
         std::cout << "Success" << std::endl;
     }
     else{

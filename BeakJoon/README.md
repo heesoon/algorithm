@@ -36,3 +36,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 평범한 배낭2
 * [7579] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/7579)
   * 앱
+* [7904] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/7904)
+  * 허프만 트리

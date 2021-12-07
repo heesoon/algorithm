@@ -32,3 +32,5 @@ https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=codingbuskin
   * 앱 (L)
 * [Problem_12](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_12)
   * 잭과 콩나물
+* [Problem_13](https://github.com/heesoon/algorithm/tree/develop/Creative_algorithms(Advanced)/Problem_13)
+  * 허프만 인코딩

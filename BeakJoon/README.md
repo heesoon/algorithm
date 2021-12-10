@@ -38,3 +38,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 앱
 * [7904] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/7904)
   * 허프만 트리
+* [2482] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/2482)
+  * 색상환

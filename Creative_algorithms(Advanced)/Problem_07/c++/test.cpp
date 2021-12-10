@@ -6,6 +6,7 @@ int a[30];
 int cnt;
 
 void solution(int n, int k) {
+    std::cout << n << " , " << k << std::endl;
     if(n == 0){
         for(int i = 0; i < cnt; i++){
             std::cout << a[i] << " ";

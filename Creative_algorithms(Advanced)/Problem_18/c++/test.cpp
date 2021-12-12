@@ -1,33 +1,38 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
-const int H = 3;
-const int W = 4;
-int cnt = 0;
+int solve(int h, int w){
+	std::vector<std::vector<int>> DT(h+1, std::vector<int>(w+1, 0));
 
-void solve(int h, int w)
-{
-	if(h > H || w > W+1){
-		return;
+	for(int a = 1; a <= h; a++){
+		DT[a][0] = 1;
 	}
 
-	if(h == H && w == W+1){
-		cnt++;
-		return;
+	for(int a = 1; a <= h; a++){
+		for(int b = 1; b <= w; b++){
+			if((double)h/w <= (double)a/b){
+				DT[a][b] = DT[a-1][b] + DT[a][b-1];
+			}
+		}
 	}
-	
-	solve(h+1, w);
 
-	// y = (H/W)(x - 1) : x의 '0'도 넣어어서 계산하기 위해서 그래프를 x축으로 1 만큼 평행이동
-	// 여기에 (w - 1) => (w+1 - 1) => w, 다음 w+1로 이동 가능여부 우선 check해야 하니까
-	//if((double)H/W <= (double)h/(w-1)){
-	if((double)H/W <= (double)h/(w)){
-		solve(h, w+1);
+	return DT[h][w];
+}
+
+void tc1(){
+	int h = 3;
+	int w = 4;
+
+	if(5 == solve(h, w)){
+		std::cout << "Success" << std::endl;
+	}
+	else{
+		std::cout << "Fail" << std::endl;
 	}
 }
 
-int main()
-{
-	solve(0, 1);
-	std::cout << cnt << std::endl;
+int main(){
+	tc1();
     return 0;
 }

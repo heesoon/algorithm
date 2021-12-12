@@ -1,39 +1,40 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
-int ans = 0x7FFFFFFF;
+const int M = 10'000+1;
+const int INF = 1'000'000'000;
 
-void solve(int m, int c, const std::vector<int>& ar)
-{
-	if(m > 730) return;
+int solve(int m, const std::vector<int>& changes){
+	std::vector<int> DT(M, INF);
 
-	if(m == 730)
-	{
-		if(ans > c)
-		{
-			ans = c;
+	for(const auto &c : changes){
+		DT[c] = 1;
+	}
+
+	for(int currMoney = changes[0]; currMoney <= m; currMoney++){
+		for(auto i = 0; i < changes.size(); i++){
+			if(currMoney - changes[i] >= 0) DT[currMoney] = std::min(DT[currMoney], DT[currMoney - changes[i]]+1);
 		}
-
-		return;
 	}
 
-	for(std::vector<int>::size_type n : ar)
-	{
-		solve(m+n, c+1, ar);
-	}
+	return DT[m];
 }
 
-void testCase1()
-{
-	std::vector<int> changes = {10, 50, 100, 500, 1250};
-	solve(0, 0, changes);
+void tc1(){
+	int m = 730;
+	std::vector<int> changes{10, 50, 100, 500, 1250};
 
-	std::cout << ans << std::endl;
-	ans = 0x7FFFFFFF;
+	if(6 == solve(m, changes)){
+		std::cout << "Success" << std::endl;
+	}
+	else{
+		std::cout << "Fail" << std::endl;
+	}
 }
 
 int main()
 {
-	testCase1();
+	tc1();
     return 0;
 }

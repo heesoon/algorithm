@@ -42,3 +42,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 색상환
 * [10211] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/10211)
   * Maximum Subarray
+* [2602] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/2602)
+  * 돌다리 건너기

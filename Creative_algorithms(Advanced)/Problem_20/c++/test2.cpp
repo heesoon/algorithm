@@ -5,33 +5,33 @@
 std::vector<std::string> bridge;
 
 int solve(std::string str){
-	std::vector<std::vector<std::vector<int>>> DT(2, std::vector<std::vector<int>>(bridge.size(), std::vector<int>(str.size(), 0)));
+	int ans = 0;
+	std::vector<std::vector<std::vector<int>>> DT(2, std::vector<std::vector<int>>(bridge[0].size(), std::vector<int>(str.size(), 0)));
 
-	for(int i = 0; i < 2; i++){
-		for(int j = 0; j < bridge.size(); j++){
-			if(bridge[i][j] == str[0]){
-				DT[i][j][0] = 1;
+	for(int i = 0; i < bridge[0].size(); i++){
+		if(bridge[0][i] == str[0]) DT[0][i][0] = 1;
+		if(bridge[1][i] == str[0]) DT[1][i][0] = 1;
+	}
+
+	for(int i = 0; i < bridge[0].size(); i++){
+		for(int k = 1; k < str.size(); k++){
+			if(bridge[0][i] == str[k]){
+				for(int j = 0; j < i; j++){
+					DT[0][i][k] += DT[1][j][k-1];
+				}
+			}
+
+			if(bridge[1][i] == str[k]){
+				for(int j = 0; j < i; j++){
+					DT[1][i][k] += DT[0][j][k-1];
+				}
 			}
 		}
 	}
 
-	for(int k = 1; k < str.size(); k++){
-		int tmp1 = 0, tmp2 = 0;
-		for(int j = 1; j < bridge.size(); j++){
-			tmp1 += DT[1][j-1][k-1];
-			if(bridge[0][j] == str[k]){
-				DT[0][j][k] = tmp1;
-			}
-
-			tmp2 += DT[0][j-1][k-1];
-			if(bridge[1][j] == str[k]){
-				DT[1][j][k] = tmp2;
-			}
-		}
-	}
-
+#if 0
 	for(int i = 0; i < 2; i++){
-		for(int j = 0; j < bridge.size(); j++){
+		for(int j = 0; j < bridge[0].size(); j++){
 			for(int k = 0; k < str.size(); k++){
 				std::cout << DT[i][j][k] << " ";
 			}
@@ -40,9 +40,16 @@ int solve(std::string str){
 		std::cout << std::endl;
 	}
 	std::cout << std::endl;
+#endif
 
-	std::cout << DT[0][bridge.size()-1][str.size()-1] + DT[1][bridge.size()-1][str.size()-1] << std::endl;
-	return DT[0][bridge.size()-1][str.size()-1] + DT[1][bridge.size()-1][str.size()-1];
+	for(int i = 0; i < 2; i++){
+		for(int j = 0; j < bridge[0].size(); j++){
+			ans += DT[i][j][str.size()-1];
+		}
+	}
+
+	//std::cout << ans << std::endl;
+	return ans;
 }
 
 void tc1(){

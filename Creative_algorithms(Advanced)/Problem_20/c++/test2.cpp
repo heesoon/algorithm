@@ -9,24 +9,39 @@ int solve(std::string str){
 
 	for(int i = 0; i < 2; i++){
 		for(int j = 0; j < bridge.size(); j++){
-			for(int k = 0; k < str.size(); k++){
-				if(bridge[i][j] == str[k]){
-					DT[i][j][k] = 1;
-				}
+			if(bridge[i][j] == str[0]){
+				DT[i][j][0] = 1;
+			}
+		}
+	}
+
+	for(int k = 1; k < str.size(); k++){
+		int tmp1 = 0, tmp2 = 0;
+		for(int j = 1; j < bridge.size(); j++){
+			tmp1 += DT[1][j-1][k-1];
+			if(bridge[0][j] == str[k]){
+				DT[0][j][k] = tmp1;
+			}
+
+			tmp2 += DT[0][j-1][k-1];
+			if(bridge[1][j] == str[k]){
+				DT[1][j][k] = tmp2;
 			}
 		}
 	}
 
 	for(int i = 0; i < 2; i++){
 		for(int j = 0; j < bridge.size(); j++){
-			for(int k = 1; k < str.size(); k++){
-				if(bridge[i][j] == str[k]){
-					DT[i][j][k] += DT[1-i][j][k-1];
-				}
+			for(int k = 0; k < str.size(); k++){
+				std::cout << DT[i][j][k] << " ";
 			}
+			std::cout << std::endl;
 		}
+		std::cout << std::endl;
 	}
+	std::cout << std::endl;
 
+	std::cout << DT[0][bridge.size()-1][str.size()-1] + DT[1][bridge.size()-1][str.size()-1] << std::endl;
 	return DT[0][bridge.size()-1][str.size()-1] + DT[1][bridge.size()-1][str.size()-1];
 }
 
@@ -76,3 +91,5 @@ int main(){
 	tc3();
 	return 0;
 }
+
+// https://stillchobo.tistory.com/100

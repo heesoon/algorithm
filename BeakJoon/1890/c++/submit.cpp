@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
 
-int solution(int N, const std::vector<std::vector<int>> &map) {
+long long solution(int N, const std::vector<std::vector<int>> &map) {
     int next;
-    std::vector<std::vector<long long>> DT(101, std::vector<long long>>(101, 0));
+    std::vector<std::vector<long long>> DT(N, std::vector<long long>(N, 0));
     DT[0][0] = 1;
 
     for(int y = 0; y < N; y++){

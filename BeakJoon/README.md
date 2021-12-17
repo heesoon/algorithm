@@ -44,3 +44,5 @@ BEAKJOON (https://www.acmicpc.net)
   * Maximum Subarray
 * [2602] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/2602)
   * 돌다리 건너기
+* [1890] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/1890)
+  * 점프 (알고스팟 : 외발뛰기)

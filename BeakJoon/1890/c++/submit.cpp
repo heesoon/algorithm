@@ -1,70 +1,36 @@
 #include <iostream>
 #include <vector>
-#include <queue>
 
-using namespace std;
+int solution(int N, const std::vector<std::vector<int>> &map) {
+    int next;
+    std::vector<std::vector<long long>> DT(101, std::vector<long long>>(101, 0));
+    DT[0][0] = 1;
 
-bool valid(int n, const std::vector<bool> &visited){
-    if(n < 0 || n > 100'000 || visited[n]){
-        return false;
-    }
-
-    return true;
-}
-
-int solution(int N, int K) {
-    int answer = 0;
-    int next = 0;
-
-    std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, std::greater<std::vector<int>>> Q;
-    //std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
-    std::vector<bool> visited(100'001, false);
-    //Q.push(make_pair(0, N));
-    Q.push({0, N});
-    visited[N] = true;
-
-    while(!Q.empty()){
-        auto front = Q.top();
-        int depth = front[0];
-        int curr = front[1];
-        //int depth = Q.top().first;
-        //int curr = Q.top().second;        
-        Q.pop();
-
-        if(curr == K){
-            answer = depth;
-            break;
-        }
-
-        next = curr*2;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth, next});
-            //Q.push(make_pair(depth, next));
-        }
-
-        next = curr - 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
-
-        next = curr + 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
+    for(int y = 0; y < N; y++){
+        for(int x = 0; x < N; x++){
+            next = map[y][x];
+            if(DT[y][x] == 0 || (y == N-1 && x == N-1)) continue;
+            if(y+next < N) DT[y+next][x] += DT[y][x];
+            if(x+next < N) DT[y][x+next] += DT[y][x];
         }
     }
 
-    return answer;
+    return DT[N-1][N-1];
 }
 
 int main(){   
-    int N, K;
-    std::cin >> N >> K;
+    int N;
 
-    std::cout << solution(N, K);
+    std::cin >> N;
+    std::vector<std::vector<int>> map(N, std::vector<int>(N, 0));
+    
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < N; j++){
+            std::cin >> map[i][j];
+        }
+    }
+
+    std::cout << solution(N, map) << std::endl;
+
     return 0;
 }

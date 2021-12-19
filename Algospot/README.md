@@ -11,3 +11,5 @@ Algospot (https://www.algospot.com/)
   * 시계 맞추기 (Clock Sync)
 * [Problem_05] (https://github.com/heesoon/algorithm/tree/develop/Algospot/Problem_05)
   * 쿼드 트리 뒤집기 (Quadtree)
+* [Problem_06] (https://github.com/heesoon/algorithm/tree/develop/Algospot/Problem_06)
+  * 와일드 카드

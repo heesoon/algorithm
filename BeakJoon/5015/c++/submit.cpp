@@ -1,70 +1,58 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <cstring>
 
-using namespace std;
+std::string pattern;
+std::string filename;
+int cache[101][101];
 
-bool valid(int n, const std::vector<bool> &visited){
-    if(n < 0 || n > 100'000 || visited[n]){
-        return false;
+bool solve(int pIdx, int sIdx){
+    int &ref = cache[pIdx][sIdx];
+    if(ref != -1) return ref;
+
+    if(pIdx < pattern.size() && sIdx < filename.size() && pattern[pIdx] == filename[sIdx]){
+        return ref = solve(pIdx+1, sIdx+1);
     }
 
-    return true;
-}
+    if(pIdx == pattern.size()){
+        return ref = (sIdx == filename.size());
+    }
 
-int solution(int N, int K) {
-    int answer = 0;
-    int next = 0;
-
-    std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, std::greater<std::vector<int>>> Q;
-    //std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
-    std::vector<bool> visited(100'001, false);
-    //Q.push(make_pair(0, N));
-    Q.push({0, N});
-    visited[N] = true;
-
-    while(!Q.empty()){
-        auto front = Q.top();
-        int depth = front[0];
-        int curr = front[1];
-        //int depth = Q.top().first;
-        //int curr = Q.top().second;        
-        Q.pop();
-
-        if(curr == K){
-            answer = depth;
-            break;
-        }
-
-        next = curr*2;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth, next});
-            //Q.push(make_pair(depth, next));
-        }
-
-        next = curr - 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
-
-        next = curr + 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
+    if(pattern[pIdx] == '*'){
+        if(solve(pIdx+1, sIdx) || (sIdx < filename.size() && solve(pIdx, sIdx+1))){
+            return ref = true;
         }
     }
 
-    return answer;
+    return ref = false;
 }
 
-int main(){   
-    int N, K;
-    std::cin >> N >> K;
+void tc1(){
+    int N = 4;
+    pattern = "*.*";
+    std::string str[N] = {"main.c", "a.out", "readme", "yacc"};
 
-    std::cout << solution(N, K);
-    return 0;
+    for(int i = 0; i < N; i++){
+        filename = str[i];
+        if(solve(0, 0) == true){
+            std::cout << filename << std::endl;
+        }
+    }
+}
+
+int main(){
+#if 1  
+    int N;
+    std::cin >> pattern;
+    std::cin >> N;
+    for(int i = 0; i < N; i++){
+        std::cin >> filename;
+        std::memset(cache, -1, sizeof(int)*101*101);
+        if(solve(0, 0) == true){
+            std::cout << filename << std::endl;
+        }
+    }
+#else
+    tc1();
+#endif
 }

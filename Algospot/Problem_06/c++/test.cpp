@@ -1,67 +1,95 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
-std::vector<char> comp;
+std::string pattern;
+std::string word;
+std::vector<std::vector<int>> cache;
+const int MAX_LEN = 101;
 
-int figure[16][16] = {
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1},
-    {0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}, 
-    {0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1},
-    {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1},
-    {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1},
-    {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}            
-};
+int solve(int pIdx, int wIdx){
+    int &ref = cache[pIdx][wIdx];
+    if(ref != -1){
+        return ref;
+    }
 
-bool isSame(int (*map)[16], int ys, int xs, int len)
-{
-    bool bSame = true;
-    int data = map[ys][xs];
-    for(int y = ys; y < ys+len; y++){
-        for(int x = xs; x < xs+len; x++){
-            if(data != map[y][x]){
-                return false;
-            }
+    if(pIdx < pattern.size() && wIdx < word.size() && (pattern[pIdx] == '?' || pattern[pIdx] == word[wIdx])){
+        return ref = solve(pIdx+1, wIdx+1);
+    }
+
+    if(pIdx == pattern.size()){
+        return ref = (wIdx == word.size());
+    }
+
+    if(pattern[pIdx] == '*'){
+        if(solve(pIdx+1, wIdx)|| (wIdx < word.size() && solve(pIdx, wIdx+1))){
+            return ref = 1;
         }
     }
 
-    return bSame;
+    return ref = 0;
 }
 
-void compress(int (*map)[16], int y, int x, int len){
-    if(isSame(map, y, x, len) == true){
-        if(map[y][x] == 0)
-            comp.push_back('w');
-        else
-            comp.push_back('b');
+void tc1(){
+    std::vector<std::string> result;
+    pattern = "he?p";
+    std::string testString[3] = {"help", "heap", "helpp"};
 
-        return;
+    for(const auto &str : testString){
+        word = str;
+        cache.assign(MAX_LEN, std::vector<int>(MAX_LEN, -1));
+        if(solve(0, 0)){
+            result.push_back(str);
+        }
+        cache.clear();
     }
-    comp.push_back('x');
-    compress(map, y, x, len/2);
-    compress(map, y, x+len/2, len/2);
-    compress(map, y+len/2, x, len/2);
-    compress(map, y+len/2, x+len/2, len/2);
+
+    std::sort(result.begin(), result.end());
+
+    //for(const auto &str : result){
+    //    std::cout << str << " ";
+    //}
+    std::cout << std::endl;
+
+    if(std::vector<std::string>{"heap", "help"} == result){
+        std::cout << "Success" << std::endl;
+    }
+    else{
+        std::cout << "Fail" << std::endl;
+    }
+}
+
+void tc2(){
+    std::vector<std::string> result;
+    pattern = "*p*";
+    std::string testString[3] = {"help", "papa", "hello"};
+
+    for(const auto &str : testString){
+        word = str;
+        cache.assign(MAX_LEN, std::vector<int>(MAX_LEN, -1));
+        if(solve(0, 0)){
+            result.push_back(str);
+        }
+        cache.clear();
+    }
+
+    std::sort(result.begin(), result.end());
+
+    //for(const auto &str : result){
+    //    std::cout << str << " ";
+    //}
+    std::cout << std::endl;
+
+    if(std::vector<std::string>{"help", "papa"} == result){
+        std::cout << "Success" << std::endl;
+    }
+    else{
+        std::cout << "Fail" << std::endl;
+    }
 }
 
 int main(){
-    int cnt = 1;
-    compress(figure, 0, 0, 16);
-    for(auto &d : comp){
-        std::cout << d;
-        if(cnt % 5 == 0)
-            std::cout << " ";
-        cnt++;
-    }
-    std::cout << std::endl;
+    tc1();
+    tc2();
     return 0;
 }

@@ -1,70 +1,39 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <algorithm>
 
-using namespace std;
+std::vector<int> A;
+std::vector<int> DT;
 
-bool valid(int n, const std::vector<bool> &visited){
-    if(n < 0 || n > 100'000 || visited[n]){
-        return false;
+int solve(int n){
+    int ans = 0;
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < i; j++){
+            if(A[i] > A[j]){
+                DT[i] = std::max(DT[i], DT[j]+1);
+            }
+        }
+        ans = std::max(ans, DT[i]);
     }
 
-    return true;
+    //for(const auto &x : DT){
+    //    std::cout << x << " ";
+    //}
+    //std::cout << std::endl;
+    return ans;
 }
 
-int solution(int N, int K) {
-    int answer = 0;
-    int next = 0;
+int main(){
+    int N;
+    int v;
+    std::cin >> N;
 
-    std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, std::greater<std::vector<int>>> Q;
-    //std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
-    std::vector<bool> visited(100'001, false);
-    //Q.push(make_pair(0, N));
-    Q.push({0, N});
-    visited[N] = true;
-
-    while(!Q.empty()){
-        auto front = Q.top();
-        int depth = front[0];
-        int curr = front[1];
-        //int depth = Q.top().first;
-        //int curr = Q.top().second;        
-        Q.pop();
-
-        if(curr == K){
-            answer = depth;
-            break;
-        }
-
-        next = curr*2;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth, next});
-            //Q.push(make_pair(depth, next));
-        }
-
-        next = curr - 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
-
-        next = curr + 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
+    for(int i = 0; i < N; i++){
+        std::cin >> v;
+        A.emplace_back(v);
     }
 
-    return answer;
-}
-
-int main(){   
-    int N, K;
-    std::cin >> N >> K;
-
-    std::cout << solution(N, K);
-    return 0;
+    DT.assign(N, 1);
+    std::cout << solve(N) << std::endl;
 }

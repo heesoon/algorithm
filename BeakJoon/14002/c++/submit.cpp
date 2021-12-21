@@ -6,6 +6,7 @@ std::vector<int> A;
 std::vector<int> DT;
 std::vector<int> B;
 std::vector<int> C;
+std::vector<int> answer;
 
 int solve(int n){
     int ans = 0;
@@ -13,9 +14,11 @@ int solve(int n){
     for(int i = 0; i < n; i++){
         for(int j = 0; j < i; j++){
             if(A[i] > A[j]){
+                B.push_back(A[j]);
                 //DT[i] = std::max(DT[i], DT[j]+1);
                 if(DT[i] < DT[j]+1){
-                    B.push_back(A[j]);
+                    C = B;
+                    B.clear();
                     DT[i] = DT[j]+1;
                 }
             }
@@ -23,9 +26,10 @@ int solve(int n){
         //ans = std::max(ans, DT[i]);
         if(ans < DT[i]){
             ans = DT[i];
-            C.clear();
-            std::copy(B.begin(), B.end(), std::back_inserter(C));
-            C.push_back(A[i]);
+            answer = C;
+            //std::copy(B.begin(), B.end(), std::back_inserter(C));
+            //C.push_back(A[i]);
+            answer.push_back(A[i]);
         }
         B.clear();
     }
@@ -45,7 +49,7 @@ int main(){
 
     DT.assign(N, 1);
     std::cout << solve(N) << std::endl;
-    for(const auto &a : C){
+    for(const auto &a : answer){
         std::cout << a << " ";
     }
     std::cout << std::endl;

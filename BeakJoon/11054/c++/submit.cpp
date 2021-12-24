@@ -2,35 +2,57 @@
 #include <vector>
 #include <algorithm>
 
-std::vector<int> A;
-std::vector<int> cache;
+std::vector<int> LLIS;
+std::vector<int> RLIS;
+std::vector<int> S;
 
-int solve(int start){
-    int &ret = cache[start+1];
-    if(ret != -1){
-        return ret;
-    }
+int solve(int n){
+    int ans = 0;
 
-    ret = 1;
-    for(int next = start+1; next < A.size(); next++){
-        if(start == -1 || A[start] < A[next]){
-            ret = std::max(ret, solve(next)+1);
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < i; j++){
+            if(S[j] < S[i]){
+                RLIS[i] = std::max(RLIS[i], RLIS[j]+1);
+            }
         }
     }
 
-    return ret;
+    for(int i = n-1; i >= 0; i--){
+        for(int j = n-1; j > i; j--){
+            if(S[j] < S[i]){
+                LLIS[i] = std::max(LLIS[i], LLIS[j]+1);
+            }
+        }
+    }
+
+#if 0
+    for(int i = 0; i < n; i++){
+        std::cout << RLIS[i] << " ";
+    }
+    std::cout << std::endl;
+    for(int i = 0; i < n; i++){
+        std::cout << LLIS[i] << " ";
+    }
+    std::cout << std::endl;
+#endif
+
+    for(int i = 0; i < n; i++){
+        ans = std::max(ans, RLIS[i] + LLIS[i] - 1);
+    }
+
+    return ans;
 }
 
 int main(){
-    int N;
-    int v;
-    std::cin >> N;
+    int n;
+    std::cin >> n;
+    LLIS.assign(n, 1);
+    RLIS.assign(n, 1);
+    S.assign(n, 0);
 
-    for(int i = 0; i < N; i++){
-        std::cin >> v;
-        A.emplace_back(v);
+    for(int i = 0; i < n; i++){
+        std::cin >> S[i];
     }
 
-    cache.assign(1001, -1);
-    std::cout << solve(-1) -1 << std::endl;
+    std::cout << solve(n) << std::endl;
 }

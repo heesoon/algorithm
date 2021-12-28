@@ -66,3 +66,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 신나는 함수 실행
 * [1904] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/1904)
   * 01타일
+* [9461] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/9461)
+  * 파도반 수열

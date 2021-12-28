@@ -1,34 +1,28 @@
 #include <iostream>
 #include <algorithm>
 
-const int MAX = 21;
-int cache[MAX][MAX][MAX];
+const int MAX = 101;
+long long DT[MAX];
 
-int w(int a, int b, int c){
+long long solve(int n){
+    DT[1] = DT[2] = DT[3] = 1;
+    DT[4] = DT[5] = 2;
 
-    if(a <= 0 || b <= 0 || c <= 0)
-        return 1;
+    for(int i = 6; i <= n; i++){
+        DT[i] = DT[i-1] + DT[i-5];
+    }
 
-    if(a > 20 || b > 20 || c > 20)
-        return w(20, 20, 20);
-
-    int &ret = cache[a][b][c];
-    if(ret != -1)
-        return ret;
-
-    if(a < b && b < c)
-        return ret = w(a, b, c-1) + w(a, b-1, c-1) - w(a, b-1, c);
-    else
-        return ret = w(a-1, b, c) + w(a-1, b-1, c) + w(a-1, b, c-1) - w(a-1, b-1, c-1);
+    return DT[n];
 }
 
 int main(){
-    int a, b, c;
-    while(1){
-        std::fill((int*)cache, (int*)cache+(MAX*MAX*MAX), -1);
-        std::cin >> a >> b >> c;
-        if(a == -1 && b == -1 && c == -1) break;
-        std::cout << "w(" << a << ", " << b << ", " << c << ") = " << w(a, b, c) << std::endl;
+    int TC;
+    int n;
+    std::cin >> TC;
+    for(int i = 0; i < TC; i++){
+        std::cin >> n;
+        std::fill((long long*)DT, (long long*)DT+n+1, 0);
+        std::cout << solve(n) << "\n";
     }
     return 0;
 }

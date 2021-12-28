@@ -1,70 +1,34 @@
 #include <iostream>
-#include <vector>
-#include <queue>
+#include <algorithm>
 
-using namespace std;
+const int MAX = 21;
+int cache[MAX][MAX][MAX];
 
-bool valid(int n, const std::vector<bool> &visited){
-    if(n < 0 || n > 100'000 || visited[n]){
-        return false;
-    }
+int w(int a, int b, int c){
 
-    return true;
+    if(a <= 0 || b <= 0 || c <= 0)
+        return 1;
+
+    if(a > 20 || b > 20 || c > 20)
+        return w(20, 20, 20);
+
+    int &ret = cache[a][b][c];
+    if(ret != -1)
+        return ret;
+
+    if(a < b && b < c)
+        return ret = w(a, b, c-1) + w(a, b-1, c-1) - w(a, b-1, c);
+    else
+        return ret = w(a-1, b, c) + w(a-1, b-1, c) + w(a-1, b, c-1) - w(a-1, b-1, c-1);
 }
 
-int solution(int N, int K) {
-    int answer = 0;
-    int next = 0;
-
-    std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, std::greater<std::vector<int>>> Q;
-    //std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
-    std::vector<bool> visited(100'001, false);
-    //Q.push(make_pair(0, N));
-    Q.push({0, N});
-    visited[N] = true;
-
-    while(!Q.empty()){
-        auto front = Q.top();
-        int depth = front[0];
-        int curr = front[1];
-        //int depth = Q.top().first;
-        //int curr = Q.top().second;        
-        Q.pop();
-
-        if(curr == K){
-            answer = depth;
-            break;
-        }
-
-        next = curr*2;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth, next});
-            //Q.push(make_pair(depth, next));
-        }
-
-        next = curr - 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
-
-        next = curr + 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
+int main(){
+    int a, b, c;
+    while(1){
+        std::fill((int*)cache, (int*)cache+(MAX*MAX*MAX), -1);
+        std::cin >> a >> b >> c;
+        if(a == -1 && b == -1 && c == -1) break;
+        std::cout << "w(" << a << ", " << b << ", " << c << ") = " << w(a, b, c) << std::endl;
     }
-
-    return answer;
-}
-
-int main(){   
-    int N, K;
-    std::cin >> N >> K;
-
-    std::cout << solution(N, K);
     return 0;
 }

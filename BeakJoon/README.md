@@ -62,5 +62,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 가장 긴 증가하는 부분 수열 5(LIS - Longest Increasing Subsequence)
 * [11722] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/11722)
   * 가장 긴 감소하는 부분 수열
-* [9184] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/동적계획법1/9184)
+* [9184] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/9184)
   * 신나는 함수 실행

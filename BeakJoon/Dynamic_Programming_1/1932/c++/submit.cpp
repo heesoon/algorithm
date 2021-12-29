@@ -1,28 +1,49 @@
 #include <iostream>
 #include <algorithm>
 
-const int MAX = 101;
-long long DT[MAX];
+const int MAX = 501;
+int DT[MAX][MAX];
+int Tri[MAX][MAX];
 
-long long solve(int n){
-    DT[1] = DT[2] = DT[3] = 1;
-    DT[4] = DT[5] = 2;
+int solve(int n){
+    int maxValue = 0;
+    DT[0][0] = Tri[0][0];
 
-    for(int i = 6; i <= n; i++){
-        DT[i] = DT[i-1] + DT[i-5];
+    for(int i = 1; i < n; i++){
+        for(int j = 0; j <= i; j++){
+            if(j == 0){
+                DT[i][j] = std::max(DT[i][j], Tri[i][j]+DT[i-1][j]);
+            }
+            else if(j == i){
+                DT[i][j] = std::max(DT[i][j], Tri[i][j]+DT[i-1][j-1]);
+            }
+            else{
+                DT[i][j] = std::max({DT[i][j], Tri[i][j]+DT[i-1][j-1], Tri[i][j]+DT[i-1][j]});
+            }
+
+            //maxValue = std::max(maxValue, DT[i][j]);
+        }
     }
 
-    return DT[n];
+    for(int i = 0; i < n; i++){
+        if(maxValue < DT[n-1][i]){
+            maxValue = DT[n-1][i];
+        }
+    }
+    return maxValue;
 }
 
 int main(){
-    int TC;
     int n;
-    std::cin >> TC;
-    for(int i = 0; i < TC; i++){
-        std::cin >> n;
-        std::fill((long long*)DT, (long long*)DT+n+1, 0);
-        std::cout << solve(n) << "\n";
+    std::cin >> n;
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j <= i; j++){
+            std::cin >> Tri[i][j];
+        }
     }
+
+    std::cout << solve(n) << "\n";
+
     return 0;
 }

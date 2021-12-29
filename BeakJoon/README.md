@@ -70,3 +70,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 파도반 수열
 * [1932] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/1932)
   * 정수 삼각형
+* [10844] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/10844)
+  * 쉬운 계단 수

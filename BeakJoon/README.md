@@ -68,3 +68,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 01타일
 * [9461] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/9461)
   * 파도반 수열
+* [1932] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/1932)
+  * 정수 삼각형

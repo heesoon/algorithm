@@ -74,3 +74,7 @@ BEAKJOON (https://www.acmicpc.net)
   * 가장 긴 바이토닉 부분 수열
 * [2565] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/2565)
   * 전깃줄
+* [1912] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/1912)
+  * 연속합
+* [12865] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/12865)
+  * 평범한 배낭

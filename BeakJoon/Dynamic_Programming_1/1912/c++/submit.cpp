@@ -33,3 +33,5 @@ int main(){
     DT.assign(n+1, 0);
     std::cout << solve(n) << std::endl;
 }
+
+// other reference : https://sihyungyou.github.io/baekjoon-1912/

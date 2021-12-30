@@ -72,3 +72,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 가장 긴 증가하는 부분 수열 (LIS - Longest Increasing Subsequence)
 * [11054] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/11054)
   * 가장 긴 바이토닉 부분 수열
+* [2565] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/2565)
+  * 전깃줄

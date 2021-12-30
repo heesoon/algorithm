@@ -48,10 +48,6 @@ BEAKJOON (https://www.acmicpc.net)
   * 점프 (알고스팟 : 외발뛰기)
 * [5015] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/5015)
   * ls (와일드카드)
-* [11053] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/11053)
-  * 가장 긴 증가하는 부분 수열 (LIS - Longest Increasing Subsequence)
-* [11054] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/11054)
-  * 가장 긴 바이토닉 부분 수열
 * [12015] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/12015)
   * 가장 긴 증가하는 부분 수열 2(LIS - Longest Increasing Subsequence)
 * [12738] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/12738)
@@ -72,3 +68,7 @@ BEAKJOON (https://www.acmicpc.net)
   * 정수 삼각형
 * [10844] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/10844)
   * 쉬운 계단 수
+* [11053] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/11053)
+  * 가장 긴 증가하는 부분 수열 (LIS - Longest Increasing Subsequence)
+* [11054] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/11054)
+  * 가장 긴 바이토닉 부분 수열

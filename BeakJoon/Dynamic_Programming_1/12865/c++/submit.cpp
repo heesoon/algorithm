@@ -3,33 +3,26 @@
 #include <algorithm>
 #include <utility>
 
-std::vector<std::pair<int,int>> DT;
+const int WMAX = 100'001;
+std::vector<std::vector<int>> DT;
+std::vector<int> W;
+std::vector<int> V;
 
 int solve(int n, int k){
     int ans = 0;
-    int a, b;
-    for(int i = 0; i < n; i++){
-        std::cin >> a >> b;
-
-        std::vector<std::pair<int,int>> TDT;
-        for(const auto &p : DT){
-            int na = p.first + a;
-            int nb = p.second + b;
-            TDT.push_back(std::make_pair(na, nb));
-        }
-
-        DT.insert(DT.begin(), TDT.begin(), TDT.end());
-
-        DT.push_back(std::make_pair(a, b));
+    for(int i = 1; i <= n; i++){
+        std::cin >> W[i] >> V[i];
     }
 
-    for(const auto &p : DT){
-        //std::cout << p.first << " , " << p.second << std::endl;
-        if(p.first <= k){
-            if(ans < p.second){
-                ans = p.second;
-            }
+    for(int i = 1; i <= n; i++){
+        for(int j = 0; j <= k; j++){
+            if(j-W[i] >= 0) DT[i][j] = std::max(DT[i-1][j], DT[i-1][j-W[i]]+V[i]);
+            else DT[i][j] = DT[i-1][j];
         }
+    }
+
+    for(int j = 0; j <= k; j++){
+        ans = std::max(ans, DT[n][j]);
     }
 
     return ans;
@@ -38,7 +31,9 @@ int solve(int n, int k){
 int main(){
     int n, k;
     std::cin >> n >> k;
-
+    DT.assign(n+1, std::vector<int>(WMAX, 0));
+    W.assign(n+1, 0);
+    V.assign(n+1, 0);
     std::cout << solve(n, k) << std::endl;
     return 0;
 }

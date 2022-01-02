@@ -78,3 +78,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 연속합
 * [12865] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1/12865)
   * 평범한 배낭
+* [11066] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_2/11066)
+  * 파일 합치기

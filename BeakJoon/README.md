@@ -80,3 +80,5 @@ BEAKJOON (https://www.acmicpc.net)
   * 평범한 배낭
 * [11066] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_2/11066)
   * 파일 합치기
+* [11049] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_2/11049)
+  * 행렬 곱셈 순서

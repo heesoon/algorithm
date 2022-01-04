@@ -4,39 +4,33 @@
 #include <limits>
 
 std::vector<std::vector<int>> DT;
-std::vector<int> pSum;
-std::vector<int> novelCost;
+std::vector<std::vector<int>> MAT;
 
-int solve(int k){
-    for(int i = 1; i <= k; i++){
-        std::cin >> novelCost[i];
-        pSum[i] = pSum[i-1] + novelCost[i];
-    }
-
-    for(int d = 1; d < k; d++){
-        for(int i = 1; i+d <= k; i++){
-            int j = i+d;
-            DT[i][j] = std::numeric_limits<int>::max();
-            for(int m = i; m < j; m++){
-                DT[i][j] = std::min(DT[i][j], DT[i][m] + DT[m+1][j] + pSum[j] - pSum[i-1]);
+int solve(int n){
+    for(int d = 1; d < n; d++){
+        for(int i = 0; i+d < n; i++){
+            for(int j = i+; j < n; j++){
+                DT[i][j] = std::max(DT[i][j], )
             }
         }
     }
-
-    return DT[1][k];
 }
 
 int main(){
-    int c, k;
-    std::cin >> c;
-    for(int i = 0; i < c; i++){
-        std::cin >> k;
-        DT.assign(k+1, std::vector<int>(k+1, 0));
-        pSum.assign(k+1, 0);
-        novelCost.assign(k+1, 0);
-        std::cout << solve(k) << std::endl;
+    int n;
+
+    std::cin >> n;
+    DT.assign(n, std::vector<int>(n, 0));
+    MAT.assign(n, std::vector<int>(2, 0));
+
+    for(int i = 0; i < n; i++){
+        int a, b;
+        std::cin >> a >> b;
+        MAT[i][0] = a;
+        MAT[i][1] = b;
     }
+
+    std::cout << solve(n) << "\n";
+
     return 0;
 }
-
-//https://js1jj2sk3.tistory.com/3

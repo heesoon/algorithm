@@ -3,40 +3,55 @@
 #include <algorithm>
 #include <limits>
 
+std::vector<int> numbers;
+//std::vector<std::vector<int>> questions;
 std::vector<std::vector<int>> DT;
-std::vector<int> pSum;
-std::vector<int> novelCost;
 
-int solve(int k){
-    for(int i = 1; i <= k; i++){
-        std::cin >> novelCost[i];
-        pSum[i] = pSum[i-1] + novelCost[i];
+void solve(int n){
+    for(int i = 0; i < n; i++){
+        DT[i][i] = 1;
     }
 
-    for(int d = 1; d < k; d++){
-        for(int i = 1; i+d <= k; i++){
-            int j = i+d;
-            DT[i][j] = std::numeric_limits<int>::max();
-            for(int m = i; m < j; m++){
-                DT[i][j] = std::min(DT[i][j], DT[i][m] + DT[m+1][j] + pSum[j] - pSum[i-1]);
-            }
+    for(int i = 1; i < n; i++){
+        for(int j = 0; j < n-i; j++){
+            int k = i+j;
+            if(i == 1) DT[j][k] = numbers[j] == numbers[k];
+            else DT[j][k] = ((numbers[j] == numbers[k]) && DT[j+1][k-1]) ? 1 : 0; 
         }
     }
-
-    return DT[1][k];
 }
 
 int main(){
-    int c, k;
-    std::cin >> c;
-    for(int i = 0; i < c; i++){
-        std::cin >> k;
-        DT.assign(k+1, std::vector<int>(k+1, 0));
-        pSum.assign(k+1, 0);
-        novelCost.assign(k+1, 0);
-        std::cout << solve(k) << std::endl;
+    int n; // 2001
+    int m; // 1,000,001
+    int a, b;
+
+    std::cin >> n;
+
+    numbers.assign(n, 0);
+    //questions.assign(n, std::vector<int>(2, 0));
+    DT.assign(n, std::vector<int>(n, 0));
+
+    for(int i = 0; i < n; i++){
+        std::cin >> numbers[i];
     }
+
+    solve(n);
+
+#if 0
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            std::cout << DT[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+#endif
+
+    std::cin >> m;
+    for(int i = 0; i < m; i++){
+        std::cin >> a >> b;
+        std::cout << DT[a-1][b-1] << "\n";
+    }
+
     return 0;
 }
-
-//https://js1jj2sk3.tistory.com/3

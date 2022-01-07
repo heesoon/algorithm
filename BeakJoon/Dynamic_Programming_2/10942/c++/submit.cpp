@@ -12,11 +12,19 @@ void solve(int n){
         DT[i][i] = 1;
     }
 
-    for(int i = 1; i < n; i++){
+    for(int i = 0; i < n-1; i++){
+        if(numbers[i] == numbers[i+1]){
+            DT[i][i+1] = 1;
+        }
+    }
+
+    for(int i = 2; i < n; i++){
         for(int j = 0; j < n-i; j++){
             int k = i+j;
-            if(i == 1) DT[j][k] = numbers[j] == numbers[k];
-            else DT[j][k] = ((numbers[j] == numbers[k]) && DT[j+1][k-1]) ? 1 : 0; 
+            if((numbers[j] == numbers[k]) && DT[j+1][k-1])
+            {
+                DT[j][k] = 1;
+            }
         }
     }
 }
@@ -25,6 +33,9 @@ int main(){
     int n; // 2001
     int m; // 1,000,001
     int a, b;
+    std::cin.tie(NULL); 
+    std::cout.tie(NULL);
+    std::ios_base::sync_with_stdio(false);
 
     std::cin >> n;
 
@@ -55,3 +66,5 @@ int main(){
 
     return 0;
 }
+
+// https://www.acmicpc.net/problem/15552

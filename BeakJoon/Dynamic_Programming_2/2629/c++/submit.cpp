@@ -8,9 +8,7 @@ std::vector<int> weights;
 std::vector<std::vector<bool>> DT;
 
 void solve(int n){
-    for(int i = 0; i <= n; i++){
-        DT[i][0] = true;
-    }
+    DT[0][0] = true;
 
     for(int i = 1; i <= n; i++){
         for(int j = 0; j < MAX; j++){
@@ -20,6 +18,10 @@ void solve(int n){
             else{
                 DT[i][j] = DT[i-1][j];
             }
+
+            if(weights[i-1] - j >= 0){
+                DT[i][j] = DT[i][j] || DT[i-1][weights[i-1]-j];
+            }            
         }
     }
 #if 0

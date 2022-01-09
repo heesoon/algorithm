@@ -3,40 +3,56 @@
 #include <algorithm>
 #include <limits>
 
-std::vector<std::vector<int>> DT;
-std::vector<int> pSum;
-std::vector<int> novelCost;
+const int MAX = 40'001;
+std::vector<int> weights;
+std::vector<std::vector<bool>> DT;
 
-int solve(int k){
-    for(int i = 1; i <= k; i++){
-        std::cin >> novelCost[i];
-        pSum[i] = pSum[i-1] + novelCost[i];
+void solve(int n){
+    for(int i = 0; i <= n; i++){
+        DT[i][0] = true;
     }
 
-    for(int d = 1; d < k; d++){
-        for(int i = 1; i+d <= k; i++){
-            int j = i+d;
-            DT[i][j] = std::numeric_limits<int>::max();
-            for(int m = i; m < j; m++){
-                DT[i][j] = std::min(DT[i][j], DT[i][m] + DT[m+1][j] + pSum[j] - pSum[i-1]);
+    for(int i = 1; i <= n; i++){
+        for(int j = 0; j < MAX; j++){
+            if(j - weights[i-1] >= 0){
+                DT[i][j] = DT[i-1][j] || DT[i-1][j-weights[i-1]];
+            }
+            else{
+                DT[i][j] = DT[i-1][j];
             }
         }
     }
-
-    return DT[1][k];
+#if 0
+    for(int i = 0; i < 30; i++){
+        std::cout << DT[n][i] << " ";
+    }
+#endif
 }
 
 int main(){
-    int c, k;
-    std::cin >> c;
-    for(int i = 0; i < c; i++){
-        std::cin >> k;
-        DT.assign(k+1, std::vector<int>(k+1, 0));
-        pSum.assign(k+1, 0);
-        novelCost.assign(k+1, 0);
-        std::cout << solve(k) << std::endl;
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    std::ios::sync_with_stdio(false);
+
+    int n, m, a;
+    std::cin >> n;
+
+    weights.assign(n, 0);
+    DT.assign(n+1, std::vector<bool>(MAX, false));
+
+    for(int i = 0; i < n; i++){
+        std::cin >> weights[i];
     }
+
+    std::cin >> m;
+    solve(n);
+
+    for(int i = 0; i < m; i++){
+        std::cin >> a;
+        if(DT[n][a] == true) std::cout << 'Y';
+        else std::cout << 'N';
+        std::cout << " ";
+    }
+
     return 0;
 }
-
-//https://js1jj2sk3.tistory.com/3

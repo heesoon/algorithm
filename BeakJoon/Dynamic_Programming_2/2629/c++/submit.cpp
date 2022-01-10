@@ -12,16 +12,10 @@ void solve(int n){
 
     for(int i = 1; i <= n; i++){
         for(int j = 0; j < MAX; j++){
-            if(j - weights[i-1] >= 0){
-                DT[i][j] = DT[i-1][j] || DT[i-1][j-weights[i-1]];
+            DT[i][j] = DT[i-1][j] || DT[i-1][std::abs(j-weights[i-1])];
+            if(j + weights[i-1] < MAX){
+                DT[i][j] = DT[i][j] || DT[i-1][j+weights[i-1]];
             }
-            else{
-                DT[i][j] = DT[i-1][j];
-            }
-
-            if(weights[i-1] - j >= 0){
-                DT[i][j] = DT[i][j] || DT[i-1][weights[i-1]-j];
-            }            
         }
     }
 #if 0

@@ -3,40 +3,47 @@
 #include <algorithm>
 #include <limits>
 
+const int MAX = 10'000'001;
+
+std::vector<int> usedMemory;
+std::vector<int> costs;
 std::vector<std::vector<int>> DT;
-std::vector<int> pSum;
-std::vector<int> novelCost;
 
-int solve(int k){
-    for(int i = 1; i <= k; i++){
-        std::cin >> novelCost[i];
-        pSum[i] = pSum[i-1] + novelCost[i];
-    }
-
-    for(int d = 1; d < k; d++){
-        for(int i = 1; i+d <= k; i++){
-            int j = i+d;
-            DT[i][j] = std::numeric_limits<int>::max();
-            for(int m = i; m < j; m++){
-                DT[i][j] = std::min(DT[i][j], DT[i][m] + DT[m+1][j] + pSum[j] - pSum[i-1]);
-            }
+int solve(int n, int m){
+    DT[0][0] = 0;
+    for(int i = 1; i <= n; i++){
+        for(int j = 0; j < MAX; j++){
+            if(j-usedMemory[i-1] >= 0) DT[i][j] = std::min(DT[i][j], DT[i-1][j-usedMemory[i-1]]+costs[i-1]);
+            else DT[i][j] = DT[i-1][j];
         }
     }
 
-    return DT[1][k];
+    return DT[n][m];
 }
 
 int main(){
-    int c, k;
-    std::cin >> c;
-    for(int i = 0; i < c; i++){
-        std::cin >> k;
-        DT.assign(k+1, std::vector<int>(k+1, 0));
-        pSum.assign(k+1, 0);
-        novelCost.assign(k+1, 0);
-        std::cout << solve(k) << std::endl;
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    std::ios_base::sync_with_stdio(false);
+
+    int n, m;
+    std::cin >> n >> m;
+
+    usedMemory.assign(n, 0);
+    costs.assign(n, 0);
+
+    //DT.assign(n+1, std::vector<int>(MAX, std::numeric_limits<int>::max()/2));
+    DT.assign(n+1, std::vector<int>(MAX, 10'000'001));
+
+    for(int i = 0; i < n; i++){
+        std::cin >> usedMemory[i]; 
     }
+
+    for(int i = 0; i < n; i++){
+        std::cin >> costs[i]; 
+    }
+    
+    std::cout << solve(n, m) << "\n";
+
     return 0;
 }
-
-//https://js1jj2sk3.tistory.com/3

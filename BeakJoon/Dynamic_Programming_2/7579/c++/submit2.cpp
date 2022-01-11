@@ -3,22 +3,31 @@
 #include <algorithm>
 #include <limits>
 
-const int MAX = 10'000'001;
-
+const int MAX = 10001;
 std::vector<int> usedMemory;
 std::vector<int> costs;
 std::vector<std::vector<int>> DT;
 
 int solve(int n, int m){
-    DT[0][0] = 0;
+    int ans = 0;
+
     for(int i = 1; i <= n; i++){
         for(int j = 0; j < MAX; j++){
-            if(j-usedMemory[i-1] >= 0) DT[i][j] = std::min(DT[i][j], DT[i-1][j-usedMemory[i-1]]+costs[i-1]);
-            else DT[i][j] = DT[i-1][j];
+            if(j-costs[i-1] >= 0){
+                DT[i][j] = std::max(DT[i][j], DT[i-1][j-costs[i-1]]+usedMemory[i-1]);
+            }
+            DT[i][j] = std::max(DT[i][j], DT[i-1][j]);
         }
     }
 
-    return DT[n][m];
+    for(int i = 0; i < MAX; i++){
+        if(DT[n][i] >= m){
+            ans = i;
+            break;
+        }
+    }
+
+    return ans;
 }
 
 int main(){
@@ -33,14 +42,15 @@ int main(){
     costs.assign(n, 0);
 
     //DT.assign(n+1, std::vector<int>(MAX, std::numeric_limits<int>::max()/2));
-    DT.assign(n+1, std::vector<int>(MAX, 10'000'001));
+    //DT.assign(n+1, std::vector<int>(MAX, 10'000'000));
+    DT.assign(n+1, std::vector<int>(MAX, 0));
 
     for(int i = 0; i < n; i++){
-        std::cin >> usedMemory[i]; 
+        std::cin >> usedMemory[i];
     }
 
     for(int i = 0; i < n; i++){
-        std::cin >> costs[i]; 
+        std::cin >> costs[i];
     }
     
     std::cout << solve(n, m) << "\n";

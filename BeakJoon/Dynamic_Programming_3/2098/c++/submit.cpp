@@ -3,40 +3,50 @@
 #include <algorithm>
 #include <limits>
 
+int n;
+std::vector<std::vector<int>> W;
 std::vector<std::vector<int>> DT;
-std::vector<int> pSum;
-std::vector<int> novelCost;
-
-int solve(int k){
-    for(int i = 1; i <= k; i++){
-        std::cin >> novelCost[i];
-        pSum[i] = pSum[i-1] + novelCost[i];
-    }
-
-    for(int d = 1; d < k; d++){
-        for(int i = 1; i+d <= k; i++){
-            int j = i+d;
-            DT[i][j] = std::numeric_limits<int>::max();
-            for(int m = i; m < j; m++){
-                DT[i][j] = std::min(DT[i][j], DT[i][m] + DT[m+1][j] + pSum[j] - pSum[i-1]);
-            }
+int solve(int idx, int visited){
+    if(visited == (1 << n) - 1){
+        if(W[idx-1][0] != 0){
+            return W[idx-1][0];
         }
+
+        return std::numeric_limits<int>::max()/2;
+    }
+    
+    int &ret = DT[idx][visited];
+    if(ret != -1) return ret;
+
+    ret = std::numeric_limits<int>::max()/2;
+    for(int i = 0; i < n; i++){
+        if(visited & (1 << i) || W[idx][i] == 0) continue;
+
+        ret = std::min(ret, solve(idx+1, visited | (1 << i)) + W[idx][i]);
     }
 
-    return DT[1][k];
+    return ret;
 }
 
 int main(){
-    int c, k;
-    std::cin >> c;
-    for(int i = 0; i < c; i++){
-        std::cin >> k;
-        DT.assign(k+1, std::vector<int>(k+1, 0));
-        pSum.assign(k+1, 0);
-        novelCost.assign(k+1, 0);
-        std::cout << solve(k) << std::endl;
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
+    std::ios_base::sync_with_stdio(false);
+
+    std::cin >> n;
+
+    W.assign(n, std::vector<int>(n, 0));
+    DT.assign(n, std::vector<int>(1 << n, -1));
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            std::cin >> W[i][j];
+        }
     }
+
+    std::cout << solve(0, 1) << "\n";
+
     return 0;
 }
 
-//https://js1jj2sk3.tistory.com/3
+// https://mapocodingpark.blogspot.com/2020/03/BOJ-2098.html

@@ -8,8 +8,8 @@ std::vector<std::vector<int>> W;
 std::vector<std::vector<int>> DT;
 int solve(int idx, int visited){
     if(visited == (1 << n) - 1){
-        if(W[idx-1][0] != 0){
-            return W[idx-1][0];
+        if(W[idx][0] != 0){
+            return W[idx][0];
         }
 
         return std::numeric_limits<int>::max()/2;
@@ -22,7 +22,7 @@ int solve(int idx, int visited){
     for(int i = 0; i < n; i++){
         if(visited & (1 << i) || W[idx][i] == 0) continue;
 
-        ret = std::min(ret, solve(idx+1, visited | (1 << i)) + W[idx][i]);
+        ret = std::min(ret, solve(i, visited | (1 << i)) + W[idx][i]);
     }
 
     return ret;

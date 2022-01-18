@@ -8,19 +8,20 @@ const int K = 101;
 const int L = 51;
 int n, k;
 std::vector<std::vector<long long>> DT(1 << N, std::vector<long long>(K, -1));
-std::vector<std::string> numsStr(N);
+std::string numsStr[N];
 std::vector<int> numsSz(N);
 std::vector<long long> numsRemainder(N);
 std::vector<long long> power10Remainder(L);
 
 long long solve(int visited, int num){
-    if(visited == (1 << n)-1) return !num;
+    if(visited == (1 << n)-1) return (num % k == 0);
     long long &ret = DT[visited][num];
     if(ret != -1) return ret;
 
     ret = 0;
     for(int i = 0; i < n; i++){
-        ret += solve(visited|(1<<i), (num*power10Remainder[numsSz[i]+numsRemainder[i]])%k);
+        if(!(visited&(1<<i)))
+            ret += solve(visited|(1<<i), (num*power10Remainder[numsSz[i]]+numsRemainder[i])%k);
     }
 
     return ret;
@@ -41,7 +42,7 @@ int main(){
 
     for(int i = 0; i < n; i++){
         std::cin >> numsStr[i];
-        numsSz[i] = numsStr.size();
+        numsSz[i] = numsStr[i].size();
     }
 
     std::cin >> k;
@@ -51,7 +52,7 @@ int main(){
         }
     }
 
-    power10Remainder[0] = 0;
+    power10Remainder[0] = 1%k;
     for(int i = 1; i < L; i++){
         power10Remainder[i] = (power10Remainder[i-1]*10)%k;
     }
@@ -62,6 +63,8 @@ int main(){
     }
 
     number_gcd = gcd(numerator, denominator);
+
+    std::cout << numerator << ", " << denominator << ", " << number_gcd << std::endl;
 
     std::cout << numerator/number_gcd << "/" << denominator/number_gcd << "\n";
     return 0;

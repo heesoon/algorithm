@@ -4,10 +4,11 @@
 #include <utility>
 
 int N, M;
+std::vector<int> v(9, 0);
 
-void solve(int visited, int m, std::vector<int> v){
-    if(m == M){
-        for(int i = 0; i < m; i++){
+void solve(int idx, int visited){
+    if(idx == M){
+        for(int i = 0; i < M; i++){
             std::cout << v[i] << " ";
         }
         std::cout << "\n";
@@ -16,17 +17,14 @@ void solve(int visited, int m, std::vector<int> v){
 
     for(int i = 1; i <= N; i++){
         if(visited & (1 << i)) continue;
-        v.push_back(i);
-        solve(visited|(1 << i), m+1, v);
-        v.pop_back();
+        v[idx] = i;
+        solve(idx+1, visited | (1 << i));
     }
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
     std::cin >> N >> M;
-    int visited = 0;
-    std::vector<int> v;
-    solve(visited, 0, v);
+    solve(0, 0);
     return 0;
 }

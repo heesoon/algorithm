@@ -3,40 +3,33 @@
 #include <algorithm>
 #include <limits>
 
-std::vector<std::vector<int>> DT;
-std::vector<int> pSum;
-std::vector<int> novelCost;
+const int L = 10'001;
 
-int solve(int k){
-    for(int i = 1; i <= k; i++){
-        std::cin >> novelCost[i];
-        pSum[i] = pSum[i-1] + novelCost[i];
-    }
+int n;
+int a[L], b[L];
+std::vector<std::vector<int>> DT(L, std::vector<int>(11, -1));
 
-    for(int d = 1; d < k; d++){
-        for(int i = 1; i+d <= k; i++){
-            int j = i+d;
-            DT[i][j] = std::numeric_limits<int>::max();
-            for(int m = i; m < j; m++){
-                DT[i][j] = std::min(DT[i][j], DT[i][m] + DT[m+1][j] + pSum[j] - pSum[i-1]);
-            }
-        }
-    }
+int solve(int i, int j){
+    if(i == n) return 0;
+    int &ret = DT[i][j];
+    if(ret != -1) return ret;
 
-    return DT[1][k];
+    ret = 0;
+    int lcnt = (b[i] - a[i] - j + 20) % 10;
+    int rcnt = 10 - lcnt;
+
+    return ret = std::min(solve(i+1, (j+lcnt)%10)+lcnt, solve(i+1, j)+rcnt);
 }
 
 int main(){
-    int c, k;
-    std::cin >> c;
-    for(int i = 0; i < c; i++){
-        std::cin >> k;
-        DT.assign(k+1, std::vector<int>(k+1, 0));
-        pSum.assign(k+1, 0);
-        novelCost.assign(k+1, 0);
-        std::cout << solve(k) << std::endl;
+    std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
+    std::string sa, sb;
+    std::cin >> n;
+    std::cin >> sa >> sb;
+    for(int i = 0; i < n; i++){
+        a[i] = sa[i] - '0';
+        b[i] = sb[i] - '0';
     }
+    std::cout << solve(0, 0) << "\n";
     return 0;
 }
-
-//https://js1jj2sk3.tistory.com/3

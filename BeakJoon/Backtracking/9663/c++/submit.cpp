@@ -3,28 +3,34 @@
 #include <algorithm>
 #include <utility>
 
-int N, M;
-std::vector<int> v(9, 0);
+const int N = 16;
+std::vector<bool> bColum(N, false);
+std::vector<bool> bUpDiagonal(2*N, false);
+std::vector<bool> bDownDiagonal(2*N, false);
 
-void solve(int idx, int cnt){
-    if(cnt == M){
-        for(int i = 0; i < M; i++){
-            std::cout << v[i] << " ";
+int solve(int y, int n){
+    int ret = 0;
+    if(y == n-1){
+        //std::cout << y << std::endl;
+        return 1;
+    }
+
+    for(int nx = 0; nx < n; nx++){
+        int ny = y+1;
+        if(bColum[nx] == false && bUpDiagonal[nx+ny] == false && bDownDiagonal[n+(nx - ny)] == false){
+            bColum[nx] = bUpDiagonal[nx+ny] = bDownDiagonal[n+(nx - ny)] = true;
+            ret += solve(ny, n);
+            bColum[nx] = bUpDiagonal[nx+ny] = bDownDiagonal[n+(nx - ny)] = false;
         }
-        std::cout << "\n";
-        return;
     }
 
-    for(int i = 1; i <= N; i++){
-        if(i < idx) continue;
-        v[cnt] = i;
-        solve(i, cnt+1);
-    }
+    return ret;
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    std::cin >> N >> M;
-    solve(0, 0);
+    int n;
+    std::cin >> n;
+    std::cout << solve(-1, n) << "\n";
     return 0;
 }

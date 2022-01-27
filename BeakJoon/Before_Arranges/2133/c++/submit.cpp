@@ -29,4 +29,4 @@ int main(){
     return 0;
 }
 
-// https://mizzo-dev.tistory.com/entry/baekjoon2133
+// https://t-anb.tistory.com/28

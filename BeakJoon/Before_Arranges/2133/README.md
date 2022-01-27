@@ -1,4 +1,4 @@
-숨바꼭질 6
+타일 채우기
 ====================================
 
-https://www.acmicpc.net/problem/17087
+https://www.acmicpc.net/problem/2133

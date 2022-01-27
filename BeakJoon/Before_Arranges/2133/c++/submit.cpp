@@ -1,70 +1,32 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <algorithm>
+#include <limits>
 
-using namespace std;
+const int N = 31;
+std::vector<int> DT(N, -1);
 
-bool valid(int n, const std::vector<bool> &visited){
-    if(n < 0 || n > 100'000 || visited[n]){
-        return false;
-    }
+int solve(int n){
+    if(n%2 != 0) return 0;
 
-    return true;
-}
-
-int solution(int N, int K) {
-    int answer = 0;
-    int next = 0;
-
-    std::priority_queue<std::vector<int>, std::vector<std::vector<int>>, std::greater<std::vector<int>>> Q;
-    //std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
-    std::vector<bool> visited(100'001, false);
-    //Q.push(make_pair(0, N));
-    Q.push({0, N});
-    visited[N] = true;
-
-    while(!Q.empty()){
-        auto front = Q.top();
-        int depth = front[0];
-        int curr = front[1];
-        //int depth = Q.top().first;
-        //int curr = Q.top().second;        
-        Q.pop();
-
-        if(curr == K){
-            answer = depth;
-            break;
-        }
-
-        next = curr*2;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth, next});
-            //Q.push(make_pair(depth, next));
-        }
-
-        next = curr - 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
-        }
-
-        next = curr + 1;
-        if(valid(next, visited)){
-            visited[next] = true;
-            Q.push({depth + 1, next});
-            //Q.push(make_pair(depth+1, next));
+    DT[0] = 1, DT[2] = 3;
+    for(int i = 4; i <= n; i++){
+        if(i%2 != 0) continue;
+        DT[i] = DT[i-2]*3;
+        for(int j = i-4; j >= 0; j=j-2){
+            DT[i] += DT[j]*2;
         }
     }
 
-    return answer;
+    return DT[n];
 }
 
 int main(){   
-    int N, K;
-    std::cin >> N >> K;
-
-    std::cout << solution(N, K);
+    std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
+    int n;
+    std::cin >> n;
+    std::cout << solve(n) << "\n";
     return 0;
 }
+
+// https://mizzo-dev.tistory.com/entry/baekjoon2133

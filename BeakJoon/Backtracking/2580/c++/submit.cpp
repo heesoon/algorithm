@@ -12,5 +12,3 @@ int main(){
 
     return 0;
 }
-
-// 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

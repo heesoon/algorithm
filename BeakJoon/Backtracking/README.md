@@ -10,3 +10,5 @@
   * N과 M(4)
 * [9663] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/9663)
   * N-Queen
+* [2580] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/2580)
+  * 스도쿠

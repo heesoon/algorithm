@@ -22,6 +22,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 최소 신장 트리
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree_DP)
   * 트리에서의 동적 계획법
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Topological_sort)
+  * 위상 정렬
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1)
   * Dynamic_Programming_1
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_2)

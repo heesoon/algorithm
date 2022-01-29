@@ -10,6 +10,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 그리디 알고리즘
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer)
   * 분할 정복
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search)
+  * 이분 탐색
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1)
   * Dynamic_Programming_1
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_2)

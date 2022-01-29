@@ -14,3 +14,5 @@
   * 스도쿠
 * [14888] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/14888)
   * 연산자 끼워넣기
+* [14889] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/14889)
+  * 스타트와 링크

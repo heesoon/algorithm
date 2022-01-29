@@ -18,6 +18,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 동적 계획법과 최단거리 역추적
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree)
   * 트리
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MST)
+  * 최소 신장 트리
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1)
   * Dynamic_Programming_1
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_2)

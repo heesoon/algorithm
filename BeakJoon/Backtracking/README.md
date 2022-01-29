@@ -12,3 +12,5 @@
   * N-Queen
 * [2580] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/2580)
   * 스도쿠
+* [14888] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/14888)
+  * 연산자 끼워넣기

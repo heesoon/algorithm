@@ -16,6 +16,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 최단 경로
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DP_Shorest)
   * 동적 계획법과 최단거리 역추적
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree)
+  * 트리
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1)
   * Dynamic_Programming_1
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_2)

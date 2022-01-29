@@ -24,6 +24,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 트리에서의 동적 계획법
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Topological_sort)
   * 위상 정렬
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MCP)
+  * 최소 공통 조상
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1)
   * Dynamic_Programming_1
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_2)

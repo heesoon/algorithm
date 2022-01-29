@@ -4,64 +4,54 @@
 #include <utility>
 #include <limits>
 
-const int N = 12;
-int minValue = std::numeric_limits<int>::max()/2;
-int maxValue = std::numeric_limits<int>::min()/2;
-std::vector<int> nums;
-std::vector<int> operators;
+const int N = 21;
+std::vector<std::vector<int>> S;
+std::vector<bool> visited;
 
-void solve(int idx, int n, int sum){
-    if(idx == n){
-        if(sum > maxValue){
-            maxValue = sum;
-        }
-        
-        if(sum < minValue){
-            minValue = sum;
-        }
+int solve(int idx, int cnt, int n){
+    int ret = std::numeric_limits<int>::max()/2;
 
-        return;
+    if(cnt == n/2){
+        int a = 0, b = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(visited[i] == true && visited[j] == true){
+                    a += S[i][j];
+                }
+
+                if(visited[i] == false && visited[j] == false){
+                    b += S[i][j];                   
+                }
+            }
+        }
+        return std::abs(a - b);
     }
 
-    for(int i = 0; i < 4; i++){
-        if(operators[i]){
-            operators[i] -= 1;
-            if(i == 0){
-                solve(idx+1, n, sum+nums[idx]);
-            }
-            else if(i == 1){
-                solve(idx+1, n, sum-nums[idx]);
-            }
-            else if(i == 2){
-                solve(idx+1, n, sum*nums[idx]);
-            }
-            else{
-                solve(idx+1, n, sum/nums[idx]);
-            }            
-            operators[i] += 1;
+    for(int i = idx; i < n; i++){
+        if(visited[i] == false){
+            visited[i] = true;
+            ret = std::min(ret, solve(i+1, cnt+1, n));
+            visited[i] = false;        
         }
     }
+
+    return ret;
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
     int n;
-    nums.assign(N, 0);
-    operators.assign(4, 0);
+    S.assign(N, std::vector<int>(N, 0));
+    visited.assign(N, false);
 
     std::cin >> n;
+
     for(int i = 0; i < n; i++){
-        std::cin >> nums[i];
+        for(int j = 0; j < n; j++){
+            std::cin >> S[i][j];
+        }
     }
 
-    for(int i = 0; i < 4; i++){
-        std::cin >> operators[i];
-    }
-
-    solve(1, n, nums[0]);
-
-    std::cout << maxValue << "\n";
-    std::cout << minValue << "\n";
-
+    std::cout << solve(0, 0, n) << "\n";
     return 0;
 }

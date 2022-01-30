@@ -2,61 +2,70 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
+#include <limits>
 
-const int N = 9;
-std::vector<std::vector<int>> map;
-std::vector<std::vector<bool>> col;
-std::vector<std::vector<bool>> row;
-std::vector<std::vector<bool>> box3x3;
+std::vector<std::vector<char>> chess;
 
-void solve(int cnt){
-    if(cnt == 81){
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                std::cout << map[i][j] << " ";
-            }
-            std::cout << "\n";
+int getCount(int sy, int sx){
+    int cnt = 0;
+    char check[2];
+    if((sy+sx)%2 == 0){
+        if(chess[sy][sx] == 'W'){
+            check[0] = 'W';
+            check[1] = 'B';
         }
-        exit(0);
-    }
-
-    int y = cnt/N;
-    int x = cnt%N;
-
-    if(map[y][x]){
-        solve(cnt+1);
+        else{
+            check[0] = 'B';
+            check[1] = 'W';            
+        }
     }
     else{
-        for(int i = 1; i <= N; i++){
-            if(col[x][i] == false && row[y][i] == false && box3x3[(y/3)*3 + x/3][i] == false){
-                map[y][x] = i;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = true;
-                solve(cnt+1);
-                map[y][x] = 0;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = false;
+        if(chess[sy][sx] == 'W'){
+            check[0] = 'B';
+            check[1] = 'W';
+        }
+        else{
+            check[0] = 'W';
+            check[1] = 'B';            
+        }  
+    }
+
+    for(int y = sy; y < sy+8; y++){
+        for(int x = sx; x < sx+8; x++){
+            if((y+x)%2 == 0){
+                if(check[0] != chess[y][x]){
+                    cnt++;
+                }
+            }
+            else{
+                if(check[1] != chess[y][x]){
+                    cnt++;
+                }
             }
         }
     }
+
+    return cnt;
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    map.assign(N, std::vector<int>(N, 0));
-    col.assign(N+1, std::vector<bool>(N+1, false));
-    row.assign(N+1, std::vector<bool>(N+1, false));
-    box3x3.assign(N, std::vector<bool>(N+1, false));
+    int n, m, ans = std::numeric_limits<int>::max()/2;
+    std::cin >> n >> m;
+    chess.assign(n, std::vector<char>(m));
 
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            std::cin >> map[i][j];
-            if(map[i][j]){
-                row[i][map[i][j]] = true;
-                col[j][map[i][j]] = true;
-                box3x3[(i/3)*3 + j/3][map[i][j]] = true;
-            }
+    for(int y = 0; y < n; y++){
+        for(int x = 0; x < m; x++){
+            std::cin >> chess[y][x];
         }
     }
 
-    solve(0);
+    for(int y = 0; y+8 <= n; y++){
+        for(int x = 0; x+8 <= m; x++){
+            ans = std::min(ans, getCount(y, x));
+        }
+    }
+
+    std::cout << ans << "\n";
     return 0;
 }

@@ -7,45 +7,32 @@
 std::vector<std::vector<char>> chess;
 
 int getCount(int sy, int sx){
-    int cnt = 0;
-    char check[2];
-    if((sy+sx)%2 == 0){
-        if(chess[sy][sx] == 'W'){
-            check[0] = 'W';
-            check[1] = 'B';
-        }
-        else{
-            check[0] = 'B';
-            check[1] = 'W';            
-        }
-    }
-    else{
-        if(chess[sy][sx] == 'W'){
-            check[0] = 'B';
-            check[1] = 'W';
-        }
-        else{
-            check[0] = 'W';
-            check[1] = 'B';            
-        }  
-    }
+    int cntB = 0, cntW = 0;
 
-    for(int y = sy; y < sy+8; y++){
-        for(int x = sx; x < sx+8; x++){
+    for(int y = 0; y < 8; y++){
+        for(int x = 0; x < 8; x++){
             if((y+x)%2 == 0){
-                if(check[0] != chess[y][x]){
-                    cnt++;
+                // 8x8이 BWBW~~ 판과 비교해서 차이점
+                if(chess[sy+y][sx+x] == 'W'){
+                    cntB++;
+                } //8x8이 WBWB~~ 판과 비교해서 차이점
+                else{
+                    cntW++;
                 }
             }
             else{
-                if(check[1] != chess[y][x]){
-                    cnt++;
+                // 8x8이 BWBW~~ 판과 비교해서 차이점
+                if(chess[sy+y][sx+x] == 'B'){
+                    cntB++;
                 }
+                else{ //8x8이 WBWB~~ 판과 비교해서 차이점
+                    cntW++;
+                }                
             }
         }
     }
 
-    return cnt;
+    return std::min(cntB, cntW);
 }
 
 int main(){

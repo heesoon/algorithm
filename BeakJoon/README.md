@@ -8,6 +8,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 브루트 포스
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Greedy)
   * 그리디 알고리즘
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Number_Combination_theory)
+  * 정수론 및 조합론
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer)
   * 분할 정복
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search)

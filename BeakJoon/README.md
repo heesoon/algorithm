@@ -2,6 +2,8 @@ BEAKJOON (https://www.acmicpc.net)
 ==========================================================================================
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Before_Arranges)
   * 정리전
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Baisc_Mathematics)
+  * 기본 수학 1
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking)
   * 백트래킹
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Brute_force)

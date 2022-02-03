@@ -10,8 +10,9 @@ int main(){
         std::stack<char> st;
         std::string str;
         bool bflag = true;
-        std::cin.ignore();
+        //std::cin.ignore();
         std::getline(std::cin, str, '.');
+        std::cin.ignore(); // \n을 지우기 위해서는 getline함수 뒤에 와야 한다.
         if(str.size() == 0){
             break;
         }
@@ -32,7 +33,7 @@ int main(){
                     else if(st.top() == '[' && str[i] == ']'){
                         st.pop();
                     }
-                    else{
+                    else{ // (]). 알 경우 아래 조건식이 없으면 오답이 발생
                         bflag = false;
                         break;
                     }

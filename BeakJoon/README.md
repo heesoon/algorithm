@@ -12,6 +12,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 그리디 알고리즘
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Number_Combination_theory)
   * 정수론 및 조합론
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Stack)
+  * 스택
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer)
   * 분할 정복
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search)

@@ -12,9 +12,18 @@ int main(){
     int five = 0, two = 0;
     for(int i = 2; i <= n; i++){
         int temp = i;
-        while(
+        while(!(temp%5)){
+            five++;
+            temp /= 5;
+        }
+
+        temp = i;
+        while(!(temp%2)){
+            two++;
+            temp /= 2;
+        }
     }
 
-    std::cout << std::min(a, b) << "\n";
+    std::cout << std::min(five, two) << "\n";
     return 0;
 }

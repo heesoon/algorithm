@@ -6,32 +6,20 @@
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    std::string str;
-    int num = 0, sum = 0;
-    bool bMinus = false;
-    std::cin >> str;
-    for(int i = 0; i <= str.size(); i++){
-        if(str[i] == '+' || str[i] == '-' || i == str.size()){
+    int n;
+    std::cin >> n;
 
-            if(bMinus == false){
-                sum += num;
-                num = 0;
-            }
-            else{
-                sum -= num;
-                num = 0;
-            }
-            
-            if(str[i] == '-'){
-                bMinus = true;
-            }            
+    int a = 0, b = 0;
+    for(int i = 2; i <= n; i++){
+        if(i%2 == 0){
+            a++;
         }
-        else{
-            num *= 10;
-            num += str[i] - '0';
+
+        if(i%5 == 0){
+            b++;
         }
     }
 
-    std::cout << sum << "\n";
+    std::cout << std::min(a, b) << "\n";
     return 0;
 }

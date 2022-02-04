@@ -8,7 +8,7 @@
   * 최대공약수와 최소 공배수
 * [1934] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Number_Combination_theory/1934)
   * 최소공배수
-* [2981] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Number_Combination_theory/2981)
+* 👍 [2981] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Number_Combination_theory/2981)
   * 검문
 * [3036] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Number_Combination_theory/3036)
   * 링

@@ -9,15 +9,10 @@ int main(){
     int n;
     std::cin >> n;
 
-    int a = 0, b = 0;
+    int five = 0, two = 0;
     for(int i = 2; i <= n; i++){
-        if(i%2 == 0){
-            a++;
-        }
-
-        if(i%5 == 0){
-            b++;
-        }
+        int temp = i;
+        while(
     }
 
     std::cout << std::min(a, b) << "\n";

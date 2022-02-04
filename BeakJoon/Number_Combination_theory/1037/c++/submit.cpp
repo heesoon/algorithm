@@ -6,32 +6,26 @@
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    std::string str;
-    int num = 0, sum = 0;
-    bool bMinus = false;
-    std::cin >> str;
-    for(int i = 0; i <= str.size(); i++){
-        if(str[i] == '+' || str[i] == '-' || i == str.size()){
+    int n, ans;
+    std::vector<int> nums;
+    std::cin >> n;
+    nums.assign(n, 0);
 
-            if(bMinus == false){
-                sum += num;
-                num = 0;
-            }
-            else{
-                sum -= num;
-                num = 0;
-            }
-            
-            if(str[i] == '-'){
-                bMinus = true;
-            }            
-        }
-        else{
-            num *= 10;
-            num += str[i] - '0';
-        }
+    for(int i = 0; i < n; i++){
+        std::cin >> nums[i];
     }
 
-    std::cout << sum << "\n";
+    if(n == 1){
+        ans = nums[0]*nums[0]; 
+    }
+    else{
+        int a = *std::max_element(nums.begin(), nums.end());
+        // int aIdx = std::max_element(nums.begin(), nums.end()) -nums.begin();
+        int b = *std::min_element(nums.begin(), nums.end());
+
+        ans = a*b;
+    }
+
+    std::cout << ans << "\n";
     return 0;
 }

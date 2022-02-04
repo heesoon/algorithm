@@ -4,34 +4,25 @@
 #include <utility>
 #include <limits>
 
+int gcd(int a, int b){
+    if(b == 0) return a;
+    else return gcd(b, a%b);
+}
+
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    std::string str;
-    int num = 0, sum = 0;
-    bool bMinus = false;
-    std::cin >> str;
-    for(int i = 0; i <= str.size(); i++){
-        if(str[i] == '+' || str[i] == '-' || i == str.size()){
+    int n;
+    std::cin >> n;
+    std::vector<int> v(n);
 
-            if(bMinus == false){
-                sum += num;
-                num = 0;
-            }
-            else{
-                sum -= num;
-                num = 0;
-            }
-            
-            if(str[i] == '-'){
-                bMinus = true;
-            }            
-        }
-        else{
-            num *= 10;
-            num += str[i] - '0';
-        }
+    for(int i = 0; i < n; i++){
+        std::cin >> v[i];
     }
 
-    std::cout << sum << "\n";
+    for(int i = 1; i < n; i++){
+        int max_gcd = gcd(v[0], v[i]);
+        std::cout << v[0]/max_gcd << "/" << v[i]/max_gcd << "\n";
+    }
+
     return 0;
 }

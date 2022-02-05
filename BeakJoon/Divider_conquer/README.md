@@ -8,7 +8,7 @@
   * 종이의 개수
 * [1629] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/1629)
   * 곱셈
-* [11401] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/11401)
+* 👍[11401] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/11401)
   * 이항 계수 3
 * [2740] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/2740)
   * 행렬 곱셈

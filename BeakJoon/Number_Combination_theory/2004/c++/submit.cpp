@@ -4,34 +4,31 @@
 #include <utility>
 #include <limits>
 
-int main(){
-    std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    std::string str;
-    int num = 0, sum = 0;
-    bool bMinus = false;
-    std::cin >> str;
-    for(int i = 0; i <= str.size(); i++){
-        if(str[i] == '+' || str[i] == '-' || i == str.size()){
-
-            if(bMinus == false){
-                sum += num;
-                num = 0;
-            }
-            else{
-                sum -= num;
-                num = 0;
-            }
-            
-            if(str[i] == '-'){
-                bMinus = true;
-            }            
-        }
-        else{
-            num *= 10;
-            num += str[i] - '0';
-        }
+std::pair<long long, long long> getCount(long long n){
+    long long five = 0, two = 0;
+    for(long long i = 2; i <= n; i*=2){
+        two += n/i;
     }
 
-    std::cout << sum << "\n";
+    for(long long i = 5; i <= n; i*=5){
+        five += n/i;
+    }
+
+    return std::make_pair(five, two);
+}
+
+int main(){
+    std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
+    long long n, m, five = 0, two = 0;
+    std::cin >> n >> m;
+
+    auto nNum = getCount(n);
+    auto mNum = getCount(m);
+    auto dNum = getCount(n-m);
+
+    five = nNum.first - mNum.first - dNum.first;
+    two = nNum.second - mNum.second - dNum.second;
+
+    std::cout << std::min(five, two) << "\n";
     return 0;
 }

@@ -2,61 +2,59 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
+#include <limits>
 
-const int N = 9;
-std::vector<std::vector<int>> map;
-std::vector<std::vector<bool>> col;
-std::vector<std::vector<bool>> row;
-std::vector<std::vector<bool>> box3x3;
+std::vector<long long> heights;
 
-void solve(int cnt){
-    if(cnt == 81){
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                std::cout << map[i][j] << " ";
-            }
-            std::cout << "\n";
+long long solve(int left, int right){
+    if(left == right){
+        return heights[left];
+    }
+
+    int mid = (left + right)/2;
+    long long ret = std::max(solve(left, mid), solve(mid+1, right));
+
+    int lo = mid, hi = mid+1;
+    long long height = std::min(heights[lo], heights[hi]);
+
+    ret = std::max(ret, height*2);
+
+    while(left < lo || hi < right){
+        if(hi < right && (lo == left || heights[lo-1] < heights[hi+1])){
+            hi++;
+            height = std::min(height, heights[hi]);
         }
-        exit(0);
-    }
-
-    int y = cnt/N;
-    int x = cnt%N;
-
-    if(map[y][x]){
-        solve(cnt+1);
-    }
-    else{
-        for(int i = 1; i <= N; i++){
-            if(col[x][i] == false && row[y][i] == false && box3x3[(y/3)*3 + x/3][i] == false){
-                map[y][x] = i;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = true;
-                solve(cnt+1);
-                map[y][x] = 0;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = false;
-            }
+        else{
+            lo--;
+            height = std::min(height, heights[lo]);
         }
     }
+
+    ret = std::max(ret, height*(hi-lo+1));
+    return ret;
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    map.assign(N, std::vector<int>(N, 0));
-    col.assign(N+1, std::vector<bool>(N+1, false));
-    row.assign(N+1, std::vector<bool>(N+1, false));
-    box3x3.assign(N, std::vector<bool>(N+1, false));
 
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            std::cin >> map[i][j];
-            if(map[i][j]){
-                row[i][map[i][j]] = true;
-                col[j][map[i][j]] = true;
-                box3x3[(i/3)*3 + j/3][map[i][j]] = true;
-            }
+    while(1){
+        int n;
+        std::cin >> n;
+        if(n == 0){
+            break;
         }
+        heights.assign(n, 0);
+
+        for(int i = 0; i < n; i++){
+            std::cin >> heights[i];
+        }
+
+        std::cout << solve(0, n-1) << "\n";
+        heights.clear();
     }
 
-    solve(0);
     return 0;
 }
+
+// https://www.acmicpc.net/blog/view/12
+// https://bingorithm.tistory.com/14

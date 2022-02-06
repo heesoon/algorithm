@@ -14,7 +14,7 @@
   * 행렬 곱셈
 * 👍[10830] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/10830)
   * 행렬 제곱
-* [11444] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/11444)
+* 👍[11444] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/11444)
   * 피보나치 수 6
 * [6549] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/6549)
   * 히스토그램에서 가장 큰 직사각형

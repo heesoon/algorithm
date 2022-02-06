@@ -12,7 +12,7 @@
   * 이항 계수 3
 * [2740] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/2740)
   * 행렬 곱셈
-* [10830] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/10830)
+* 👍[10830] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/10830)
   * 행렬 제곱
 * [11444] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/11444)
   * 피보나치 수 6

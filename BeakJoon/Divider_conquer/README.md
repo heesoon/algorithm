@@ -1,4 +1,4 @@
-그리디 알고리즘
+분할 정복
 ==========================================================================================
 * [2630] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/2630)
   * 색종이 만들기
@@ -18,5 +18,3 @@
   * 피보나치 수 6
 * [6549] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/6549)
   * 히스토그램에서 가장 큰 직사각형
-* [2261] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer/2261)
-  * 가장 가까운 두 점

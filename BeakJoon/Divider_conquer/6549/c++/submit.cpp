@@ -6,6 +6,41 @@
 
 std::vector<long long> heights;
 
+long long getArea(int left, int right, int mid){
+    int lo = mid;
+    int hi = mid;
+
+    long long height = heights[mid];
+    long long maxArea = height;
+
+    while(lo > left && hi < right){
+        if(heights[lo-1] <= heights[hi+1]){
+            hi++;
+            height = std::min(height, heights[hi]);
+        }
+        else{
+            lo--;
+            height = std::min(height, heights[lo]);
+        }
+
+        maxArea = std::max(maxArea, height*(hi-lo+1));
+    }
+
+    while(hi < right){
+        hi++;
+        height = std::min(height, heights[hi]);
+        maxArea = std::max(maxArea, height*(hi-lo+1));
+    }
+
+    while(lo > left){
+        lo--;
+        height = std::min(height, heights[lo]);
+        maxArea = std::max(maxArea, height*(hi-lo+1));
+    }
+
+    return maxArea;
+}
+
 long long solve(int left, int right){
     if(left == right){
         return heights[left];
@@ -14,23 +49,8 @@ long long solve(int left, int right){
     int mid = (left + right)/2;
     long long ret = std::max(solve(left, mid), solve(mid+1, right));
 
-    int lo = mid, hi = mid+1;
-    long long height = std::min(heights[lo], heights[hi]);
+    ret = std::max(ret, getArea(left, right, mid));
 
-    ret = std::max(ret, height*2);
-
-    while(left < lo || hi < right){
-        if(hi < right && (lo == left || heights[lo-1] < heights[hi+1])){
-            hi++;
-            height = std::min(height, heights[hi]);
-        }
-        else{
-            lo--;
-            height = std::min(height, heights[lo]);
-        }
-    }
-
-    ret = std::max(ret, height*(hi-lo+1));
     return ret;
 }
 

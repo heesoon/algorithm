@@ -7,4 +7,4 @@
 * 👍[11653] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Baisc_Mathematics_2/11653)
   * 소인수분해
 * [1929] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Baisc_Mathematics_2/1929)
-  * 소수 구하기
+  * 소수 구하기 (에라토스테네스의 체 이용)

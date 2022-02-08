@@ -6,6 +6,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 입출력과 사칙연산
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Baisc_Mathematics_1)
   * 기본 수학 1
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Baisc_Mathematics_2)
+  * 기본 수학 2
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking)
   * 백트래킹
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Brute_force)

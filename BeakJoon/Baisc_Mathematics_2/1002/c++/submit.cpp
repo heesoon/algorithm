@@ -13,25 +13,21 @@ int main(){
         std::cin >> x1 >> y1 >> r1 >> x2 >> y2 >> r2;
 
         double d = std::sqrt(std::pow((x1-x2), 2) + std::pow((y1-y2), 2));
-        if(r1+r2 < d){
-            std::cout << "0\n";
-        }
-        else if(r1+r2 == d){
-            std::cout << "1\n";
-        }        
-        else if(std::abs(r1-r2) > d){
-            std::cout << "0\n";
-        }
-        else if(std::abs(r1-r2) == d){
-            std::cout << "1\n";
-        }
-        else if(d == 0 && r1 == r2){
+        if(d == 0 && r1 == r2){
             std::cout << "-1\n";
         }
-        else{
+        else if(r1+r2 == d || std::abs(r1-r2) == d){
+            std::cout << "1\n";
+        }
+        else if(r1+r2 > d && std::abs(r1-r2) < d){
             std::cout << "2\n";
-        }    
+        }
+        else{
+            std::cout << "0\n";
+        }  
     }
 
     return 0;
 }
+
+// https://beginnerdeveloper-lit.tistory.com/13

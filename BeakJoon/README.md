@@ -20,6 +20,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 정수론 및 조합론
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Stack)
   * 스택
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Queue_Deck)
+  * 큐, 덱
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer)
   * 분할 정복
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search)

@@ -6,48 +6,16 @@
 
 std::vector<int> A;
 
-#if 0
 int lowerBound(int start, int end, int target){
-    int sIdx = start, eIdx = end;
-
-    //while(sIdx <= eIdx){
-    while(sIdx < eIdx){
-        int mIdx = (sIdx+eIdx)/2;
-        if(target <= A[mIdx]){
-            eIdx = mIdx;
-        }
-        else{
-            sIdx = mIdx+1;
-        }
-    }
-
-    return eIdx;
-}
-
-int upperBound(int start, int end, int target){
-    int sIdx = start, eIdx = end;
-
-    //while(sIdx <= eIdx){
-    while(sIdx < eIdx){
-        int mIdx = (sIdx+eIdx)/2;
-        if(target < A[mIdx]){
-            eIdx = mIdx;
-        }
-        else{
-            sIdx = mIdx+1;
-        }
-    }
-
-    return eIdx;
-}
-#else
-int lowerBound(int start, int end, int target){
-    int sIdx = start, eIdx = end, ans = 0;
+    int sIdx = start, eIdx = end, ans = -1;
 
     while(sIdx <= eIdx){
         int mIdx = (sIdx+eIdx)/2;
-        if(target <= A[mIdx]){
+        if(target == A[mIdx]){
             ans = mIdx;
+            eIdx = mIdx-1;
+        }
+        else if(target < A[mIdx]){
             eIdx = mIdx-1;
         }
         else{
@@ -59,28 +27,41 @@ int lowerBound(int start, int end, int target){
 }
 
 int upperBound(int start, int end, int target){
-    int sIdx = start, eIdx = end, ans = 0;
+    int sIdx = start, eIdx = end, ans = -1;
 
     while(sIdx <= eIdx){
         int mIdx = (sIdx+eIdx)/2;
-        if(target >= A[mIdx]){
+        if(target == A[mIdx]){
             ans = mIdx;
             sIdx = mIdx+1;
         }
-        else{
+        else if(target < A[mIdx]){
             eIdx = mIdx-1;
         }
+        else{
+            sIdx = mIdx+1;
+        }
     }
-
     return ans;
 }
-#endif
 
 int solve(int start, int end, int target){
     int lIdx = lowerBound(start, end, target);
     int uIdx = upperBound(start, end, target);
+    
+    //std::cout << lIdx << ", " << uIdx << std::endl;
 
-    return uIdx-lIdx+1;
+    if(lIdx == -1 && uIdx == -1){
+        return 0;
+    }
+    else{
+        if(lIdx == uIdx){
+            return 1;
+        }
+        else{
+            return uIdx-lIdx+1;
+        }
+    }
 }
 
 int main(){

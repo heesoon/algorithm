@@ -8,7 +8,7 @@
   * 랜선 자르기
 * [2805] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search/2805)
   * 나무 자르기
-* [2110] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search/2110)
+* 👍[2110] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search/2110)
   * 공유기 설치
 * [1300] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search/1300)
   * K번째 수

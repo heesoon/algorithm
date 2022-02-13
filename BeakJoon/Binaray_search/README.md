@@ -1,8 +1,8 @@
 이분 탐색
 ==========================================================================================
-* [1920] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search/1920)
+* 👍[1920] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search/1920)
   * 수 찾기
-* [10816] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search/10816)
+* 👍[10816] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search/10816)
   * 숫자 카드 2
 * [1654] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search/1654)
   * 랜선 자르기

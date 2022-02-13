@@ -2,61 +2,101 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
+#include <limits>
 
-const int N = 9;
-std::vector<std::vector<int>> map;
-std::vector<std::vector<bool>> col;
-std::vector<std::vector<bool>> row;
-std::vector<std::vector<bool>> box3x3;
+std::vector<int> A;
 
-void solve(int cnt){
-    if(cnt == 81){
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                std::cout << map[i][j] << " ";
-            }
-            std::cout << "\n";
+#if 0
+int lowerBound(int start, int end, int target){
+    int sIdx = start, eIdx = end;
+
+    //while(sIdx <= eIdx){
+    while(sIdx < eIdx){
+        int mIdx = (sIdx+eIdx)/2;
+        if(target <= A[mIdx]){
+            eIdx = mIdx;
         }
-        exit(0);
-    }
-
-    int y = cnt/N;
-    int x = cnt%N;
-
-    if(map[y][x]){
-        solve(cnt+1);
-    }
-    else{
-        for(int i = 1; i <= N; i++){
-            if(col[x][i] == false && row[y][i] == false && box3x3[(y/3)*3 + x/3][i] == false){
-                map[y][x] = i;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = true;
-                solve(cnt+1);
-                map[y][x] = 0;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = false;
-            }
+        else{
+            sIdx = mIdx+1;
         }
     }
+
+    return eIdx;
+}
+
+int upperBound(int start, int end, int target){
+    int sIdx = start, eIdx = end;
+
+    //while(sIdx <= eIdx){
+    while(sIdx < eIdx){
+        int mIdx = (sIdx+eIdx)/2;
+        if(target < A[mIdx]){
+            eIdx = mIdx;
+        }
+        else{
+            sIdx = mIdx+1;
+        }
+    }
+
+    return eIdx;
+}
+#else
+int lowerBound(int start, int end, int target){
+    int sIdx = start, eIdx = end, ans = 0;
+
+    while(sIdx <= eIdx){
+        int mIdx = (sIdx+eIdx)/2;
+        if(target <= A[mIdx]){
+            ans = mIdx;
+            eIdx = mIdx-1;
+        }
+        else{
+            sIdx = mIdx+1;
+        }
+    }
+
+    return ans;
+}
+
+int upperBound(int start, int end, int target){
+    int sIdx = start, eIdx = end, ans = 0;
+
+    while(sIdx <= eIdx){
+        int mIdx = (sIdx+eIdx)/2;
+        if(target >= A[mIdx]){
+            ans = mIdx;
+            sIdx = mIdx+1;
+        }
+        else{
+            eIdx = mIdx-1;
+        }
+    }
+
+    return ans;
+}
+#endif
+
+int solve(int start, int end, int target){
+    int lIdx = lowerBound(start, end, target);
+    int uIdx = upperBound(start, end, target);
+
+    return uIdx-lIdx+1;
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    map.assign(N, std::vector<int>(N, 0));
-    col.assign(N+1, std::vector<bool>(N+1, false));
-    row.assign(N+1, std::vector<bool>(N+1, false));
-    box3x3.assign(N, std::vector<bool>(N+1, false));
-
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            std::cin >> map[i][j];
-            if(map[i][j]){
-                row[i][map[i][j]] = true;
-                col[j][map[i][j]] = true;
-                box3x3[(i/3)*3 + j/3][map[i][j]] = true;
-            }
-        }
+    int n, m;
+    std::cin >> n;
+    A.assign(n, 0);
+    for(int i = 0; i < n; i++){
+        std::cin >> A[i];
     }
-
-    solve(0);
+    std::sort(A.begin(), A.end());
+    std::cin >> m;
+    for(int i = 0; i < m; i++){
+        int x;
+        std::cin >> x;
+        std::cout << solve(0, n-1, x) << " ";
+    }    
     return 0;
 }

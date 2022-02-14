@@ -26,6 +26,8 @@ BEAKJOON (https://www.acmicpc.net)
   * 분할 정복
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search)
   * 이분 탐색
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS)
+  * DFS와 BFS
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Shortest_path)
   * 최단 경로
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DP_Shorest)

@@ -8,7 +8,7 @@ DFS와 BFS
   * 유기농 배추
 * [2178] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/2178)
   * 미로탐색
-* [7576] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/7576)
+* 👍[7576] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/7576)
   * 토마토
 * [7569] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/7569)
   * 토마토

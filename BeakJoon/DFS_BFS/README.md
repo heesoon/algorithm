@@ -14,7 +14,7 @@ DFS와 BFS
   * 토마토
 * [1697] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/1697)
   * 숨바꼭질
-* [2206] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/2206)
+* 👍[2206] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/2206)
   * 벽 부수고 이동하기
 * [7562] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/7562)
   * 나이트의 이동

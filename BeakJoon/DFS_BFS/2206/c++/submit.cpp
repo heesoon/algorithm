@@ -51,7 +51,7 @@ int solve(){
         }        
     }
 
-    return ans;
+    return (ans == numeric_limits<int>::max()/2) ? -1 : ans;
 }
 
 int main(){

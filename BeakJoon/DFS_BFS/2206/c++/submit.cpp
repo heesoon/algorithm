@@ -49,7 +49,7 @@ int solve(){
                     Q.push(std::make_tuple(nx, ny, 1, fd+1));
                 }
             }
-        }        
+        }
     }
 
     return (ans == std::numeric_limits<int>::max()/2) ? -1 : ans;

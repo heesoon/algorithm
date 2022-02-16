@@ -59,6 +59,7 @@ int main(){
     std::cin >> tc;
     for(int i = 0; i < tc; i++){
         int x, y;
+        std::cin >> l;
         std::cin >> x >> y;
         S.first = x, S.second = y;
         std::cin >> x >> y;

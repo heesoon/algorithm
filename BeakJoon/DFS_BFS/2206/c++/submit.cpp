@@ -64,7 +64,7 @@ int main(){
         std::string str;
         std::cin >> str;
         for(int x = 0; x < m; x++){
-            map[y][x] = str[x];
+            map[y][x] = str[x]-'0';
         }
     }
 

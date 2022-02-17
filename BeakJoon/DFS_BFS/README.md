@@ -18,5 +18,5 @@ DFS와 BFS
   * 벽 부수고 이동하기
 * [7562] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/7562)
   * 나이트의 이동
-* [1707] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/1707)
+* 👍[1707] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS/1707)
   * 이분 그래프

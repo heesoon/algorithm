@@ -2,7 +2,7 @@
 ==========================================================================================
 * [11725] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree/11725)
   * 트리의 부모 찾기
-* [1167] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree/1167)
+* 👍[1167] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree/1167)
   * 트리의 지름
 * [1967] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree/1967)
   * 트리의 지름

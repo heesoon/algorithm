@@ -10,7 +10,7 @@
   * 트리 순회
 * 👍[2263] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree/2263)
   * 트리의 순회
-* [5639] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree/5639)
+* 👍[5639] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree/5639)
   * 이진 검색 트리
 * [4803] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree/4803)
   * 트리

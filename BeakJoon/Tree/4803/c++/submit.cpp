@@ -2,61 +2,47 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
+#include <limits>
 
-const int N = 9;
-std::vector<std::vector<int>> map;
-std::vector<std::vector<bool>> col;
-std::vector<std::vector<bool>> row;
-std::vector<std::vector<bool>> box3x3;
+std::vector<std::vector<int>> G;
+std::vector<bool> visited;
 
-void solve(int cnt){
-    if(cnt == 81){
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                std::cout << map[i][j] << " ";
-            }
-            std::cout << "\n";
-        }
-        exit(0);
-    }
+bool solve(int idx, int pIdx){
 
-    int y = cnt/N;
-    int x = cnt%N;
-
-    if(map[y][x]){
-        solve(cnt+1);
-    }
-    else{
-        for(int i = 1; i <= N; i++){
-            if(col[x][i] == false && row[y][i] == false && box3x3[(y/3)*3 + x/3][i] == false){
-                map[y][x] = i;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = true;
-                solve(cnt+1);
-                map[y][x] = 0;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = false;
-            }
-        }
-    }
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    map.assign(N, std::vector<int>(N, 0));
-    col.assign(N+1, std::vector<bool>(N+1, false));
-    row.assign(N+1, std::vector<bool>(N+1, false));
-    box3x3.assign(N, std::vector<bool>(N+1, false));
+    int tc = 1;
+    while(1){
+        int cnt = 0;
+        int n, m;
+        std::cin >> n >> m;
+        if(n == 0 && m == 0) break;
 
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            std::cin >> map[i][j];
-            if(map[i][j]){
-                row[i][map[i][j]] = true;
-                col[j][map[i][j]] = true;
-                box3x3[(i/3)*3 + j/3][map[i][j]] = true;
+        G = std::vector<std::vector<int>>(n+1);
+        visited.assign(n+1, false);
+
+        for(int i = 0; i < m; i++){
+            int f, t;
+            G[f].push_back(t);
+            G[t].push_back(f);
+        }
+
+        for(int i = 1; i <= n; i++){
+            if(visited[i] == false){
+                if(solve(i, 0) == true) cnt++;
             }
         }
-    }
 
-    solve(0);
+        std::cout << "Case " << tc << ": ";
+        if(cnt == 0) std::cout << "No trees" << "\n";
+        else if(cnt == 1) std::cout << "There is one tree" << "\n";
+        else std::cout << "A forest of " << cnt << " trees" << "\n";
+
+        G.clear();
+        std::fill(visited.begin(), visited.end(), false);
+        tc++;
+    }
     return 0;
 }

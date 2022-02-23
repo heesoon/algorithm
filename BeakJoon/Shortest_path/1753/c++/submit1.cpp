@@ -8,7 +8,6 @@
 const int INF = std::numeric_limits<int>::max()/2;
 int numOfNode, numOfVertex;
 std::vector<int> distance;
-std::vector<bool> visited;
 std::vector<std::vector<std::pair<int,int>>> G;
 
 void printAns(){
@@ -30,15 +29,11 @@ void solve(int start){
 
         for(auto p : G[fNode]){
             int nNode = p.first;
-            int weight = p.second;
+            int nWeight = p.second + fWeight;
 
-            if(visited[nNode] == false){
-                visited[nNode] = true;
-                //distance[nNode] = std::min(distance[nNode], fWeight+weight);
-                if(distance[nNode] > fWeight+weight){
-                    distance[nNode] = fWeight+weight;
-                }
-                Q.push(std::make_pair(distance[nNode], nNode));
+            if(nWeight < distance[nNode]){
+                distance[nNode] = nWeight;
+                Q.push(std::make_pair(nWeight, nNode));
             }
         }
     }
@@ -52,7 +47,6 @@ int main(){
     
     G = std::vector<std::vector<std::pair<int,int>>>(numOfNode+1);
     distance.assign(numOfNode+1, INF);
-    visited.assign(numOfNode+1, false);
 
     for(int i = 0; i < numOfVertex; i++){
         int from, to, weight;

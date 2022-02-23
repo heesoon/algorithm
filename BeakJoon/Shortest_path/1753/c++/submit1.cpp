@@ -12,15 +12,16 @@ std::vector<bool> visited;
 std::vector<std::vector<std::pair<int,int>>> G;
 
 void printAns(){
-    for(int i = 1; i <= numOfVertex; i++){
-        std::cout << distance[i] << " ";
+    for(int i = 1; i <= numOfNode; i++){
+        if(distance[i] == INF) std::cout << "INF" << " ";
+        else std::cout << distance[i] << " ";
     }
 }
 
 void solve(int start){
-    visited[start] = true;
-    std::priority_queue<std::pair<int,int>> Q;
+    std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
     Q.push(std::make_pair(0, start));
+    distance[start] = 0;
 
     while(!Q.empty()){
         int fWeight = Q.top().first;
@@ -31,10 +32,14 @@ void solve(int start){
             int nNode = p.first;
             int weight = p.second;
 
-            if(visited[nNode] == true) continue;
-
-            Q.push(std::make_pair(fWeight+weight, nNode));
-            distance[nNode] = std::min(distance[nNode], fWeight+weight);
+            if(visited[nNode] == false){
+                visited[nNode] = true;
+                //distance[nNode] = std::min(distance[nNode], fWeight+weight);
+                if(distance[nNode] > fWeight+weight){
+                    distance[nNode] = fWeight+weight;
+                }
+                Q.push(std::make_pair(distance[nNode], nNode));
+            }
         }
     }
 }

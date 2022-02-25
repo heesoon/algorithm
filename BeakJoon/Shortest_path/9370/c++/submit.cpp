@@ -1,62 +1,89 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <algorithm>
 #include <utility>
+#include <limits>
 
-const int N = 9;
-std::vector<std::vector<int>> map;
-std::vector<std::vector<bool>> col;
-std::vector<std::vector<bool>> row;
-std::vector<std::vector<bool>> box3x3;
+int n, m, t;
+std::vector<std::vector<std::pair<int,int>>> G;
+const int INF = std::numeric_limits<int>::max()/2;
 
-void solve(int cnt){
-    if(cnt == 81){
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                std::cout << map[i][j] << " ";
-            }
-            std::cout << "\n";
-        }
-        exit(0);
-    }
+std::vector<int> solve(int start){
+    std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> Q;
+    std::vector<int> distance(n+1, INF);
+    Q.push(std::make_pair(0, start));
+    distance[start] = 0;
 
-    int y = cnt/N;
-    int x = cnt%N;
+    while(!Q.empty()){
+        int fWeight = Q.top().first;
+        int fNode = Q.top().second;
+        Q.pop();
 
-    if(map[y][x]){
-        solve(cnt+1);
-    }
-    else{
-        for(int i = 1; i <= N; i++){
-            if(col[x][i] == false && row[y][i] == false && box3x3[(y/3)*3 + x/3][i] == false){
-                map[y][x] = i;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = true;
-                solve(cnt+1);
-                map[y][x] = 0;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = false;
+        for(auto p : G[fNode]){
+            int nNode = p.first;
+            int nWeight = p.second + fWeight;
+
+            if(nWeight < distance[nNode]){
+                distance[nNode] = nWeight;
+                Q.push(std::make_pair(nWeight, nNode));
             }
         }
     }
+
+    return distance;
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    map.assign(N, std::vector<int>(N, 0));
-    col.assign(N+1, std::vector<bool>(N+1, false));
-    row.assign(N+1, std::vector<bool>(N+1, false));
-    box3x3.assign(N, std::vector<bool>(N+1, false));
+    int T;
+    std::cin >> T;
+    while(T--){
+        int s, g, h, dgh;
+        int crossRoad1, crossRoad2;
+        std::vector<int> ans;
 
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            std::cin >> map[i][j];
-            if(map[i][j]){
-                row[i][map[i][j]] = true;
-                col[j][map[i][j]] = true;
-                box3x3[(i/3)*3 + j/3][map[i][j]] = true;
+        std::cin >> n >> m >> t;
+        G = std::vector<std::vector<std::pair<int,int>>>(n+1);
+        std::cin >> s >> g >> h;
+
+        for(int i = 0; i < m; i++){
+            int a, b, d;
+            std::cin >> a >> b >> d;
+            G[a].push_back(std::make_pair(b, d));
+            G[b].push_back(std::make_pair(a, d));
+
+            if((a == g && b == h) || (a == h && b == g))
+                dgh = d;
+        }
+
+        auto result1 = solve(s);
+
+        if(result1[g] > result1[h]){
+            crossRoad1 = h;
+            crossRoad2 = g;
+        }
+        else{
+            crossRoad1 = g;
+            crossRoad2 = h;            
+        }
+
+        auto result2 = solve(crossRoad2);
+
+        for(int i = 0; i < t; i++){
+            int x;
+            std::cin >> x;
+            if(result1[x] == result1[crossRoad1] + dgh + result2[x]){
+                ans.push_back(x);
             }
         }
-    }
 
-    solve(0);
+        std::sort(ans.begin(), ans.end());
+
+        for(const auto &a : ans){
+            std::cout << a << " ";
+        }
+        std::cout << "\n";
+    }
     return 0;
 }

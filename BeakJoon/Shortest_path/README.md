@@ -10,7 +10,7 @@
   * 타임머신
 * [11404] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Shortest_path/11404)
   * 플로이드
-* [10217] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Shortest_path/10217)
+* 👍[10217] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Shortest_path/10217)
   * KCM Travel
 * [1956] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Shortest_path/1956)
   * 운동

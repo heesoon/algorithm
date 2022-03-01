@@ -1,52 +1,73 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <algorithm>
 #include <utility>
 #include <limits>
 
-int n, m;
-const int INF = std::numeric_limits<int>::max()/2;
-std::vector<std::vector<long long>> G;
+int N, M, K;
+const int INF  = std::numeric_limits<int>::max()/2;
+std::vector<std::vector<std::tuple<int,int,int>>> G;
+std::vector<std::vector<int>> DP;
 
-void printAns(){
-    for(int y = 1; y <= n; y++){
-        for(int x = 1; x <= n; x++){
-            if(G[y][x] == INF) std::cout << 0 << " ";
-            else std::cout << G[y][x] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
-}
+void solve(int start){
+    // cost, distance, node
+    std::priority_queue<std::tuple<int,int,int>, std::vector<std::tuple<int,int,int>>, std::greater<std::tuple<int,int,int>>> PQ;
+    PQ.push(std::make_tuple(0, 0, start));
+    DP[1][0] = 0;
 
-void solve(){
-    for(int k = 1; k <= n; k++){
-        for(int i = 1; i <= n; i++){
-            for(int j = 1; j <= n; j++){
-                    G[i][j] = std::min(G[i][j], G[i][k]+G[k][j]);
+    while(!PQ.empty()){
+        int fTime = std::get<0>(PQ.top());
+        int fCost = std::get<1>(PQ.top());
+        int fNode = std::get<2>(PQ.top());
+        PQ.pop();
+
+        if(DP[fNode][fCost] < fTime) continue;
+
+        for(auto p : G[fNode]){
+            int nNode = std::get<0>(p);
+            int nCost = std::get<1>(p) + fCost;
+            int nTime = std::get<2>(p) + fTime;
+
+            if(nCost > M) continue;
+            if(DP[nNode][nCost] <= nTime) continue;
+
+            for(int i = nCost; i <= M; i++){
+                if(DP[nNode][i] > nTime){
+                    DP[nNode][i] = nTime;
+                }
             }
+
+            PQ.push(std::make_tuple(nTime, nCost, nNode));
         }
     }
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    std::cin >> n;
-    std::cin >> m;
-    G.assign(n+1, std::vector<long long>(n+1, INF));
-    
-    for(int i = 0; i <= n; i++){
-        G[i][i] = 0;
+    int T;
+    std::cin >> T;
+    while(T--){
+        std::cin >> N >> M >> K;
+        G = std::vector<std::vector<std::tuple<int,int,int>>>(N+1);
+        DP.assign(N+1, std::vector<int>(M+1, INF));
+
+        for(int i = 0; i < K; i++){
+            int u, v, c, d;
+            std::cin >> u >> v >> c >> d;
+            G[u].push_back(std::make_tuple(v, c, d));
+        }
+
+        solve(1);
+
+        auto ans = *std::min_element(DP[N].begin(), DP[N].end());
+        if(ans == INF) std::cout << "Poor KCM" << "\n";
+        else std::cout << ans << "\n";
+
+        G.clear();
+        DP.clear();
     }
-
-    for(int i = 0; i < m; i++){
-        int from, to, weight;
-        std::cin >> from >> to >> weight;
-        if(G[from][to] > weight) G[from][to] = weight; // 이 부분이 잘 이해가 안됨
-    }
-
-    solve();
-    printAns();
-
     return 0;
 }
+
+// https://cocoon1787.tistory.com/440

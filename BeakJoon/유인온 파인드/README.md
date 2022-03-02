@@ -1,4 +1,10 @@
 유니온 파인드
 ==========================================================================================
-* [3273] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Two_point/3273)
-  * 두 수의합
+* [1717] (https://www.acmicpc.net/problem/1717)
+  * 집합의 표현
+* [1976] (https://www.acmicpc.net/problem/1976)
+  * 집합의 표현
+* [4195] (https://www.acmicpc.net/problem/4195)
+  * 집합의 표현
+* [20040] (https://www.acmicpc.net/problem/20040)
+  * 집합의 표현

@@ -6,7 +6,7 @@
   * 두 용액
 * 👍[1806] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Two_point/1806)
   * 부분합
-* [1644] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Two_point/1644)
+* 👍[1644] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Two_point/1644)
   * 소수의 연속합
 * [1450] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Two_point/1450)
   * 냅색문제

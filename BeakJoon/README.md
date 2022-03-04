@@ -30,12 +30,14 @@ BEAKJOON (https://www.acmicpc.net)
   * DFS와 BFS
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Shortest_path)
   * 최단 경로
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Two_point)
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/투 포인트)
   * 투 포인트
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DP_Shorest)
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/동적 계획법과 최단거리 역추적)
   * 동적 계획법과 최단거리 역추적
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree)
   * 트리
+* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/유인온 파인드)
+  * 유인온 파인드
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MST)
   * 최소 신장 트리
 * (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree_DP)

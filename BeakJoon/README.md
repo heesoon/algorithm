@@ -1,56 +1,28 @@
 BEAKJOON (https://www.acmicpc.net)
 ==========================================================================================
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Before_Arranges)
-  * 정리전
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/InputOut_4Arithmetic)
-  * 입출력과 사칙연산
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Baisc_Mathematics_1)
-  * 기본 수학 1
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Baisc_Mathematics_2)
-  * 기본 수학 2
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Recursive)
-  * 재귀
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking)
-  * 백트래킹
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Brute_force)
-  * 브루트 포스
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Greedy)
-  * 그리디 알고리즘
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Number_Combination_theory)
-  * 정수론 및 조합론
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Stack)
-  * 스택
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Queue_Deck)
-  * 큐, 덱
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Divider_conquer)
-  * 분할 정복
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Binaray_search)
-  * 이분 탐색
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/DFS_BFS)
-  * DFS와 BFS
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Shortest_path)
-  * 최단 경로
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/투 포인트)
-  * 투 포인트
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/동적 계획법과 최단거리 역추적)
-  * 동적 계획법과 최단거리 역추적
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree)
-  * 트리
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/유인온 파인드)
-  * 유인온 파인드
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MST)
-  * 최소 신장 트리
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Tree_DP)
-  * 트리에서의 동적 계획법
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Topological_sort)
-  * 위상 정렬
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MCP)
-  * 최소 공통 조상
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_1)
-  * Dynamic_Programming_1
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_2)
-  * Dynamic_Programming_2
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_3)
-  * Dynamic_Programming_3
-* (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Dynamic_Programming_4)
-  * Dynamic_Programming_4
+* [01] 입출력과 사칙연산
+* [08] 기본 수학 1
+* [09] 기본 수학 2
+* [10] 재귀
+* [11] 브루트포스
+* [14] 백트래킹
+* [15] 동적계획법 1
+* [16] 그리디 알고리즘
+* [18] 스택
+* [19] 큐, 덱
+* [20] 분할정렬
+* [21] 이분 탐색
+* [23] 동적 계획법 2
+* [24] DFS와 BFS
+* [25] 최단 경로
+* [26] 투 포인트
+* [27] 동적계획법과 최단거리 역추적
+* [28] 트리
+* [29] 유인온 파인드
+* [30] 최소 신장 트리
+* [31] 트리에서의 동적 계획법
+* [33] 동적 계획법 3
+* [35] 위상정렬
+* [36] 최소 공통 조상
+* [40] 동적 계획법 4
+* [XX] Before_Arranges - 정리전

@@ -1,12 +1,12 @@
-최소 공통 조상
+최소 공통 조상 (Minimum Common Parents)
 ==========================================================================================
-* [3584] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MCP/3584)
+* [3584] (https://www.acmicpc.net/problem/3584)
   * 가장 가까운 공통 조상
-* [17435] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MCP/17435)
+* [17435] (https://www.acmicpc.net/problem/17435)
   * 합성함수와 쿼리
-* [11438] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MCP/11438)
+* [11438] (https://www.acmicpc.net/problem/11438)
   * LCA 2
-* [3176] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MCP/3176)
+* [3176] (https://www.acmicpc.net/problem/3176)
   * 도로 네트워크
-* [13511] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/MCP/13511)
+* [13511] (https://www.acmicpc.net/problem/13511)
   * 트리와 쿼리2

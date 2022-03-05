@@ -1,6 +1,6 @@
-큐, 덱
+큐, 덱 (Queue, Deck)
 ==========================================================================================
-* [18258] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Queue_Deck/18258)
+* [18258] (https://www.acmicpc.net/problem/18258)
   * 큐2
-* [5430] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Queue_Deck/5430)
+* [5430] (https://www.acmicpc.net/problem/5430)
   * AC

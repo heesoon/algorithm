@@ -1,18 +1,18 @@
-백트래킹
+백트래킹 (Back Tracking)
 ==========================================================================================
-* [15649] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/15649)
+* [15649] (https://www.acmicpc.net/problem/15649)
   * N과 M(1)
-* [15650] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/15650)
+* [15650] (https://www.acmicpc.net/problem/15650)
   * N과 M(2)
-* [15651] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/15651)
+* [15651] (https://www.acmicpc.net/problem/15651)
   * N과 M(3)
-* [15652] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/15652)
+* [15652] (https://www.acmicpc.net/problem/15652)
   * N과 M(4)
-* [9663] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/9663)
+* [9663] (https://www.acmicpc.net/problem/9663)
   * N-Queen
-* [2580] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/2580)
+* [2580] (https://www.acmicpc.net/problem/2580)
   * 스도쿠
-* [14888] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/14888)
+* [14888] (https://www.acmicpc.net/problem/14888)
   * 연산자 끼워넣기
-* [14889] (https://github.com/heesoon/algorithm/tree/develop/BeakJoon/Backtracking/14889)
+* [14889] (https://www.acmicpc.net/problem/14889)
   * 스타트와 링크

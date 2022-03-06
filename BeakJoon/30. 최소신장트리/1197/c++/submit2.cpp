@@ -22,8 +22,8 @@ int solve(int s){
         ans += fWeight;
 
         for(auto p : G[fNode]){
-            auto nWeight = std::get<0>(p);
-            auto nNode = std::get<1>(p);
+            auto nWeight = std::get<1>(p);
+            auto nNode = std::get<0>(p);
 
             if(vVisted[nNode] == false){
                 PQ.push(std::make_tuple(nWeight, nNode));
@@ -45,8 +45,8 @@ int main(){
     for(int i = 0; i < E; i++){
         int a, b, c;
         std::cin >> a >> b >> c;
-        G[a].push_back(std::make_tuple(c, b));
-        G[b].push_back(std::make_tuple(c, a));
+        G[a].push_back(std::make_tuple(b, c));
+        G[b].push_back(std::make_tuple(a, c));
     }
 
     std::cout << solve(1) << "\n";

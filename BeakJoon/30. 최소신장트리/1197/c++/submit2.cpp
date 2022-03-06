@@ -11,14 +11,17 @@ std::vector<std::vector<std::tuple<int,int>>> G;
 
 int solve(int s){
     int ans = 0;
-    std::priority_queue<std::tuple<int,int>> PQ;
+    std::priority_queue<std::tuple<int,int>, std::vector<std::tuple<int,int>>, std::greater<std::tuple<int,int>>> PQ;
     PQ.push(std::make_tuple(0, s));
 
     while(!PQ.empty()){
         auto fWeight = std::get<0>(PQ.top());
         auto fNode = std::get<1>(PQ.top());
         PQ.pop();
+        
+        if(vVisted[fNode] == true) continue; // 이 부분이 일반 Queue 처리와 다르다
         vVisted[fNode] = true;
+
         ans += fWeight;
 
         for(auto p : G[fNode]){

@@ -72,7 +72,11 @@ bool doUnion(int a, int b){
 
     if(pa == pb) return false;
     else{
-        vParents[pa] = pb;
+        if(pa > pb){
+            std::swap(pa, pb);
+        }
+
+        vParents[pb] = pa;
         return true;
     }
 }
@@ -84,10 +88,6 @@ int main(){
 
     vMap.assign(N, std::vector<int>(M, 0));
     vtMap.assign(N, std::vector<int>(M, 0));
-
-    for(int i = 0; i <= N; i++){
-        vParents.push_back(i);
-    }
 
     for(int y = 0; y < N; y++){
         for(int x = 0; x < M; x++){
@@ -107,6 +107,10 @@ int main(){
     }
     vtMap.clear();
     //printMap();
+
+    for(int i = 0; i < cnt; i++){
+        vParents.push_back(i);
+    }
 
     for(int y = 0; y < N; y++){
         for(int x = 0; x < M; x++){

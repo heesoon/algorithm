@@ -4,7 +4,7 @@
   * 줄 세우기
 * [3665] (https://www.acmicpc.net/problem/3665)
   * 최종 순위
+* [1766] (https://www.acmicpc.net/problem/1766)
+  * 문제집
 * [1005] (https://www.acmicpc.net/problem/1005)
   * ACM Craft
-* [1766] (https://www.acmicpc.net/problem/1766)
-  * 묹제집

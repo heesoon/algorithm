@@ -10,5 +10,5 @@
   * 우주신과의 교감
 * 👍[2887] (https://www.acmicpc.net/problem/2887)
   * 행성 터널
-* [17472] (https://www.acmicpc.net/problem/17472)
+* 👍[17472] (https://www.acmicpc.net/problem/17472)
   * 다리 만들기 2

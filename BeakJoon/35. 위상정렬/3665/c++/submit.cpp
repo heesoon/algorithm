@@ -9,8 +9,10 @@ std::vector<int> vRanks;
 std::vector<int> vInDegree;
 std::vector<std::vector<int>> vMap;
 
-void solve(){
+void solve(int n){
+    bool bVague = false;
     std::queue<int> Q;
+    std::vector<int> ans;
 
     for(auto i = 1; i < vInDegree.size(); i++){
         if(vInDegree[i] == 0){
@@ -18,14 +20,35 @@ void solve(){
         }
     }
 
-    if(Q.size() == 0){
-        // this case is cycle
-        std::cout << "IMPOSSIBLE" << "\n";
-        return;
+    while(Q.empty() == false){
+        if(Q.size() > 1){
+            bVague = true;
+        }
+
+        auto fNode = Q.front();
+        ans.push_back(fNode);
+        Q.pop();
+
+        for(auto nNode = 1; nNode <= n; nNode++){
+            if(vMap[fNode][nNode] == 0) continue;
+            vInDegree[nNode]--;
+            if(vInDegree[nNode] == 0){
+                Q.push(nNode);
+            }
+        }
     }
 
-    while(Q.empty() == false){
-
+    if(bVague == true){
+        std::cout << "?\n";
+    }
+    else if(ans.size() != n){
+        std::cout << "IMPOSSIBLE\n";
+    }
+    else{
+        for(const auto &x : ans){
+            std::cout << x << " ";
+        }
+        std::cout << "\n";
     }
 }
 
@@ -72,7 +95,7 @@ int main(){
             }
         }
 
-        solve();
+        solve(n);
 
         vRanks.clear();
         vInDegree.clear();
@@ -82,4 +105,4 @@ int main(){
 }
 
 // https://justicehui.github.io/icpc/2019/08/31/BOJ3665/
-// https://js1jj2sk3.tistory.com/101
+// https://glanceyes.tistory.com/6

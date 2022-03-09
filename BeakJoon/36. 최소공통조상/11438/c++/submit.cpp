@@ -1,62 +1,93 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <algorithm>
 #include <utility>
+#include <limits>
+#include <cmath>
 
-const int N = 9;
-std::vector<std::vector<int>> map;
-std::vector<std::vector<bool>> col;
-std::vector<std::vector<bool>> row;
-std::vector<std::vector<bool>> box3x3;
+const int H = std::ceil(std::log2(100'000));
 
-void solve(int cnt){
-    if(cnt == 81){
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                std::cout << map[i][j] << " ";
-            }
-            std::cout << "\n";
-        }
-        exit(0);
+std::vector<bool> vVisited;
+std::vector<int> vDepth;
+std::vector<std::vector<int>> vMap;
+std::vector<std::vector<int>> vSparseTables;
+
+int solve(int u, int v){
+    if(vDepth[u] > vDepth[v]){
+        std::swap(u, v);
     }
 
-    int y = cnt/N;
-    int x = cnt%N;
+    while(vDepth[u] != vDepth[v]){
+        auto dist = vDepth[v] - vDepth[u];
 
-    if(map[y][x]){
-        solve(cnt+1);
-    }
-    else{
-        for(int i = 1; i <= N; i++){
-            if(col[x][i] == false && row[y][i] == false && box3x3[(y/3)*3 + x/3][i] == false){
-                map[y][x] = i;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = true;
-                solve(cnt+1);
-                map[y][x] = 0;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = false;
+        for(int i = 0; i < H; i++){
+            if(dist <= (2 << i)){
+                v = vSparseTables[i][v];
+                break;
             }
         }
     }
+
+    while(u != v){
+        for(int i = 0; i < H; i++){
+            if(vSparseTables[i+1][u] == vSparseTables[i+1][v]){
+                u = vSparseTables[i][u];
+                v = vSparseTables[i][v];
+                break;
+            }
+        }
+    }
+    return u;
 }
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    map.assign(N, std::vector<int>(N, 0));
-    col.assign(N+1, std::vector<bool>(N+1, false));
-    row.assign(N+1, std::vector<bool>(N+1, false));
-    box3x3.assign(N, std::vector<bool>(N+1, false));
+    int N;
+    std::cin >> N;
 
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            std::cin >> map[i][j];
-            if(map[i][j]){
-                row[i][map[i][j]] = true;
-                col[j][map[i][j]] = true;
-                box3x3[(i/3)*3 + j/3][map[i][j]] = true;
+    vMap = std::vector<std::vector<int>>(N+1);
+    vSparseTables.assign(H+1, std::vector<int>(N+1, 0));
+    vVisited.assign(N+1, false);
+    vDepth.assign(N+1, 0);
+
+    for(int i = 0; i < N-1; i++){
+        int a, b;
+        std::cin >> a >> b;
+        vMap[a].push_back(b);
+        vMap[b].push_back(a);
+    }
+
+    // build sparse table
+    std::queue<int> Q;
+    Q.push(1); vVisited[1] = true;
+
+    while(Q.empty() == false){
+        auto fVertex = Q.front();
+        Q.pop();
+        
+        for(const auto &nVertex : vMap[fVertex]){
+            if(vVisited[nVertex] == false){
+                vVisited[nVertex] = true;
+                vDepth[nVertex] = vDepth[fVertex]+1;
+                vSparseTables[0][nVertex] = fVertex;
+#if 0
+                for(int i = 0; i < H; i++){
+                    vSparseTables[i+1][nVertex] = vSparseTables[i][vSparseTables[i][nVertex]];
+                    if(vSparseTables[i+1][nVertex] == 0) break;
+                }
+#endif            
+                Q.push(nVertex);
             }
         }
     }
 
-    solve(0);
+    int M;
+    std::cin >> M;
+    for(int i = 0; i < M; i++){
+        int u, v;
+        std::cin >> u >> v;
+        std::cout << solve(u, v) << "\n";
+    }
     return 0;
 }

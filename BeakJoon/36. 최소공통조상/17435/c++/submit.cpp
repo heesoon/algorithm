@@ -2,61 +2,46 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
+#include <limits>
+#include <cmath>
 
-const int N = 9;
-std::vector<std::vector<int>> map;
-std::vector<std::vector<bool>> col;
-std::vector<std::vector<bool>> row;
-std::vector<std::vector<bool>> box3x3;
+const int H = std::ceil(std::log2(500'000)); // 18.xx -> 19
 
-void solve(int cnt){
-    if(cnt == 81){
-        for(int i = 0; i < N; i++){
-            for(int j = 0; j < N; j++){
-                std::cout << map[i][j] << " ";
-            }
-            std::cout << "\n";
-        }
-        exit(0);
-    }
-
-    int y = cnt/N;
-    int x = cnt%N;
-
-    if(map[y][x]){
-        solve(cnt+1);
-    }
-    else{
-        for(int i = 1; i <= N; i++){
-            if(col[x][i] == false && row[y][i] == false && box3x3[(y/3)*3 + x/3][i] == false){
-                map[y][x] = i;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = true;
-                solve(cnt+1);
-                map[y][x] = 0;
-                col[x][i] = row[y][i] = box3x3[(y/3)*3 + x/3][i] = false;
-            }
-        }
-    }
-}
-
+// 희소 배열
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    map.assign(N, std::vector<int>(N, 0));
-    col.assign(N+1, std::vector<bool>(N+1, false));
-    row.assign(N+1, std::vector<bool>(N+1, false));
-    box3x3.assign(N, std::vector<bool>(N+1, false));
+    int m;
 
-    for(int i = 0; i < N; i++){
-        for(int j = 0; j < N; j++){
-            std::cin >> map[i][j];
-            if(map[i][j]){
-                row[i][map[i][j]] = true;
-                col[j][map[i][j]] = true;
-                box3x3[(i/3)*3 + j/3][map[i][j]] = true;
-            }
+    std::cin >> m;
+    std::vector<std::vector<int>> vSparseTable(H+1, std::vector<int>(m+1, 0));
+
+    for(int i = 1; i <= m; i++){
+        std::cin >> vSparseTable[0][i];
+    }
+
+    for(int i = 1; i < H; i++){
+        for(int j = 0; j <= m; j++){
+            int prevParentIdx = vSparseTable[i-1][j];
+            vSparseTable[i][j] = vSparseTable[i-1][prevParentIdx];
         }
     }
 
-    solve(0);
+    int qNum;
+    std::cin >> qNum;
+    while(qNum--){
+        int n, x;
+        std::cin >> n >> x;
+        for(int i = 0; n > 0; i++){
+            if((n&1) == 1){
+                x = vSparseTable[i][x];
+            }
+            n >>= 1;
+        }
+
+        std::cout << x << "\n";
+    }
+
     return 0;
 }
+
+// reference : https://mangu.tistory.com/39?category=937146

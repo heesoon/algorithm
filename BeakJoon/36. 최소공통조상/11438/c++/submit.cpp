@@ -14,31 +14,29 @@ std::vector<std::vector<int>> vMap;
 std::vector<std::vector<int>> vSparseTables;
 
 int solve(int u, int v){
-    if(vDepth[u] > vDepth[v]){
-        std::swap(u, v);
-    }
-
-    while(vDepth[u] != vDepth[v]){
-        auto dist = vDepth[v] - vDepth[u];
-
-        for(int i = 0; i < H; i++){
-            if(dist <= (2 << i)){
-                v = vSparseTables[i][v];
-                break;
+    if(vDepth[u] != vDepth[v]){
+        if(vDepth[u] > vDepth[v])
+            std::swap(u, v);
+        
+        for(int i = H; i >= 0; i--){
+            if(vDepth[u] <= vDepth[vSparseTables[v][i]]){
+                v = vSparseTables[v][i];
             }
         }
     }
 
-    while(u != v){
-        for(int i = 0; i < H; i++){
-            if(vSparseTables[i+1][u] == vSparseTables[i+1][v]){
-                u = vSparseTables[i][u];
-                v = vSparseTables[i][v];
-                break;
+    int lca = u;
+
+    if(u != v){
+        for(int i = H; i >= 0; i--){
+            if(vSparseTables[u][i] != vSparseTables[v][i]){
+                u = vSparseTables[u][i];
+                v = vSparseTables[v][i];
             }
+            lca = vSparseTables[u][i];
         }
     }
-    return u;
+    return lca;
 }
 
 int main(){
@@ -47,7 +45,7 @@ int main(){
     std::cin >> N;
 
     vMap = std::vector<std::vector<int>>(N+1);
-    vSparseTables.assign(H+1, std::vector<int>(N+1, 0));
+    vSparseTables.assign(N+1, std::vector<int>(H+1, 0));
     vVisited.assign(N+1, false);
     vDepth.assign(N+1, 0);
 
@@ -70,13 +68,16 @@ int main(){
             if(vVisited[nVertex] == false){
                 vVisited[nVertex] = true;
                 vDepth[nVertex] = vDepth[fVertex]+1;
-                vSparseTables[0][nVertex] = fVertex;
-#if 0
-                for(int i = 0; i < H; i++){
-                    vSparseTables[i+1][nVertex] = vSparseTables[i][vSparseTables[i][nVertex]];
-                    if(vSparseTables[i+1][nVertex] == 0) break;
+                vSparseTables[nVertex][0] = fVertex; // 2^0
+
+                for(int i = 1; i <= H; i++){
+                    auto prevParentIdx = vSparseTables[nVertex][i-1];
+                    vSparseTables[nVertex][i] = vSparseTables[prevParentIdx][i-1];
+                    if(vSparseTables[nVertex][i] == 0){
+                        break;
+                    }
                 }
-#endif            
+
                 Q.push(nVertex);
             }
         }

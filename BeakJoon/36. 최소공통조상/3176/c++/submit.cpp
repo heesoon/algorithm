@@ -19,15 +19,18 @@ std::pair<int,int> solve(int u, int v){
     int retMin = std::numeric_limits<int>::max()/2;
     int retMax = 0;
 
+    std::cout << "u, v : " << u << " , " << v << std::endl;
     if(vDepth[u] != vDepth[v]){
         if(vDepth[u] > vDepth[v])
             std::swap(u, v);
         
         for(int i = H; i >= 0; i--){
             if(vDepth[u] <= vDepth[vSparseTables[v][i]]){
-                v = vSparseTables[v][i];
+                std::cout << i << " : " << u << ", " << v << std::endl;
                 retMin = std::min(retMin, vMinDists[v][i]);
-                retMax = std::min(retMax, vMaxDists[v][i]);
+                retMax = std::max(retMax, vMaxDists[v][i]);
+                std::cout << i << " : " << retMin << ", " << retMax << std::endl;
+                v = vSparseTables[v][i];
             }
         }
     }
@@ -36,18 +39,29 @@ std::pair<int,int> solve(int u, int v){
 
     if(u != v){
         for(int i = H; i >= 0; i--){
-            if(vSparseTables[u][i] != vSparseTables[v][i]){
+            //std::cout << "out --  " << vSparseTables[u][i] << ", " << vSparseTables[v][i] << std::endl;
+            if(vSparseTables[u][i] != 0 && vSparseTables[u][i] != vSparseTables[v][i]){
                 u = vSparseTables[u][i];
                 v = vSparseTables[v][i];
 
+                //std::cout << i << " : " << u << ", " << v << std::endl;
+
                 retMin = std::min(retMin, vMinDists[u][i]);
                 retMin = std::min(retMin, vMinDists[v][i]);
-                retMax = std::min(retMax, vMaxDists[u][i]);
-                retMax = std::min(retMax, vMaxDists[v][i]);                
+                retMax = std::max(retMax, vMaxDists[u][i]);
+                retMax = std::max(retMax, vMaxDists[v][i]);
+
+                //std::cout << i << " : " << retMin << ", " << retMax << std::endl;
             }
             lcu = vSparseTables[u][i];
             lcv = vSparseTables[v][i];
+            //std::cout << "lcu = " << lcu << ", " << "lcv = " << lcv << std::endl;
         }
+
+                retMin = std::min(retMin, vMinDists[u][0]);
+                retMin = std::min(retMin, vMinDists[v][0]);
+                retMax = std::max(retMax, vMaxDists[u][0]);
+                retMax = std::max(retMax, vMaxDists[v][0]);        
     }
 
     return std::make_pair(retMin, retMax);
@@ -88,7 +102,7 @@ int main(){
                 vVisited[nVertex] = true;
                 vDepth[nVertex] = vDepth[fVertex]+1;
                 vSparseTables[nVertex][0] = fVertex; // 2^0
-                vMinDists[nVertex][0] = vMinDists[nVertex][0] = dist;
+                vMinDists[nVertex][0] = vMaxDists[nVertex][0] = dist;
 
                 for(int i = 1; i <= H; i++){
                     auto prevParentIdx = vSparseTables[nVertex][i-1];

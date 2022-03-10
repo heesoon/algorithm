@@ -37,7 +37,6 @@ int solve(int u, int v){
         }
     }
 
-    if(lca == 0) return 1;
     return lca;
 }
 
@@ -50,6 +49,7 @@ int main(){
     vSparseTables.assign(N+1, std::vector<int>(H+1, 0));
     vVisited.assign(N+1, false);
     vDepth.assign(N+1, 0);
+    vDepth[0] = -1;
 
     for(int i = 0; i < N-1; i++){
         int a, b;

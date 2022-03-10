@@ -36,6 +36,8 @@ int solve(int u, int v){
             lca = vSparseTables[u][i];
         }
     }
+
+    if(lca == 0) return 1;
     return lca;
 }
 

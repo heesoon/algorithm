@@ -59,7 +59,7 @@ int main(){
     int N;
     std::cin >> N;
 
-    vDepth.assign(N+1, 0); vDepth[0] = -1;
+    vDepth.assign(N+1, 0); vDepth[1] = 1;
     vVisited.assign(N+1, false); vVisited[0] = true;
     vMap = std::vector<std::vector<std::pair<int,int>>>(N+1);
     vSparseTables.assign(N+1, std::vector<int>(H+1, 0));
@@ -122,4 +122,6 @@ int main(){
 2 3 50
 1
 1 3
+
+https://mapocodingpark.blogspot.com/2020/02/BOJ-3176.html
 */

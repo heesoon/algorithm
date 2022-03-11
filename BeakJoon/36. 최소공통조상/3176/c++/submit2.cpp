@@ -33,7 +33,7 @@ std::pair<int,int> solve(int u, int v){
                 u = vSparseTables[u][i];
             }
 
-            dist >>= 1;
+            dist = dist >> 1;
         }
     }
 
@@ -114,3 +114,12 @@ int main(){
     }
     return 0;
 }
+
+/*
+// tc
+3
+1 2 100
+2 3 50
+1
+1 3
+*/

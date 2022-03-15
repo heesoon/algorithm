@@ -64,4 +64,12 @@
     * 스위핑
 * [40] https://www.acmicpc.net/step/40
     * 동적 계획법 4 (Dynamic Programming 4)
+* [41] https://www.acmicpc.net/step/37
+    * 컨벡스 헐
+* [42] https://www.acmicpc.net/step/38
+    * 이분 매칭
+* [43] https://www.acmicpc.net/step/36
+    * 네트워크 플로우
+* [44] https://www.acmicpc.net/step/42
+    * MCMF
 * [XX] Before_Arranges - 정리전

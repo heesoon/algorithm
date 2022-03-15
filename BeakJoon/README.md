@@ -52,6 +52,8 @@
     * 위상정렬 (Topological Alignment)
 * [36] https://www.acmicpc.net/step/36
     * 최소 공통 조상 (Minimum Common Parents)
+* [37] https://www.acmicpc.net/step/43
+    * 강한연결요소 (Strongly connected component)
 * [40] https://www.acmicpc.net/step/40
     * 동적 계획법 4 (Dynamic Programming 4)
 * [XX] Before_Arranges - 정리전

@@ -48,6 +48,8 @@
     * 최소 신장 트리 (Minimum Spanning Tree)
 * [31] https://www.acmicpc.net/step/31
     * 트리에서의 동적 계획법 (Dynamic Programming on Tree)
+* [32] https://www.acmicpc.net/step/45
+    * 기하
 * [33] https://www.acmicpc.net/step/33
     * 동적 계획법 3 (Dynamic Programming 3)
 * [35] https://www.acmicpc.net/step/35

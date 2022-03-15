@@ -149,22 +149,22 @@ int main(){
             }
             else if(k < dist){
                 for(int i = K_MAX; i >= 0; i--){
-                    if((k & 0x01) == 1){
+                    if(k & (1 << i)){
                         ou = vSparseTable[ou][i];
+                        k = k - (1 << i);
                     }
-                    k = k >> 1;
                 }
 
                 std::cout << ou << "\n";
             }
             else{
                 k -= dist;
-                k = vDepths[v] - vDepths[u] - k;
+                k = vDepths[v] - vDepths[u] + 1 - k;
                 for(int i = K_MAX; i >= 0; i--){
-                    if((k & 0x01) == 1){
+                    if(k & (1 << i)){
                         ov = vSparseTable[ov][i];
+                        k = k - (1 << i);
                     }
-                    k = k >> 1;
                 }
 
                 std::cout << ov << "\n";

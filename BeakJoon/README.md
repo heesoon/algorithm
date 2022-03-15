@@ -28,6 +28,8 @@
     * 분할정렬 (Split and Sort)
 * [21] https://www.acmicpc.net/step/21
     * 이분 탐색 (Binary Search)
+* [22] https://www.acmicpc.net/step/13
+    * 우선순위 큐
 * [23] https://www.acmicpc.net/step/23
     * 동적 계획법 2 (Dynamic Programming 2)
 * [24] https://www.acmicpc.net/step/24

@@ -14,40 +14,64 @@ std::vector<long long> vCosts;
 std::vector<std::vector<std::pair<int,int>>> vMap;
 std::vector<std::vector<int>> vSparseTable;
 
-void buildTreeByBFS(int start){
-    std::queue<int> Q;
-    Q.push(start);
-    vDepths[start] = 1;
+void buildTreeByDFS(int cIdx, int pIdx, long long costSum){
+    vDepths[cIdx] = vDepths[pIdx]+1;
+    vCosts[cIdx] = costSum;
 
-    while(!Q.empty()){
-        auto cIdx = Q.front();
-        Q.pop();
+    for(auto p : vMap[cIdx]){
+        int nIdx = p.first;
+        int cost = p.second;
 
-        for(const auto &p : vMap[cIdx]){
-            auto nIdx = p.first;
-            auto dist = p.second;
-
-            if(vDepths[nIdx] != 0) continue;
-
-            vDepths[nIdx] = vDepths[cIdx]+1;
-            vCosts[nIdx] += (vCosts[cIdx] + dist);
-            vSparseTable[nIdx][0] = cIdx;
-            Q.push(nIdx);
-        }
+        if(pIdx == nIdx) continue;
+        vSparseTable[nIdx][0] = cIdx;
+        buildTreeByDFS(nIdx, cIdx, costSum+cost);
     }
 }
 
-void buildTreeByDFS(int cIdx){
-    for(auto p : vMap[cIdx]){
-        int nIdx = p.first;
-        int dist = p.second;
+int getLCA(int u, int v){
+    if(vDepths[u] < vDepths[v]) std::swap(u, v);
+    for(int i = K_MAX; i >= 0; i--){
+        if((vDepths[u]-vDepths[v]) >= (1 << i)){
+            u = vSparseTable[u][i];
+        }
+    }
 
-        if(vDepths[nIdx] != 0) continue;
+    if(u == v) return u;
 
-        vDepths[nIdx] = vDepths[cIdx]+1;
-        vCosts[nIdx] += (vCosts[cIdx] + dist);
-        vSparseTable[nIdx][0] = cIdx;
-        buildTreeByDFS(nIdx);
+    for(int k = K_MAX; k >= 0; k--){
+        if(vSparseTable[u][k] != vSparseTable[v][k]){
+            u = vSparseTable[u][k];
+            v = vSparseTable[v][k];
+        }
+    }
+
+    return vSparseTable[u][0];
+}
+
+int getK(int u, int v, int k){
+    int lca = getLCA(u, v);
+    int distUtoLca = vDepths[u] - vDepths[lca];
+    int distVtoLca = vDepths[v] - vDepths[lca];
+
+    if(k <= distUtoLca+1){
+        int kdiff = k-1;
+        for(int i = K_MAX; i >= 0; i--){
+            if(kdiff&(1<<i)){
+                u = vSparseTable[u][i];
+                kdiff = kdiff - (1 << i);
+            }
+        }
+        return u;
+    }
+    else{
+        int kdiff = distVtoLca - (k - distUtoLca) + 1;
+        for(int i = K_MAX; i >= 0; i--){
+            if(kdiff&(1<<i)){
+                v = vSparseTable[v][i];
+                kdiff = kdiff - (1 << i);
+            }
+        }
+        return v;
     }
 }
 
@@ -67,110 +91,34 @@ int main(){
         vMap[v].push_back(std::make_pair(u, w));
     }
 
-    vDepths[1] = 1;
-
-    //buildTreeByDFS(1);
-    buildTreeByBFS(1);
+    buildTreeByDFS(1, 0, 0);
 
     // build dists and parents of K
-    for(int k = 0; k <= K_MAX; ++k){
-        for(int i = 2; i <= N; ++i){
-            int father = vSparseTable[i][k];
-            if(father){
-                vSparseTable[i][k+1] = vSparseTable[father][k];
-            }
+    for(int k = 1; k <= K_MAX; ++k){
+        for(int i = 1; i <= N; ++i){
+            vSparseTable[i][k] = vSparseTable[vSparseTable[i][k-1]][k-1];
         }
     }
 
     std::cin >> M;
     while(M--){
-        int c, u, v, k;
-        std::cin >> c >> u >> v;
+        int op;
+        std::cin >> op;
 
-        if(c == 1){
-            int idx = 0;
-            long long tmpCost = vCosts[u] + vCosts[v];
-            if(vDepths[u] < vDepths[v]) std::swap(u, v);
-            int diff = vDepths[u] - vDepths[v];
-            while(diff){
-                if((diff&0x01) == 1){
-                    u = vSparseTable[u][idx];
-                }
-
-                diff >>= 1;
-                idx++;
-            }
-
-            if(u != v){
-                for(int d = K_MAX; d >= 0; d--){
-                    if(vSparseTable[u][d] != vSparseTable[v][d]){
-                        u = vSparseTable[u][d];
-                        v = vSparseTable[v][d];
-                    }
-                }
-
-                u = vSparseTable[u][0];
-            }
-
-            tmpCost -= vCosts[u]*2;
-            std::cout << tmpCost << "\n";
+        if(op == 1){
+            int u, v;
+            std::cin >> u >> v;
+            int lca = getLCA(u, v);
+            std::cout << vCosts[u] + vCosts[v] - 2*vCosts[lca] << "\n";
         }
         else{
-            int idx = 0;
-            std::cin >> k;
-            int ou = u;
-            int ov = v;
-
-            if(vDepths[u] < vDepths[v]) std::swap(u, v);
-            int diff = vDepths[u] - vDepths[v];
-            while(diff){
-                if((diff&0x01) == 1){
-                    u = vSparseTable[u][idx];
-                }
-
-                diff >>= 1;
-                idx++;
-            }
-
-            if(u != v){
-                for(int d = K_MAX; d >= 0; d--){
-                    if(vSparseTable[u][d] != vSparseTable[v][d]){
-                        u = vSparseTable[u][d];
-                        v = vSparseTable[v][d];
-                    }
-                }
-
-                u = vSparseTable[u][0];
-            }
-
-            int dist = vDepths[ou] - vDepths[u] + 1;
-            if(k == dist){
-                std::cout << u << "\n";
-            }
-            else if(k < dist){
-                for(int i = K_MAX; i >= 0; i--){
-                    if(k & (1 << i)){
-                        ou = vSparseTable[ou][i];
-                        k = k - (1 << i);
-                    }
-                }
-
-                std::cout << ou << "\n";
-            }
-            else{
-                k -= dist;
-                k = vDepths[v] - vDepths[u] + 1 - k;
-                for(int i = K_MAX; i >= 0; i--){
-                    if(k & (1 << i)){
-                        ov = vSparseTable[ov][i];
-                        k = k - (1 << i);
-                    }
-                }
-
-                std::cout << ov << "\n";
-            }
+            int u, v, k;
+            std::cin >> u >> v >> k;
+            std::cout << getK(u, v, k) << "\n";
         }
     }
 
     return 0;
 }
+
+// https://jason9319.tistory.com/317

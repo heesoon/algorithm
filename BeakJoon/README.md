@@ -58,6 +58,8 @@
     * 강한연결요소 (Strongly connected component)
 * [38] https://www.acmicpc.net/step/35
     * 세그먼트 트리 (Segment Tree)
+* [39] https://www.acmicpc.net/step/39
+    * 스위핑
 * [40] https://www.acmicpc.net/step/40
     * 동적 계획법 4 (Dynamic Programming 4)
 * [XX] Before_Arranges - 정리전

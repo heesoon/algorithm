@@ -42,11 +42,11 @@ int solve(int curIdx){
 
 int main(){
     std::cin.tie(nullptr); std::cout.tie(nullptr); std::ios_base::sync_with_stdio(false);
-    int T, ans = 0;
+    int T;
     std::cin >> T;
 
     while(T--){
-        int N, M;
+        int N, M, ans = 0;
         std::cin >> N >> M;
         vMap = std::vector<std::vector<int>>(N+1);
         vIdxPool.assign(N+1, 0);

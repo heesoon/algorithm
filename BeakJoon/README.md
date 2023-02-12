@@ -2,10 +2,12 @@
 ==========================================================================================
 * [01] https://www.acmicpc.net/step/1
     * 입출력과 사칙연산 (input/output and four operations)
-* [04] https://www.acmicpc.net/step/4
+* [03] https://www.acmicpc.net/step/3
     * While
-* [05] https://www.acmicpc.net/step/5
+* [04] https://www.acmicpc.net/step/4
     * 1차원 배열 (One-Dimensional Array)
+* [05] https://www.acmicpc.net/step/5
+    * 함수
 * [08] https://www.acmicpc.net/step/8
     * 기본 수학 1 (Baisic Mathematics 1)
 * [09] https://www.acmicpc.net/step/8
